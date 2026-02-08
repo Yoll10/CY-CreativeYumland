@@ -54,6 +54,26 @@ a:hover {
     justify-content: space-between;
 }
 
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-actions .btn-primary {
+    padding: 10px 20px;
+    border: 1px solid var(--marron);
+    color: var(--marron);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.nav-actions .btn-primary:hover {
+    background-color: var(--marron);
+    color: var(--creme);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
 .logo a {
     font-size: 1.6rem;
     font-weight: 600;
@@ -98,25 +118,6 @@ a:hover {
     background-color: var(--marron-clair);
 }
 
-.nav-actions {
-    display: flex;
-    gap: 12px;
-}
-
-.nav-actions .btn-primary {
-    padding: 10px 20px;
-    border: 1px solid var(--marron);
-    color: var(--marron);
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.nav-actions .btn-primary:hover {
-    background-color: var(--marron);
-    color: var(--creme);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
 
 
 
