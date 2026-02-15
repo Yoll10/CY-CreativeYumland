@@ -54,26 +54,6 @@ a:hover {
     justify-content: space-between;
 }
 
-.nav-actions {
-    display: flex;
-    gap: 12px;
-}
-
-.nav-actions .btn-primary {
-    padding: 10px 20px;
-    border: 1px solid var(--marron);
-    color: var(--marron);
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
-}
-
-.nav-actions .btn-primary:hover {
-    background-color: var(--marron);
-    color: var(--creme);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
-}
-
 .logo a {
     font-size: 1.6rem;
     font-weight: 600;
@@ -118,6 +98,25 @@ a:hover {
     background-color: var(--marron-clair);
 }
 
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-actions .btn-primary {
+    padding: 10px 20px;
+    border: 1px solid var(--marron);
+    color: var(--marron);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.nav-actions .btn-primary:hover {
+    background-color: var(--marron);
+    color: var(--creme);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
 
 
 
@@ -159,4 +158,54 @@ a:hover {
 .forms {
     margin-top: 50px;
     margin-bottom: 70px;
+}
+
+@media screen and (max-width: 1024px) {
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .nav-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .links {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .nav-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-actions .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
 }

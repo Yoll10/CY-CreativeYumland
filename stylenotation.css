@@ -97,3 +97,57 @@
 }
 
 
+@media screen and (max-width: 1024px) {
+
+    .avis-container {
+        padding: 40px;
+    }
+
+    .avis-header h1 {
+        font-size: 1.9rem;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .avis-page {
+        padding: 40px 15px;
+        align-items: flex-start;
+    }
+
+    .avis-container {
+        padding: 30px 20px;
+        border-radius: 10px;
+    }
+
+    .avis-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .avis-header p {
+        font-size: 0.9rem;
+    }
+
+    
+    .stars label {
+        font-size: 2.2rem;
+    }
+
+    .rating-group {
+        margin-bottom: 25px;
+    }
+
+    .comment-group textarea {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .btn-submit {
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+
+}
+
+

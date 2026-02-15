@@ -56,7 +56,6 @@
     grid-template-columns: 1fr auto auto;
     gap: 20px;
     align-items: center;
-    margin-right: 100px;
 }
 
 .plat button {
@@ -137,4 +136,118 @@
     color: var(--creme);
     transform: translateY(-2px);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+
+@media screen and (max-width: 1024px) {
+
+    .commande-content {
+        flex-direction: column;
+    }
+
+    .panier {
+        margin-top: 0;
+    }
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .commande {
+        padding: 30px 15px;
+    }
+
+    .commande-header h1 {
+        font-size: 2rem;
+    }
+
+    
+    .choix-livraison {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .option {
+        width: 100%;
+    }
+
+    
+    .plat {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .plat span {
+        font-weight: 600;
+    }
+
+    .plat button {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    
+    .panier {
+        padding: 25px 20px;
+    }
+
+    .client-form input {
+        font-size: 0.9rem;
+    }
+
+    .btn-secondary {
+        font-size: 0.95rem;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .nav-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+}
+@media screen and (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .links {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .nav-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-actions .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
 }

@@ -153,3 +153,53 @@ body {
 .action.delete {
     color: #a43a3a;
 }
+
+
+@media screen and (max-width: 1024px) {
+
+    .admin {
+        padding: 40px 20px;
+    }
+
+    .admin-header h1 {
+        font-size: 2rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        padding: 12px;
+        font-size: 0.85rem;
+    }
+
+} 
+
+
+@media screen and (max-width: 768px) {
+
+    /* Filtres en colonne */
+    .admin-filtres {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .admin-filtres button {
+        width: 100%;
+    }
+
+    
+    .admin-utilisateurs-wrapper {
+        overflow-x: auto;
+        padding: 0 20px 60px;
+    }
+
+    .admin-table {
+        min-width: 700px;
+    }
+
+    
+    .actions-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+    }
+
+}
