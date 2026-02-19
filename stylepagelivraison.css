@@ -28,3 +28,11 @@
     cursor: pointer;
     transition: all 0.3s ease;
 }
+.comment-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--marron-clair);
+    background-color: var(--creme);
+    resize: none;
+    outline: none;
+}
