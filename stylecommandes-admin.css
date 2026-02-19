@@ -1,0 +1,88 @@
+.commandes-page {
+    max-width: 1200px;
+    margin: auto;
+    padding: 60px 20px;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+}
+
+.page-header p {
+    color: var(--gris-texte);
+    margin-top: 10px;
+}
+
+
+.commandes-section {
+    margin-bottom: 60px;
+}
+
+.commandes-section h2 {
+    margin-bottom: 25px;
+    font-size: 1.6rem;
+}
+
+
+.commande-card {
+    background-color: var(--beige);
+    padding: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.commande-card.livraison {
+    border-left: 5px solid var(--marron);
+}
+
+.commande-info h3 {
+    margin-bottom: 10px;
+}
+
+.commande-info p {
+    font-size: 0.9rem;
+    color: var(--gris-texte);
+}
+
+
+.btn-action {
+    padding: 10px 20px;
+    background-color: var(--marron);
+    color: var(--creme);
+    border: none;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-action:hover {
+    background-color: var(--marron-clair);
+    transform: translateY(-2px);
+}
+
+.btn-action.secondaire {
+    background-color: var(--brun);
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .commande-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .btn-action {
+        width: 100%;
+    }
+
+}
