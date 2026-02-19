@@ -1,10 +1,11 @@
-.titre-profil {
-    font-size: 28px;
-    font-weight: bold;
-    color: #4b4a4a;
-    margin: 0; /* Important pour que l'alignement soit parfait au milieu */
-    flex: 1;   /* Permet au titre de prendre de la place à gauche */
-    text-align: center;
+:root {
+    --creme: #F6F1EB;
+    --beige: #EFE6DA;
+    --sable: #E2D3C3;
+    --brun: #2F2A26;
+    --marron: #8B6F54;
+    --marron-clair: #B89B82;
+    --gris-texte: #6B5E54;
 }
 
 body {
@@ -13,202 +14,109 @@ body {
     flex-direction: column;
     background-color: var(--beige);
     color: var(--brun);
+    margin: 0;
+    font-family: sans-serif;
 }
+
 
 .admin {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 60px 20px 40px;
+    padding: 60px 20px 20px;
 }
 
 .admin-header {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
 .admin-header h1 {
     font-size: 2.5rem;
-    margin-bottom: 10px;
+    color: var(--brun);
 }
 
-.admin-header p {
-    color: var(--gris-texte);
+/* --- Transformation du Tableau en Horizontal --- */
+
+.container {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.admin-filtres {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 40px;
-}
-
-.admin-filtres button {
-    padding: 10px 20px;
-    border: 1px solid var(--marron);
-    background-color: transparent;
-    color: var(--marron);
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.admin-filtres button.active,
-.admin-filtres button:hover {
-    background-color: var(--marron);
-    color: var(--creme);
-}
-
-.admin-utilisateurs-wrapper {
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    padding: 0 40px 60px;
-}
-
-.admin-utilisateurs {
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.admin-table {
+.cartes {
+    display: block; 
     width: 100%;
     border-collapse: collapse;
-    background-color: var(--sable);
 }
 
-.admin-table thead {
-    background-color: var(--marron);
-    color: var(--creme);
+/* On cache l'en-tête car les titres seront dans les cartes */
+.cartes thead {
+    display: none;
 }
 
-.admin-table th,
-.admin-table td {
-    padding: 16px;
-    font-size: 0.9rem;
-    text-align: left;
+/* Le corps du tableau devient un conteneur flexible horizontal */
+.cartes tbody {
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+    overflow-x: auto; 
+    padding: 10px 5px 30px 5px;
 }
 
-.admin-table tbody tr {
+/* Chaque ligne (tr) devient une "Carte" verticale */
+.cartes tbody tr {
+    display: flex;
+    flex-direction: column;
+    min-width: 280px; 
     background-color: #f3ede6;
+    border: 1px solid var(--marron-clair);
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.admin-table tbody tr:hover {
-    background-color: #e9dfd3;
+
+/* Stylisation des cellules (td) à l'intérieur de la carte */
+.cartes td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    font-size: 0.95rem;
 }
 
-.admin-table a {
+
+/* Ajout automatique des libellés avant la donnée */
+.cartes td::before {
+    content: attr(data-label);
+    font-weight: bold;
     color: var(--marron);
-    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
 }
 
-.actions-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.actions-btn {
-    padding: 8px 14px;
-    background-color: transparent;
+.btn-primary {
+    padding: 10px 20px;
     border: 1px solid var(--marron);
     color: var(--marron);
-    cursor: pointer;
-    font-size: 0.85rem;
     transition: 0.3s ease;
 }
 
-.actions-btn:hover {
+.btn-primary:hover {
     background-color: var(--marron);
     color: var(--creme);
 }
 
-.actions-dropdown {
-    position: absolute;
-    top: 110%;
-    left: 0;
-    min-width: 160px;
-    background-color: var(--creme);
-    border: 1px solid var(--marron-clair);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    display: none;
-    flex-direction: column;
-    z-index: 10;
-}
 
-.actions-menu:focus-within .actions-dropdown {
-    display: flex;
-}
-
-.actions-dropdown .action {
-    padding: 12px 16px;
-    font-size: 0.85rem;
-    color: var(--brun);
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.actions-dropdown .action:last-child {
-    border-bottom: none;
-}
-
-.actions-dropdown .action:hover {
-    background-color: var(--beige);
-}
-
-.action.promote {
-    color: #3a6b3a;
-}
-
-.action.block {
-    color: #b07b2c;
-}
-
-.action.delete {
-    color: #a43a3a;
-}
-
-
-@media screen and (max-width: 1024px) {
-
-    .admin {
-        padding: 40px 20px;
-    }
-
-    .admin-header h1 {
-        font-size: 2rem;
-    }
-
-    .admin-table th,
-    .admin-table td {
-        padding: 12px;
-        font-size: 0.85rem;
-    }
-
-} 
-
-
+/* --- Responsive --- */
 @media screen and (max-width: 768px) {
-
-    /* Filtres en colonne */
-    .admin-filtres {
-        flex-direction: column;
-        align-items: stretch;
+    .admin-header h1 {
+        font-size: 1.8rem;
     }
-
-    .admin-filtres button {
-        width: 100%;
-    }
-
     
-    .admin-utilisateurs-wrapper {
-        overflow-x: auto;
-        padding: 0 20px 60px;
+    .cartes tbody tr {
+        min-width: 85vw; 
     }
-
-    .admin-table {
-        min-width: 700px;
-    }
-
-    
-    .actions-btn {
-        padding: 6px 10px;
-        font-size: 0.75rem;
-    }
-
 }

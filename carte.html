@@ -4,147 +4,240 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carte</title>
-    <link href="stylecarte.css" rel="stylesheet">
     <link rel="stylesheet" href="stylecommon.css">
+    <link href="stylecarte.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
-    <nav class="navbar">
-        <div class="logo">
-            <a href="accueil.html">L’Étoile</a>
-        </div>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="accueil.html">L’Étoile</a>
+            </div>
 
-        <ul class="links">
-            <li><a href="carte.html">Carte</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
+            <ul class="links">
+                <li><a class="cartenav" href="carte.html">Carte</a></li>
+            </ul>
 
-        <div class="nav-actions">
-            <a href="connexion.html" class="btn-primary">Se connecter</a>
-            <a href="admin.html" class="btn-primary">Vue admin</a>
-            <a href="commande.html" class="btn-primary">Commander</a>
-            <a href="profil.html" class="btn-primary">Voir Profil</a>
-        </div>
-    </nav>
-</header>
+            <div class="nav-actions">
+                <a href="connexion.html" class="btn-primary">Se connecter</a>
+                <a href="admin.html" class="btn-primary">Vue admin</a>
+                <a href="commande.html" class="btn-primary">Commander</a>
+                <a href="profil.html" class="btn-primary">Voir Profil</a>
+            </div>
+        </nav>
+    </header>
+
     <div class="titre1">
         Notre carte
     </div>
+
     <form >
         <div class="barre">
         <span class="loupe">🔍</span>
         <input type="search" class="maRecherche" name="q" placeholder="Rechercher..." />
         <button type="submit" class="btn-invisible"></button> 
-    </div>
+        </div>
     </form>
+
+    <nav class="nav-categories">
+        <a href="#entrees" class="btn-primary">Entrées</a>
+        <a href="#plats" class="btn-primary">Plats</a>
+        <a href="#desserts" class="btn-primary">Desserts</a>
+    </nav>
+
+    <img class="dividing" src="divider.png">
+    <div id="entrees" class="titre2">
+        Nos entrées
+    </div>
     <div class="colonnes">
         <div>
-            <p class="titre2">prout</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blabalbla
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="img-repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
         <div>
-            <p class="titre2">pipi</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blobloblo
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="img-repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
         <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="img-repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+    </div>
+
+    <div class="colonnes">
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
         <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+    </div>
+
+    <img class="dividing" src="divider.png">
+    <div id="plats" class="titre2">
+        Nos plats
+    </div>
+    <div class="colonnes">
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+    </div>
+    <div class="colonnes">
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+    </div>
+
+    <img class="dividing" src="divider.png">
+    <div id="desserts" class="titre2">
+        Nos desserts
+    </div>
+    <div class="colonnes">
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
+            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
+        </div>
+        <div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
     </div>
     
     <div class="colonnes">
         <div>
-            <p class="titre2">prout</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blabalbla
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">pipi</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blobloblo
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-    </div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
 
-    <div class="colonnes">
-        <div>
-            <p class="titre2">prout</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blabalbla
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
         <div>
-            <p class="titre2">pipi</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blobloblo
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-    </div>
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
 
-    <div class="colonnes">
-        <div>
-            <p class="titre2">prout</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blabalbla
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
         <div>
-            <p class="titre2">pipi</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blobloblo
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
-            <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
-        </div>
-        <div>
-            <p class="titre2">caca</p>
-            <img class ="img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSqrEjjUHn9M9TT65gTVLXc_rN6ry5TraQf4w&s" alt="repas">
-            blublublu
+            <p class="titre3">Queue de Rathalos</p>
+                <div class="plat">
+                    <img class ="img" src="rathalos.png" alt="repas">
+                    <div class="overlay-texte">Allergie : légumes verts</div>
+                </div>
+
             <a href="Petits-dejeuners.html" class="bouton-discover" >Ajouter au panier</a>
         </div>
     </div>
-    </form>
+    
+
+
     <footer class="footer">
         <div class="footer-container">
 
@@ -156,7 +249,7 @@
             </div>
 
             <div class="footer-column">
-                <h3>Récompense</h3>
+                <h3>Récompenses</h3>
                 <p>3 étoiles Michelin</p>
                 <p>Maitre Restaurateur</p>
             </div>
@@ -174,5 +267,6 @@
             <p>Mentions légales</p>
         </div>
     </footer>
+
 </body>
 </html>

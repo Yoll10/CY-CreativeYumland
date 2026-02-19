@@ -15,8 +15,7 @@
         </div>
 
         <ul class="links">
-            <li><a href="carte.html">Carte</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a class="cartenav" href="carte.html">Carte</a></li>
         </ul>
 
         <div class="nav-actions">
@@ -26,12 +25,14 @@
             <a href="profil.html" class="btn-primary">Voir Profil</a>
         </div>
     </nav>
-</header>
+    </header>
+
+    <main class="main-content">
     <form action="https://www.cafe-it.fr/cytech/post.php" method="post" class="forms">
         <fieldset>
             <h2 class="titre-profil">Votre profil</h2>
-
             <div class="ligne-form">
+
                 <div class="zone-contenu">
                     <img class="avatar" src="https://www.shutterstock.com/image-vector/default-avatar-profile-icon-social-600nw-1906669723.jpg" alt="photo de profil">
                 </div>
@@ -49,7 +50,7 @@
             <div class="ligne-form">
                 <div class="zone-contenu">
                     <label for="email">Adresse :</label>
-                    <input type="email" id="email" name="email" placeholder="Mos Espa - Tatooine">
+                    <input type="text" id="adresse" name="email" placeholder="Mos Espa - Tatooine">
                 </div>
                 <button class="edit" type="button">🖌️</button>
             </div>
@@ -72,7 +73,61 @@
 
         </fieldset>
     </form>
-    </form>
+  
+    <section class="admin-utilisateurs-wrapper">
+        <div class="admin-utilisateurs">
+
+        <table class="admin-table">
+            <caption class="titre-profil">Vos dernières commandes</caption>
+            <thead>
+                <tr>
+                    <th >Date</th>
+                    <th >Commander à nouveau</th>
+                    <th class="voir">Commande</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>17/02/2026</td>
+
+                    <td>
+                        <div class="actions-menu">
+                            <button class="btn-primary">Commander</button>
+                        </div>
+                    </td>
+
+                    <td><a href="#" class="voir">Voir</a></td>
+                </tr>
+
+                <tr>
+                    <td>28/01/2026</td>
+
+                    <td>
+                        <div class="actions-menu">
+                            <button class="btn-primary">Commander</button>
+                        </div>
+                    </td>
+
+                    <td><a href="#" class="voir">Voir</a></td>
+                </tr>
+
+                <tr>
+                    <td>21/12/2025</td>
+
+                    <td>
+                        <div class="actions-menu">
+                            <button class="btn-primary" >Commander</button>
+                        </div>
+                    </td>
+
+                    <td ><a href="#" class="voir" >Voir</a></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </section>
+    </main>
     <footer class="footer">
         <div class="footer-container">
 
