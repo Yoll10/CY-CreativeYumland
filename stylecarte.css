@@ -10,41 +10,10 @@
 }
 
 .titre2{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 50px;
-    font-weight: bold;
-    color: #4b4a4a;
+    padding-bottom: 20px;
+    font-size: 30px;
 }
 
-.titre3{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size:35px;
-    font-weight: bold;
-    color: #4b4a4a;
-    margin-bottom: 30px;
-}
-
-
-.dividing{
-    display: block;
-    margin: 0 auto; /* Centré horizontalement */
-    width: 100%;    /* Prend toute la largeur pour que le trait s'étire */
-    height: 100px;  /* Ajuste cette valeur pour voir plus ou moins de détails */
-    
-    /* Le secret est ici : cover au lieu de contain */
-    object-fit: cover; 
-    object-position: center; /* On cadre sur le milieu de l'image (le dessin) */
-    
-    pointer-events: none;
-    
-    /* On utilise des marges négatives légères pour coller aux titres */
-    margin-top: -20px;
-    margin-bottom: -20px;
-}
 .colonnes{
     display: flex;
     justify-content: center;
@@ -52,10 +21,9 @@
 }
 
 .colonnes>div{
-    min-height: 550px; /* Hauteur minimum, mais peut s'agrandir si besoin */
-    height: auto;      /* Important pour éviter les superpositions */
-    width: 400px;
-    margin:10vh;
+    height: 500px;
+    width: 350px;
+    margin:8vh;
     text-align:center;
     background:#d1c7bd;
     border-radius:30px;
@@ -102,6 +70,7 @@
     box-shadow: 0 5px 15px rgba(175, 128, 25, 0.863);
 }
 
+
 form {
     display: flex;
     justify-content: center;
@@ -126,6 +95,7 @@ form {
     font-size: 20px;
 }
 
+
 .maRecherche {
     border: none;
     background: transparent;
@@ -133,6 +103,7 @@ form {
     width: 100%;
     font-size: 18px;
 }
+
 
 .btn-invisible {
     display: none;
@@ -145,83 +116,4 @@ form {
     border-color: #eee5d9; 
     background-color: #fff;
     box-shadow: 0 0 10px #f8d1aa;
-}
-
-
-.plat {
-    width: 80%; 
-    height: 250px;
-    margin: 0 auto 30px auto;
-    border-radius: 10px;
-}
-
-
-.plat .img {
-    width: 100%;
-    height: 100%;
-    transition: opacity 0.4s ease;
-}
-
-
-.overlay-texte {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
-    color: rgb(0, 0, 0);
-    font-weight: bold;
-    font-size: 20px;
-    opacity: 0; 
-    transition: opacity 0.4s ease;
-    pointer-events: none; 
-    text-align: center;
-    width: 90%;
-}
-
-.plat:hover .img {
-    opacity: 0.6; 
-}
-
-.plat:hover .overlay-texte {
-    opacity: 1;
-}
-
-.nav-categories{
-    display:flex;
-    justify-content: center;
-}
-
-@media screen and (max-width: 1520px) {
-    .colonnes {
-        flex-direction: column; /* Aligne les boîtes verticalement */
-        gap: 20px;
-    }
-
-    .colonnes > div {
-        width: 80%; /* Prend la largeur de l'écran */
-        max-width: 450px; /* Mais reste lisible */
-        margin-bottom: 20px;
-        height: auto; /* Laisse la boîte s'adapter au contenu */
-        min-height: 400px;
-    }
-
-    .colonnes>div:hover {
-    transform: scale(1.1); 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
-    }
-
-    .plat{
-        height:150px;
-        width:80%;
-    }
-    
-
-    .titre1 {
-        font-size: 50px;
-        margin-bottom: 40px;
-    }
-
-    .titre2 {
-        font-size: 35px;
-    }
 }

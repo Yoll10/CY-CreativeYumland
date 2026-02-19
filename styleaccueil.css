@@ -1,28 +1,43 @@
 .hero {
-    min-height: 80vh;
-    background-color: var(--beige);
+    min-height: 90vh;
+    background-image: url("https://images.unsplash.com/photo-1551218808-94e220e084d2");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 60px 20px;
 }
 
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
 .hero-content {
+    position: relative;
     max-width: 700px;
     text-align: center;
+    color: white;
 }
 
 .hero-content h1 {
-    font-size: 3.5rem;
+    font-size: 3.8rem;
     margin-bottom: 20px;
     font-weight: 500;
+    letter-spacing: 2px;
 }
 
 .hero-content p {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     margin-bottom: 40px;
-    color: var(--gris-texte);
+    color: rgba(255, 255, 255, 0.9);
 }
+
 
 .recherche {
     padding: 80px 20px;
@@ -61,6 +76,7 @@
     background-color: var(--marron-clair);
 }
 
+
 .plats {
     padding: 80px 20px;
     background-color: var(--beige);
@@ -84,6 +100,12 @@
     background-color: var(--creme);
     padding: 40px 30px;
     text-align: center;
+    transition: 0.3s ease;
+}
+
+.plat:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .plat h3 {
@@ -114,7 +136,7 @@
 @media screen and (max-width: 768px) {
 
     .hero {
-        min-height: 60vh;
+        min-height: 70vh;
         padding: 40px 20px;
     }
 
@@ -127,7 +149,6 @@
         margin-bottom: 30px;
     }
 
-    
     .recherche {
         padding: 60px 20px;
     }
@@ -148,7 +169,6 @@
         max-width: 350px;
     }
 
-    
     .plats {
         padding: 60px 20px;
     }
@@ -161,10 +181,8 @@
     .plat {
         padding: 30px 20px;
         border-radius: 8px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
     }
 
 }
-
 
 
