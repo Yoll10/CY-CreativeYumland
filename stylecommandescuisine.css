@@ -18,6 +18,11 @@
     margin-top: 10px;
 }
 
+.header {
+    position:relative;
+    background-color: var(--creme);
+    border-bottom: 1px solid var(--marron-clair);
+}
 
 .commandes-section {
     margin-bottom: 60px;
