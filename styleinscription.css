@@ -5,7 +5,7 @@ form{
 }
 
 fieldset {
-    background-color: #d1c7bd;
+    background-color: var(--formulaire-fond);
     border: none; 
     border-radius: 30px; 
     padding: 80px;
@@ -80,7 +80,7 @@ button:hover {
     margin-top : 70px;
     margin-bottom: -20px;
     display: inline-block;
-    text-decoration: none; /* Enlève le soulignement du lien */
+    text-decoration: none; 
     padding: 15px 30px;
     background: linear-gradient(125deg, #e8c39e 0%, #eaccad 100%);
     opacity: 80%;

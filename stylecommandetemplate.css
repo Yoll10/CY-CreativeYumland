@@ -1,0 +1,253 @@
+.commande {
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.commande-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.commande-header h1 {
+    font-size: 3rem;
+}
+
+.commande-mode {
+    margin-bottom: 40px;
+}
+
+.mode-options {
+    display: flex;
+    gap: 20px;
+}
+.commande-mode h2 {
+    padding-bottom: 15px;
+}
+
+.mode {
+    padding: 15px 30px;
+    background-color: var(--beige);
+    cursor: pointer;
+}
+
+.mode.active {
+    border: 1px solid var(--marron);
+}
+
+.commande-content {
+    display: flex;
+    gap: 40px;
+}
+
+.plats {
+    flex: 2;
+}
+
+.categorie h3 {
+    margin: 30px 0 15px;
+}
+
+.plat {
+    background-color: var(--beige);
+    padding: 20px;
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 20px;
+    align-items: center;
+}
+
+.plat button {
+    background-color: var(--marron);
+    color: var(--creme);
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.plat button:hover {
+    background-color: var(--marron-clair);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.panier {
+    flex: 1;
+    background-color: var(--sable);
+    padding: 35px;
+    padding-left: 30px;
+    margin-top: 40px;              
+    border-radius: 6px;            
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.panier-item,
+.panier-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.client-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--marron);
+    color: var(--creme);
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--marron-clair);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.choix-livraison {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.option {
+    flex: 1;
+    padding: 14px 0;
+    border: 1px solid var(--marron);
+    background-color: transparent;
+    color: var(--marron);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.option:hover {
+    background-color: var(--marron);
+    color: var(--creme);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+
+
+@media screen and (max-width: 1024px) {
+
+    .commande-content {
+        flex-direction: column;
+    }
+
+    .panier {
+        margin-top: 0;
+    }
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .commande {
+        padding: 30px 15px;
+    }
+
+    .commande-header h1 {
+        font-size: 2rem;
+    }
+
+    
+    .choix-livraison {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .option {
+        width: 100%;
+    }
+
+    
+    .plat {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        text-align: left;
+    }
+
+    .plat span {
+        font-weight: 600;
+    }
+
+    .plat button {
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    
+    .panier {
+        padding: 25px 20px;
+    }
+
+    .client-form input {
+        font-size: 0.9rem;
+    }
+
+    .btn-secondary {
+        font-size: 0.95rem;
+    }
+
+}
+
+@media screen and (max-width: 1024px) {
+
+    .navbar {
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .nav-actions {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+}
+@media screen and (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .logo {
+        width: 100%;
+        text-align: center;
+    }
+
+    .links {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .nav-actions {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-actions .btn-primary {
+        width: 100%;
+        text-align: center;
+    }
+
+}

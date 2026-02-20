@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commander — L’Étoile</title>
+    <link rel="stylesheet" href="stylecommon.css">
+    <link rel="stylesheet" href="stylecommandetemplate.css">
+</head>
+
+<body>
+
+<header class="header">
+    <nav class="navbar">
+        <div class="logo">
+            <a href="accueil.html">L’Étoile</a>
+        </div>
+
+        <ul class="links">
+            <li><a class="cartenav" href="carte.html">Carte</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="connexion.html" class="btn-primary">Se connecter</a>
+            <a href="admin.html" class="btn-primary">Vue admin</a>
+            <a href="commande-template.html" class="btn-primary">Commander</a>
+            <a href="profil.html" class="btn-primary">Voir Profil</a>
+        </div>
+    </nav>
+</header>
+
+
+
+
+<main class="commande">
+
+    <section class="commande-header">
+        <h1>Passer commande</h1>
+        <p>Une expérience simple, élégante et maîtrisée.</p>
+    </section>
+
+
+    <section class="commande-mode">
+        <h2>Mode de commande</h2>
+        <div class="choix-livraison">
+            <button class="option active">À emporter</button>
+            <button class="option">Livraison</button>
+        </div>
+    </section>
+
+    <div class="commande-content">
+
+    
+        <section class="plats">
+            <h2>Votre sélection</h2>
+
+            <div class="categorie">
+                <h3>Plats</h3>
+
+                <div class="plat">
+                    <div>
+                        <h4>Filet de bœuf maturé</h4>
+                        <p>Légumes de saison & jus réduit</p>
+                    </div>
+                    <span>32 €</span>
+                    <button>Ajouter</button>
+                </div>
+
+                <div class="plat">
+                    <div>
+                        <h4>Ravioles fines aux truffes</h4>
+                        <p>Crème légère et parmesan affiné</p>
+                    </div>
+                    <span>28 €</span>
+                    <button>Ajouter</button>
+                </div>
+            </div>
+
+            <div class="categorie">
+                <h3>Desserts</h3>
+
+                <div class="plat">
+                    <div>
+                        <h4>Dessert signature</h4>
+                        <p>Chocolat noir & praliné</p>
+                    </div>
+                    <span>12 €</span>
+                    <button>Ajouter</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="panier">
+            <h2>Récapitulatif</h2>
+
+            <div class="panier-item">
+                <span>jsp quoi</span>
+                <span> tres cher €</span>
+            </div>
+
+            <div class="panier-item">
+                <span>jsp quoi</span>
+                <span> tres cher €</span>
+            </div>
+
+            <div class="panier-total">
+                <strong>Total</strong>
+                <strong>bcp trop €</strong>
+            </div>
+
+            <form class="client-form">
+                <h3>Informations client</h3>
+
+                <input type="text" placeholder="Nom">
+                <input type="text" placeholder="Prénom">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="Adresse de livraison">
+
+                <button type="submit" class="btn-secondary">
+                    Valider la commande
+                </button>
+            </form>
+        </aside>
+
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-column">
+            <h3>Récompenses</h3>
+            <p>3 étoiles Michelin</p>
+            <p>Maitre Restaurateur</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Contact</h3>
+            <p>06 49 00 96 90</p>
+            <p>supportclient@gmail.com</p>
+            <p>10 chemin de la Vie, Paris</p>
+        </div>
+
+        <div class="footer-column">
+            <h3>Horaires</h3>
+            <p>Lundi – Vendredi : 10h – 19h</p>
+            <p>Samedi & Dimanche : Fermé</p>
+        </div>
+
+    </div>
+
+    <div class="footer-legal">
+        <p>© 2026 — L’Étoile. Tous droits réservés.</p>
+        <p>Mentions légales</p>
+    </div>
+</footer>
+
+
+</body>
+</html>

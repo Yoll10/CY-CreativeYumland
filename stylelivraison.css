@@ -49,12 +49,11 @@ body {
     border-collapse: collapse;
 }
 
-/* On cache l'en-tête car les titres seront dans les cartes */
 .cartes thead {
     display: none;
 }
 
-/* Le corps du tableau devient un conteneur flexible horizontal */
+/* transforme le tableau en conteneur horizontal */
 .cartes tbody {
     display: flex;
     flex-direction: row;
@@ -63,7 +62,7 @@ body {
     padding: 10px 5px 30px 5px;
 }
 
-/* Chaque ligne (tr) devient une "Carte" verticale */
+
 .cartes tbody tr {
     display: flex;
     flex-direction: column;
@@ -76,7 +75,7 @@ body {
 }
 
 
-/* Stylisation des cellules (td) à l'intérieur de la carte */
+
 .cartes td {
     display: flex;
     justify-content: space-between;
@@ -87,7 +86,7 @@ body {
 }
 
 
-/* Ajout automatique des libellés avant la donnée */
+
 .cartes td::before {
     content: attr(data-label);
     font-weight: bold;
