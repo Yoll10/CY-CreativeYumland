@@ -1,0 +1,177 @@
+{
+  "plats": [
+    {
+      "id": 1,
+      "nom": "Burger 1",
+      "categorie": "burger",
+      "prix": 12.50,
+      "image": "https://www.socopa.fr/wp-content/uploads/2025/03/smash-burger.jpg",
+      "allergies": ["légumes verts"],
+      "options": ["Sans oignons", "Supplément fromage", "Cuit à point"]
+    },
+    {
+      "id": 2,
+      "nom": "Burger 2",
+      "categorie": "burger",
+      "prix": 13.00,
+      "image": "https://www.yabio.fr/wp-content/uploads/2025/06/ingredients-burger.jpg",
+      "allergies": ["légumes verts"],
+      "options": ["Sans sauce", "Pain complet"]
+    },
+    {
+      "id": 3,
+      "nom": "Burger 3",
+      "categorie": "burger",
+      "prix": 11.50,
+      "image": "https://lacuisineensemble.fr/wp-content/uploads/2022/02/recette-burger-maison.jpg",
+      "allergies": ["légumes verts"],
+      "options": ["Sans tomates"]
+    },
+    {
+      "id": 4,
+      "nom": "Burger 4",
+      "categorie": "burger",
+      "prix": 14.00,
+      "image": "https://blog-content.omahasteaks.com/wp-content/uploads/2023/02/The-Mack-Burger-recipe-scaled.jpg",
+      "allergies": ["légumes verts"],
+      "options": ["Double steak"]
+    },
+    {
+      "id": 5,
+      "nom": "Burger 5",
+      "categorie": "burger",
+      "prix": 12.00,
+      "image": "https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/les-dossiers-de-la-redaction/dossier-de-la-redac/quels-sont-les-25-meilleurs-burgers-en-compet/90404495-2-fre-FR/Coupe-de-France-de-burgers-Quels-sont-les-25-meilleurs-burgers-en-compet.jpg",
+      "allergies": ["légumes verts"],
+      "options": ["Sans cornichons"]
+    },
+    {
+      "id": 6,
+      "nom": "Burger 6",
+      "categorie": "burger",
+      "prix": 13.50,
+      "image": "https://images.radio-canada.ca/q_auto,w_844/v1/alimentation/recette/16x9/burger-matin.jpg",
+      "allergies": ["légumes verts"],
+      "options": ["Œuf miroir"]
+    },
+    {
+      "id": 7,
+      "nom": "Pommes de terres ",
+      "categorie": "accompagnement",
+      "prix": 4.50,
+      "image": "https://media-cdn.tripadvisor.com/media/photo-s/17/eb/d8/31/accompagnement-pommes.jpg",
+      "allergies": ["patate"],
+      "options": ["Supplément sel", "Sauce tartare"]
+    },
+    {
+      "id": 8,
+      "nom": "Salade",
+      "categorie": "accompagnement",
+      "prix": 4.00,
+      "image": "https://lesilo.re/wp-content/uploads/2024/10/DSCF2438new-e1742101192387-300x300.webp",
+      "allergies": ["légumes verts"],
+      "options": ["Vinaigrette à part"]
+    },
+    {
+      "id": 9,
+      "nom": "Frites",
+      "categorie": "accompagnement",
+      "prix": 4.50,
+      "image": "https://www.e-sante.fr/sites/default/files/styles/diapo/public/1675677538.jpg.webp?itok=IhwKtMx_",
+      "allergies": ["Cheddar"],
+      "options": ["Sauce Mayo", "Sauce Ketchup"]
+    },
+    {
+      "id": 10,
+      "nom": "Purée",
+      "categorie": "accompagnement",
+      "prix": 5.00,
+      "image": "https://larecetteparfaite.com/wp-content/uploads/2022/01/IMG_5906-scaled.jpg",
+      "allergies": ["patates"],
+      "options": ["Beurre supplémentaire"]
+    },
+    {
+      "id": 11,
+      "nom": "Pates",
+      "categorie": "accompagnement",
+      "prix": 5.50,
+      "image": "https://us.123rf.com/450wm/lenyvavsha/lenyvavsha2003/lenyvavsha200300105/142960750-p%C3%A2tes-tortiglioni-au-parmesan-dans-une-sauce-tomate-en-gros-plan-dans-une-assiette-sur-la-table.jpg",
+      "allergies": ["tomate"],
+      "options": ["Sans fromage"]
+    },
+    {
+      "id": 12,
+      "nom": "Riz",
+      "categorie": "accompagnement",
+      "prix": 4.00,
+      "image": "https://rizpresto.ma/wp-content/uploads/2025/12/bowl-of-rice.jpg",
+      "allergies": ["riz"],
+      "options": ["Nature", "Sauce soja"]
+    },
+    {
+      "id": 13,
+      "nom": "Muffin",
+      "categorie": "dessert",
+      "prix": 3.50,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8DpLvvZRtIL6-QmnATK6FcadUCbk8G6Ybvw&s",
+      "allergies": ["fruits à coque"],
+      "options": ["Chauffé"]
+    },
+    {
+      "id": 14,
+      "nom": "Fondant choco",
+      "categorie": "dessert",
+      "prix": 6.00,
+      "image": "https://cdn.pratico-pratiques.com/app/uploads/sites/3/2018/08/20193214/moelleux-au-chocolat-version-decadente.jpeg",
+      "allergies": ["chocolat"],
+      "options": ["Boule de glace vanille"]
+    },
+    {
+      "id": 15,
+      "nom": "Fraisier",
+      "categorie": "dessert",
+      "prix": 6.50,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_zzh56f6b2fCTCEYpgW4-C9ICdaYOA53b-w&s",
+      "allergies": ["fraises"],
+      "options": ["Sans chantilly"]
+    }
+  ],
+  "menus": [
+    {
+      "id": 101,
+      "nom": "Menu Étoile Midi",
+      "description": "Le classique de la mi-journée.",
+      "composition": {
+        "burger": 1,
+        "accompagnement": 9,
+        "dessert": 13
+      },
+      "prix_total": 18.00,
+      "creneaux": ["Midi"]
+    },
+    {
+      "id": 102,
+      "nom": "Menu Gourmand",
+      "description": "Pour les grandes faims.",
+      "composition": {
+        "burger": 4,
+        "accompagnement": 7,
+        "dessert": 14
+      },
+      "prix_total": 22.50,
+      "creneaux": ["Midi", "Soir"]
+    },
+    {
+      "id": 103,
+      "nom": "Menu Fraîcheur",
+      "description": "Léger et fruité.",
+      "composition": {
+        "burger": 3,
+        "accompagnement": 8,
+        "dessert": 15
+      },
+      "prix_total": 19.50,
+      "creneaux": ["Tout le temps"]
+    }
+  ]
+}
