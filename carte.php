@@ -1,19 +1,17 @@
 <?php
-// 1. Charger les données du fichier JSON
+
 $json_data = file_get_contents('data.json');
 $data = json_decode($json_data, true);
 
 $plats = $data['plats'];
 $menus = $data['menus'];
 
-// 2. Fonction pour afficher les éléments d'une catégorie donnée
 function afficherCategorie($tous_les_plats, $categorie_cible) {
     // Filtrer les plats par catégorie
     $plats_filtres = array_filter($tous_les_plats, function($p) use ($categorie_cible) {
         return $p['categorie'] === $categorie_cible;
     });
 
-    // On découpe en groupes de 3 pour respecter ta structure de classes "colonnes"
     $groupes = array_chunk($plats_filtres, 3);
 
     foreach ($groupes as $groupe) {
