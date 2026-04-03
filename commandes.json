@@ -84,7 +84,7 @@
         ],
         "mode": "livraison",
         "adresse": "88 boulevard Haussmann, 75009 Paris",
-        "statut": "en_livraison",
+        "statut": "livree",
         "date": "2026-04-02 13:00:00",
         "total": 84,
         "livreur_email": "livreur@letoile.fr",
@@ -111,7 +111,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_preparation",
+        "statut": "livree",
         "date": "2026-04-02 14:00:00",
         "total": 56,
         "livreur_email": null,
@@ -171,7 +171,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_attente",
+        "statut": "livree",
         "date": "2026-04-03 11:01:11",
         "total": 185,
         "livreur_email": null,
@@ -192,7 +192,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_attente",
+        "statut": "en_preparation",
         "date": "2026-04-03 17:41:11",
         "total": 75,
         "livreur_email": null,
@@ -241,5 +241,122 @@
         "note_produits": null,
         "note_livraison": null,
         "commentaire": ""
+    },
+    {
+        "id": "c010",
+        "user_email": "ethangnass@gmail.com",
+        "plats": [
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 1
+            },
+            {
+                "id": "p01",
+                "nom": "Velouté de butternut à la truffe",
+                "prix": 14,
+                "quantite": 2
+            },
+            {
+                "id": "p03",
+                "nom": "Carpaccio de Saint-Jacques",
+                "prix": 18,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "livree",
+        "date": "2026-04-03 21:03:46",
+        "total": 101,
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c011",
+        "user_email": "ethangnass@gmail.com",
+        "plats": [
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 1
+            },
+            {
+                "id": "menu_m03",
+                "nom": "Menu Déjeuner (menu)",
+                "prix": 35,
+                "quantite": 1
+            },
+            {
+                "id": "p01",
+                "nom": "Velouté de butternut à la truffe",
+                "prix": 14,
+                "quantite": 1
+            },
+            {
+                "id": "p02",
+                "nom": "Foie gras mi-cuit maison",
+                "prix": 22,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "livree",
+        "date": "2026-04-03 21:13:21",
+        "total": 126,
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c012",
+        "user_email": "ethangnass@gmail.com",
+        "plats": [
+            {
+                "id": "menu_m03",
+                "nom": "Menu Déjeuner (menu)",
+                "prix": 35,
+                "quantite": 1
+            },
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 1
+            },
+            {
+                "id": "menu_m01",
+                "nom": "Menu Prestige (menu)",
+                "prix": 75,
+                "quantite": 1
+            },
+            {
+                "id": "p01",
+                "nom": "Velouté de butternut à la truffe",
+                "prix": 14,
+                "quantite": 1
+            },
+            {
+                "id": "p02",
+                "nom": "Foie gras mi-cuit maison",
+                "prix": 22,
+                "quantite": 1
+            }
+        ],
+        "mode": "livraison",
+        "adresse": "21 SENTE DES CHASSEURS",
+        "statut": "livree",
+        "date": "2026-04-03 21:25:18",
+        "total": 201,
+        "livreur_email": "livreur@letoile.fr",
+        "note_produits": 5,
+        "note_livraison": 5,
+        "commentaire": "etet"
     }
 ]

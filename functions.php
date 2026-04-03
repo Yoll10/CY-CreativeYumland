@@ -137,7 +137,7 @@ function exiger_role(string $role, string $redirect = 'accueil.php'): void {
 
 function get_plats(): array {
     return lire_json(PLATS_FILE);
-}
+} 
 
 function get_plat_by_id(string $id): ?array {
     foreach (get_plats() as $plat) {
@@ -214,7 +214,12 @@ function get_commandes_user(string $email): array {
 function get_commandes_livreur(string $email): array {
     return array_values(array_filter(
         get_commandes(),
-        fn($c) => $c['livreur_email'] === $email && $c['statut'] === 'en_livraison'
+        function ($c) use ($email) {
+            return isset($c['statut'])
+                && $c['statut'] === 'en_livraison'
+                && isset($c['livreur_email'])
+                && $c['livreur_email'] === $email;
+        }
     ));
 }
 

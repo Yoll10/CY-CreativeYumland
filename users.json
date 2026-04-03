@@ -97,5 +97,16 @@
         "role": "livreur",
         "statut": "actif",
         "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "ethangnass@gmail.com",
+        "mdp": "$2y$10$AxCqmvcXoc2E0GKDhXr80Osk4lier669Z2UVReN.SteTWl5NAwY1u",
+        "nom": "Gnassounou-boulay",
+        "prenom": "Ethan",
+        "telephone": "0649009690",
+        "adresse": "21 SENTE DES CHASSEURS",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-04-03"
     }
 ]
