@@ -1,7 +1,7 @@
 [
     {
         "email": "jean.dupont@mail.com",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Dupont",
         "prenom": "Jean",
         "telephone": "06 11 22 33 44",
@@ -12,7 +12,7 @@
     },
     {
         "email": "sophie.martin@mail.com",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Martin",
         "prenom": "Sophie",
         "telephone": "06 22 33 44 55",
@@ -23,7 +23,7 @@
     },
     {
         "email": "paul.lemoine@mail.com",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Lemoine",
         "prenom": "Paul",
         "telephone": "06 33 44 55 66",
@@ -34,7 +34,7 @@
     },
     {
         "email": "clara.bernard@mail.com",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Bernard",
         "prenom": "Clara",
         "telephone": "06 44 55 66 77",
@@ -45,18 +45,18 @@
     },
     {
         "email": "marc.petit@mail.com",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Petit",
         "prenom": "Marc",
         "telephone": "06 55 66 77 88",
         "adresse": "21 rue du Commerce, 75015 Paris",
-        "role": "client",
-        "statut": "bloque",
+        "role": "admin",
+        "statut": "actif",
         "date_inscription": "2026-01-08"
     },
     {
         "email": "admin@letoile.fr",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Admin",
         "prenom": "Principal",
         "telephone": "06 00 00 00 01",
@@ -67,7 +67,7 @@
     },
     {
         "email": "gestionnaire@letoile.fr",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Granger",
         "prenom": "Lucie",
         "telephone": "06 00 00 00 02",
@@ -78,7 +78,7 @@
     },
     {
         "email": "chef@letoile.fr",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Roux",
         "prenom": "Antoine",
         "telephone": "06 00 00 00 03",
@@ -89,7 +89,7 @@
     },
     {
         "email": "livreur@letoile.fr",
-        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC\/.og\/at2.uheWG\/igi",
         "nom": "Moreau",
         "prenom": "Kevin",
         "telephone": "06 00 00 00 04",

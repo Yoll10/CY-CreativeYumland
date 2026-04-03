@@ -7,8 +7,6 @@
         <div class="nav-actions">
             <?php if (isset($_SESSION['user'])): ?>
 
-                <span>Bonjour, <?= htmlspecialchars($_SESSION['user']['prenom'] ?? '', ENT_QUOTES, 'UTF-8') ?></span>
-
                 <?php if ($_SESSION['user']['role'] === 'client'): ?>
                     <?php $nb = nb_articles_panier(); ?>
                     <a href="commande-template.php" class="btn-primary">
