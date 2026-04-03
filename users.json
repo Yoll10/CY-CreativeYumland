@@ -1,0 +1,101 @@
+[
+    {
+        "email": "jean.dupont@mail.com",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Dupont",
+        "prenom": "Jean",
+        "telephone": "06 11 22 33 44",
+        "adresse": "12 rue de la Paix, 75001 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-09-10"
+    },
+    {
+        "email": "sophie.martin@mail.com",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Martin",
+        "prenom": "Sophie",
+        "telephone": "06 22 33 44 55",
+        "adresse": "5 avenue des Fleurs, 75008 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-10-03"
+    },
+    {
+        "email": "paul.lemoine@mail.com",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Lemoine",
+        "prenom": "Paul",
+        "telephone": "06 33 44 55 66",
+        "adresse": "88 boulevard Haussmann, 75009 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-11-15"
+    },
+    {
+        "email": "clara.bernard@mail.com",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Bernard",
+        "prenom": "Clara",
+        "telephone": "06 44 55 66 77",
+        "adresse": "3 impasse du Moulin, 92100 Boulogne",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-12-01"
+    },
+    {
+        "email": "marc.petit@mail.com",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Petit",
+        "prenom": "Marc",
+        "telephone": "06 55 66 77 88",
+        "adresse": "21 rue du Commerce, 75015 Paris",
+        "role": "client",
+        "statut": "bloque",
+        "date_inscription": "2026-01-08"
+    },
+    {
+        "email": "admin@letoile.fr",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Admin",
+        "prenom": "Principal",
+        "telephone": "06 00 00 00 01",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "admin",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "gestionnaire@letoile.fr",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Granger",
+        "prenom": "Lucie",
+        "telephone": "06 00 00 00 02",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "admin",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "chef@letoile.fr",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Roux",
+        "prenom": "Antoine",
+        "telephone": "06 00 00 00 03",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "restaurateur",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "livreur@letoile.fr",
+        "mdp": "$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+        "nom": "Moreau",
+        "prenom": "Kevin",
+        "telephone": "06 00 00 00 04",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "livreur",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    }
+]
