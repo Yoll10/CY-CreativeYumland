@@ -21,13 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             case 'envoyer_livraison':
                 // Attribuer le premier livreur actif disponible
-                $livreurs = array_filter(
-                    get_users(),
-                    fn($u) => $u['role'] === 'livreur' && $u['statut'] === 'actif'
-                );
-                $livreur       = reset($livreurs);
-                $livreur_email = $livreur ? $livreur['email'] : null;
-                update_statut_commande($id, 'en_livraison', $livreur_email);
+                $livreurs = array_values(array_filter(
+    get_users(),
+    fn($u) => $u['role'] === 'livreur' && $u['statut'] === 'actif'
+));
+
+if (!empty($livreurs)) {
+    $livreur_email = $livreurs[0]['email']; // premier livreur dispo
+    update_statut_commande($id, 'en_livraison', $livreur_email);
+} else {
+    // aucun livreur dispo → on met quand même en livraison
+    update_statut_commande($id, 'en_livraison');
+}
                 break;
         }
     }
