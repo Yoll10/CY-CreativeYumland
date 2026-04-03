@@ -1,0 +1,10 @@
+[
+    {
+        "email": "admin@etoile.fr",
+        "mdp": "..", 
+        "nom": "Admin",
+        "prenom": "..",
+        "telephone": "0102030405",
+        "role": "admin"
+    }
+]
