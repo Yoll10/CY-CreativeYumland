@@ -6,7 +6,7 @@
       "categorie": "burger",
       "prix": 12.50,
       "image": "https://www.socopa.fr/wp-content/uploads/2025/03/smash-burger.jpg",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Sans oignons", "Supplément fromage", "Cuit à point"]
     },
     {
@@ -15,7 +15,7 @@
       "categorie": "burger",
       "prix": 13.00,
       "image": "https://www.yabio.fr/wp-content/uploads/2025/06/ingredients-burger.jpg",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Sans sauce", "Pain complet"]
     },
     {
@@ -24,7 +24,7 @@
       "categorie": "burger",
       "prix": 11.50,
       "image": "https://lacuisineensemble.fr/wp-content/uploads/2022/02/recette-burger-maison.jpg",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Sans tomates"]
     },
     {
@@ -33,7 +33,7 @@
       "categorie": "burger",
       "prix": 14.00,
       "image": "https://blog-content.omahasteaks.com/wp-content/uploads/2023/02/The-Mack-Burger-recipe-scaled.jpg",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Double steak"]
     },
     {
@@ -42,7 +42,7 @@
       "categorie": "burger",
       "prix": 12.00,
       "image": "https://resize.elle.fr/original/var/plain_site/storage/images/elle-a-table/les-dossiers-de-la-redaction/dossier-de-la-redac/quels-sont-les-25-meilleurs-burgers-en-compet/90404495-2-fre-FR/Coupe-de-France-de-burgers-Quels-sont-les-25-meilleurs-burgers-en-compet.jpg",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Sans cornichons"]
     },
     {
@@ -51,7 +51,7 @@
       "categorie": "burger",
       "prix": 13.50,
       "image": "https://images.radio-canada.ca/q_auto,w_844/v1/alimentation/recette/16x9/burger-matin.jpg",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Œuf miroir"]
     },
     {
@@ -60,7 +60,7 @@
       "categorie": "accompagnement",
       "prix": 4.50,
       "image": "https://media-cdn.tripadvisor.com/media/photo-s/17/eb/d8/31/accompagnement-pommes.jpg",
-      "allergies": ["patate"],
+      "allergies": "patate",
       "options": ["Supplément sel", "Sauce tartare"]
     },
     {
@@ -69,7 +69,7 @@
       "categorie": "accompagnement",
       "prix": 4.00,
       "image": "https://lesilo.re/wp-content/uploads/2024/10/DSCF2438new-e1742101192387-300x300.webp",
-      "allergies": ["légumes verts"],
+      "allergies": "légumes verts",
       "options": ["Vinaigrette à part"]
     },
     {
@@ -78,7 +78,7 @@
       "categorie": "accompagnement",
       "prix": 4.50,
       "image": "https://www.e-sante.fr/sites/default/files/styles/diapo/public/1675677538.jpg.webp?itok=IhwKtMx_",
-      "allergies": ["Cheddar"],
+      "allergies": "Cheddar",
       "options": ["Sauce Mayo", "Sauce Ketchup"]
     },
     {
@@ -87,7 +87,7 @@
       "categorie": "accompagnement",
       "prix": 5.00,
       "image": "https://larecetteparfaite.com/wp-content/uploads/2022/01/IMG_5906-scaled.jpg",
-      "allergies": ["patates"],
+      "allergies": "patates",
       "options": ["Beurre supplémentaire"]
     },
     {
@@ -96,7 +96,7 @@
       "categorie": "accompagnement",
       "prix": 5.50,
       "image": "https://us.123rf.com/450wm/lenyvavsha/lenyvavsha2003/lenyvavsha200300105/142960750-p%C3%A2tes-tortiglioni-au-parmesan-dans-une-sauce-tomate-en-gros-plan-dans-une-assiette-sur-la-table.jpg",
-      "allergies": ["tomate"],
+      "allergies": "tomate",
       "options": ["Sans fromage"]
     },
     {
@@ -105,7 +105,7 @@
       "categorie": "accompagnement",
       "prix": 4.00,
       "image": "https://rizpresto.ma/wp-content/uploads/2025/12/bowl-of-rice.jpg",
-      "allergies": ["riz"],
+      "allergies": "riz",
       "options": ["Nature", "Sauce soja"]
     },
     {
@@ -114,7 +114,7 @@
       "categorie": "dessert",
       "prix": 3.50,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8DpLvvZRtIL6-QmnATK6FcadUCbk8G6Ybvw&s",
-      "allergies": ["fruits à coque"],
+      "allergies": "fruits à coque",
       "options": ["Chauffé"]
     },
     {
@@ -123,7 +123,7 @@
       "categorie": "dessert",
       "prix": 6.00,
       "image": "https://cdn.pratico-pratiques.com/app/uploads/sites/3/2018/08/20193214/moelleux-au-chocolat-version-decadente.jpeg",
-      "allergies": ["chocolat"],
+      "allergies": "chocolat",
       "options": ["Boule de glace vanille"]
     },
     {
@@ -132,7 +132,7 @@
       "categorie": "dessert",
       "prix": 6.50,
       "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_zzh56f6b2fCTCEYpgW4-C9ICdaYOA53b-w&s",
-      "allergies": ["fraises"],
+      "allergies": "fraises",
       "options": ["Sans chantilly"]
     }
   ],

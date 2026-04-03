@@ -7,7 +7,6 @@ $plats = $data['plats'];
 $menus = $data['menus'];
 
 function afficherCategorie($tous_les_plats, $categorie_cible) {
-    // Filtrer les plats par catégorie
     $plats_filtres = array_filter($tous_les_plats, function($p) use ($categorie_cible) {
         return $p['categorie'] === $categorie_cible;
     });
