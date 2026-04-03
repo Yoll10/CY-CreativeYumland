@@ -84,10 +84,10 @@
         ],
         "mode": "livraison",
         "adresse": "88 boulevard Haussmann, 75009 Paris",
-        "statut": "en_preparation",
+        "statut": "en_livraison",
         "date": "2026-04-02 13:00:00",
         "total": 84,
-        "livreur_email": null,
+        "livreur_email": "livreur@letoile.fr",
         "note_produits": null,
         "note_livraison": null,
         "commentaire": ""
@@ -111,7 +111,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_attente",
+        "statut": "en_preparation",
         "date": "2026-04-02 14:00:00",
         "total": 56,
         "livreur_email": null,
@@ -151,5 +151,95 @@
         "note_produits": 4,
         "note_livraison": 5,
         "commentaire": "Agneau parfaitement cuit, vraiment exceptionnel."
+    },
+    {
+        "id": "c006",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "menu_m01",
+                "nom": "Menu Prestige (menu)",
+                "prix": 75,
+                "quantite": 1
+            },
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 2
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente",
+        "date": "2026-04-03 11:01:11",
+        "total": 185,
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c007",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "menu_m01",
+                "nom": "Menu Prestige (menu)",
+                "prix": 75,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente",
+        "date": "2026-04-03 17:41:11",
+        "total": 75,
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c008",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "menu_m01",
+                "nom": "Menu Prestige (menu)",
+                "prix": 75,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente",
+        "date": "2026-04-03 17:41:46",
+        "total": 75,
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c009",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente",
+        "date": "2026-04-03 17:42:19",
+        "total": 55,
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
     }
 ]
