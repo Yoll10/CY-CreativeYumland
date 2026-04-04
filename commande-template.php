@@ -1,32 +1,24 @@
 <?php
 require_once 'functions.php';
-require_once 'getapikey.php'; // Télécharger via : https://www.plateforme-smc.fr/cybank/getapikey.zip
+require_once 'getapikey.php'; 
 
-// ============================================================
-// CONFIGURATION CYBANK
-// ============================================================
-define('CYBANK_VENDEUR', 'MI-1_A');                                         // ← Adapter selon votre identifiant de groupe
+define('CYBANK_VENDEUR', 'MI-4_E');                                         
 define('CYBANK_URL',     'https://www.plateforme-smc.fr/cybank/index.php'); // URL de l'interface CYBank
 
 exiger_connexion();
 
-// ---- INITIALISATION DU PANIER ----
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
 }
 
-// ============================================================
-// MESSAGES (initialisés avant tout traitement)
-// ============================================================
+
 $erreur_cmd = '';
 $succes_cmd = '';
 
-// ============================================================
 // RETOUR CYBANK
 // Déclenché quand CYBank redirige vers ce script avec :
 // cmd_id (notre param dans l'URL retour) + transaction, montant,
 // vendeur, status, control (ajoutés par CYBank)
-// ============================================================
 if (isset($_GET['cmd_id'], $_GET['transaction'], $_GET['status'],
           $_GET['montant'], $_GET['vendeur'], $_GET['control'])) {
 
