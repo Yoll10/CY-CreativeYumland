@@ -87,20 +87,15 @@ if (isset($_GET['payer']) && !empty($_SESSION['cybank_pending'])) {
     </style>
 </head>
 <body>
-    <p>⏳ Redirection vers l'interface de paiement sécurisé CYBank…</p>
-    <form id="cybank-form" method="POST" action="<?= CYBANK_URL ?>">
+    <p>⏳ Vous allez être redirigé vers l'interface de paiement sécurisé CYBank.</p>
+    <form method="POST" action="<?= CYBANK_URL ?>">
         <input type="hidden" name="transaction" value="<?= h($params['transaction']) ?>">
         <input type="hidden" name="montant"     value="<?= h($params['montant']) ?>">
         <input type="hidden" name="vendeur"     value="<?= h($params['vendeur']) ?>">
         <input type="hidden" name="retour"      value="<?= h($params['retour']) ?>">
         <input type="hidden" name="control"     value="<?= h($params['control']) ?>">
-        <noscript>
-            <p>JavaScript désactivé —
-               <button type="submit">Cliquer ici pour continuer vers le paiement</button>
-            </p>
-        </noscript>
+        <button type="submit">Continuer vers le paiement →</button>
     </form>
-    <script>document.getElementById('cybank-form').submit();</script>
 </body>
 </html>
     <?php
@@ -515,29 +510,22 @@ $user     = utilisateur_courant();
                 <div class="commande-mode">
                     <label>
                         <input type="radio" name="mode" value="emporter"
-                               id="mode-emporter" checked
-                               onchange="toggleAdresse(this.value)">
+                               id="mode-emporter" checked>
                         À emporter
                     </label>
                     <label>
                         <input type="radio" name="mode" value="livraison"
-                               id="mode-livraison"
-                               onchange="toggleAdresse(this.value)">
+                               id="mode-livraison">
                         Livraison à domicile
                     </label>
                 </div>
 
-                <!--
-                    BUG CORRIGÉ : le champ adresse est maintenant
-                    disabled quand caché → PHP ne le recevra pas
-                    si le mode est "emporter"
-                -->
-                <div id="champ-adresse" style="display:none; margin-top:0.6rem;">
+                <div style="margin-top:0.6rem;">
                     <label for="adresse">Adresse de livraison :</label>
                     <input type="text" name="adresse" id="adresse"
                            placeholder="Ex : 12 rue de la Paix, 75001 Paris"
-                           value="<?= h($user['adresse'] ?? '') ?>"
-                           disabled>
+                           value="<?= h($user['adresse'] ?? '') ?>">
+                    <small>(requis uniquement pour une livraison à domicile)</small>
                 </div>
 
                 <p class="info-client">
@@ -555,27 +543,6 @@ $user     = utilisateur_courant();
     </div>
 </main>
 
-<script>
-/**
- * Affiche/masque le champ adresse et active/désactive
- * l'input pour que PHP ne reçoive pas de valeur vide
- * quand mode = "emporter".
- * BUG CORRIGÉ : disabled empêche l'envoi du champ
- */
-function toggleAdresse(mode) {
-    const bloc  = document.getElementById('champ-adresse');
-    const input = document.getElementById('adresse');
-    if (mode === 'livraison') {
-        bloc.style.display  = 'block';
-        input.disabled      = false;
-        input.required      = true;
-    } else {
-        bloc.style.display  = 'none';
-        input.disabled      = true;
-        input.required      = false;
-    }
-}
-</script>
 
 <footer class="footer">
     <div class="footer-container">
