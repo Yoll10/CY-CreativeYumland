@@ -1,10 +1,110 @@
 <?php
 require_once 'functions.php';
+require_once 'getapikey.php'; // Télécharger via : https://www.plateforme-smc.fr/cybank/getapikey.zip
+
+// ============================================================
+// CONFIGURATION CYBANK
+// ============================================================
+define('CYBANK_VENDEUR', 'MI-1_A');                                         // ← Adapter selon votre identifiant de groupe
+define('CYBANK_URL',     'https://www.plateforme-smc.fr/cybank/index.php'); // URL de l'interface CYBank
+
 exiger_connexion();
 
 // ---- INITIALISATION DU PANIER ----
 if (!isset($_SESSION['panier'])) {
     $_SESSION['panier'] = [];
+}
+
+// ============================================================
+// MESSAGES (initialisés avant tout traitement)
+// ============================================================
+$erreur_cmd = '';
+$succes_cmd = '';
+
+// ============================================================
+// RETOUR CYBANK
+// Déclenché quand CYBank redirige vers ce script avec :
+// cmd_id (notre param dans l'URL retour) + transaction, montant,
+// vendeur, status, control (ajoutés par CYBank)
+// ============================================================
+if (isset($_GET['cmd_id'], $_GET['transaction'], $_GET['status'],
+          $_GET['montant'], $_GET['vendeur'], $_GET['control'])) {
+
+    $cmd_id       = $_GET['cmd_id'];
+    $transaction  = $_GET['transaction'];
+    $montant_ret  = $_GET['montant'];
+    $vendeur_ret  = $_GET['vendeur'];
+    $statut_ret   = $_GET['status']; // 'accepted' ou 'declined'
+    $control_recu = $_GET['control'];
+
+    // Calcul du hash attendu (règle de hachage retour CYBank)
+    $api_key        = getAPIKey($vendeur_ret);
+    $control_calcul = md5($api_key
+                        . "#" . $transaction
+                        . "#" . $montant_ret
+                        . "#" . $vendeur_ret
+                        . "#" . $statut_ret . "#");
+
+    // Vérifier que la clé API est valide ET que le contrôle correspond
+    if (preg_match('/^[0-9a-zA-Z]{15}$/', $api_key)
+        && hash_equals($control_calcul, $control_recu)) {
+
+        if ($statut_ret === 'accepted') {
+            // Paiement accepté : commande prête pour la cuisine
+            update_statut_commande($cmd_id, 'en_attente');
+            $_SESSION['panier'] = [];
+            $succes_cmd = "Paiement accepté ! Votre commande #" . $cmd_id
+                        . " est confirmée et en cours de préparation.";
+        } else {
+            // Paiement refusé : on met à jour le statut
+            update_statut_commande($cmd_id, 'paiement_refuse');
+            $erreur_cmd = "Paiement refusé pour la commande #" . $cmd_id
+                        . ". Veuillez réessayer ou contacter votre banque.";
+        }
+
+    } else {
+        // Hash invalide : données potentiellement falsifiées
+        $erreur_cmd = "Erreur de contrôle CYBank : les données de retour sont invalides.";
+    }
+}
+
+// ============================================================
+// PAGE D'ENVOI VERS CYBANK (formulaire auto-soumis)
+// Déclenché après la validation du panier (?payer=1)
+// ============================================================
+if (isset($_GET['payer']) && !empty($_SESSION['cybank_pending'])) {
+    $params = $_SESSION['cybank_pending'];
+    unset($_SESSION['cybank_pending']); // On consomme les données de session
+    ?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirection vers le paiement sécurisé…</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; margin-top: 5rem; color: #444; }
+        p    { font-size: 1.1rem; }
+    </style>
+</head>
+<body>
+    <p>⏳ Redirection vers l'interface de paiement sécurisé CYBank…</p>
+    <form id="cybank-form" method="POST" action="<?= CYBANK_URL ?>">
+        <input type="hidden" name="transaction" value="<?= h($params['transaction']) ?>">
+        <input type="hidden" name="montant"     value="<?= h($params['montant']) ?>">
+        <input type="hidden" name="vendeur"     value="<?= h($params['vendeur']) ?>">
+        <input type="hidden" name="retour"      value="<?= h($params['retour']) ?>">
+        <input type="hidden" name="control"     value="<?= h($params['control']) ?>">
+        <noscript>
+            <p>JavaScript désactivé —
+               <button type="submit">Cliquer ici pour continuer vers le paiement</button>
+            </p>
+        </noscript>
+    </form>
+    <script>document.getElementById('cybank-form').submit();</script>
+</body>
+</html>
+    <?php
+    exit();
 }
 
 // ============================================================
@@ -63,9 +163,6 @@ if (isset($_GET['vider'])) {
 // ============================================================
 // ACTIONS POST (ajouter depuis la page, retirer, valider)
 // ============================================================
-$erreur_cmd = '';
-$succes_cmd = '';
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // -- Ajouter un plat depuis les boutons de la page --
@@ -123,10 +220,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // -- Valider la commande --
+    // -- Valider la commande et initier le paiement CYBank --
     if (isset($_POST['valider'])) {
         $mode    = $_POST['mode']    ?? 'emporter';
-        // BUG CORRIGÉ : on ne récupère l'adresse que si mode = livraison
+        // On ne récupère l'adresse que si mode = livraison
         $adresse = ($mode === 'livraison') ? trim($_POST['adresse'] ?? '') : '';
 
         if (empty($_SESSION['panier'])) {
@@ -134,6 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($mode === 'livraison' && empty($adresse)) {
             $erreur_cmd = "Veuillez renseigner une adresse de livraison.";
         } else {
+            // Construire la liste des plats commandés et calculer le total
             $plats_cmd = [];
             $total     = 0;
             foreach ($_SESSION['panier'] as $item) {
@@ -146,24 +244,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $total += $item['prix'] * $item['quantite'];
             }
 
+            // ------------------------------------------------
+            // Identifiants internes et CYBank
+            // ------------------------------------------------
+            $commande_id = generer_id_commande();
+
+            // Transaction CYBank : format [0-9a-zA-Z]{10,24}
+            $transaction_cybank = 'TXN' . date('YmdHis') . rand(100, 999);
+
+            // Montant au format décimal avec '.' comme séparateur
+            $montant_cybank = number_format(round($total, 2), 2, '.', '');
+
+            // ------------------------------------------------
+            // Enregistrer la commande (statut : en_attente_paiement)
+            // Le panier sera vidé uniquement après confirmation CYBank
+            // ------------------------------------------------
             $nouvelle_commande = [
-                'id'             => generer_id_commande(),
-                'user_email'     => $_SESSION['user']['email'],
-                'plats'          => $plats_cmd,
-                'mode'           => $mode,
-                'adresse'        => $adresse,
-                'statut'         => 'en_attente',
-                'date'           => date('Y-m-d H:i:s'),
-                'total'          => round($total, 2),
-                'livreur_email'  => null,
-                'note_produits'  => null,
-                'note_livraison' => null,
-                'commentaire'    => ''
+                'id'                 => $commande_id,
+                'user_email'         => $_SESSION['user']['email'],
+                'plats'              => $plats_cmd,
+                'mode'               => $mode,
+                'adresse'            => $adresse,
+                'statut'             => 'en_attente_paiement',
+                'date'               => date('Y-m-d H:i:s'),
+                'total'              => round($total, 2),
+                'transaction_cybank' => $transaction_cybank,
+                'livreur_email'      => null,
+                'note_produits'      => null,
+                'note_livraison'     => null,
+                'commentaire'        => ''
             ];
 
             if (save_commande($nouvelle_commande)) {
-                $_SESSION['panier'] = [];
-                $succes_cmd = "Commande #" . $nouvelle_commande['id'] . " passée avec succès !";
+
+                // ------------------------------------------------
+                // Construire l'URL de retour
+                // CYBank ajoutera ses paramètres à la suite de ?cmd_id=…
+                // ------------------------------------------------
+                $protocole  = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+                              ? 'https' : 'http';
+                $host       = $_SERVER['HTTP_HOST'];
+                $path       = strtok($_SERVER['REQUEST_URI'], '?'); // chemin sans query string
+                $retour_url = $protocole . '://' . $host . $path
+                            . '?cmd_id=' . urlencode($commande_id);
+
+                // ------------------------------------------------
+                // Calculer le hash de contrôle pour l'envoi (règle CYBank)
+                // md5($api_key."#".$transaction."#".$montant."#".$vendeur."#".$retour."#")
+                // ------------------------------------------------
+                $api_key = getAPIKey(CYBANK_VENDEUR);
+                $control = md5($api_key
+                             . "#" . $transaction_cybank
+                             . "#" . $montant_cybank
+                             . "#" . CYBANK_VENDEUR
+                             . "#" . $retour_url . "#");
+
+                // ------------------------------------------------
+                // Stocker les paramètres en session pour la page
+                // de redirection (?payer=1)
+                // ------------------------------------------------
+                $_SESSION['cybank_pending'] = [
+                    'transaction' => $transaction_cybank,
+                    'montant'     => $montant_cybank,
+                    'vendeur'     => CYBANK_VENDEUR,
+                    'retour'      => $retour_url,
+                    'control'     => $control,
+                ];
+
+                // Rediriger vers la page de soumission du formulaire CYBank
+                header('Location: commande-template.php?payer=1');
+                exit();
+
             } else {
                 $erreur_cmd = "Erreur lors de l'enregistrement. Vérifiez les droits d'écriture sur data/.";
             }
@@ -396,7 +547,7 @@ $user     = utilisateur_courant();
 
                 <button type="submit" name="valider" class="btn-secondary"
                         <?= empty($_SESSION['panier']) ? 'disabled' : '' ?>>
-                    ✅ Valider la commande
+                    💳 Procéder au paiement
                 </button>
             </form>
 
