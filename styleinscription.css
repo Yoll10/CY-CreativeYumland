@@ -10,7 +10,7 @@ fieldset {
     border-radius: 30px; 
     padding: 80px;
     width: 30%;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2); /* effet d'ombre avec le backgound */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
     text-align: center; 
 }
 
@@ -28,7 +28,7 @@ p {
     margin-bottom: 20px; 
 }
 
-label { /* texte au dessus des cases où ecrire */
+label { 
     display: block;
     margin-bottom: 10px;
     color: #666;
@@ -37,7 +37,7 @@ label { /* texte au dessus des cases où ecrire */
     pointer-events: none;
 }
 
-input { /* cases où ecrire */
+input { 
     width: 100%;
     padding: 15px 20px;
     border: 1px solid #adaaa8;
@@ -49,7 +49,7 @@ input { /* cases où ecrire */
     text-align: center;
 }
 
-input:focus { /* animation quand on écrit dans un champ */
+input:focus { 
     outline: none;
     border-color: #eee5d9; 
     background-color: #fff;

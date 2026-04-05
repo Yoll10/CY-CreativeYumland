@@ -35,7 +35,6 @@ body {
     color: var(--brun);
 }
 
-/* --- Transformation du Tableau en Horizontal --- */
 
 .container {
     width: 100%;
@@ -53,7 +52,6 @@ body {
     display: none;
 }
 
-/* transforme le tableau en conteneur horizontal */
 .cartes tbody {
     display: flex;
     flex-direction: row;
@@ -109,7 +107,6 @@ body {
 }
 
 
-/* --- Responsive --- */
 @media screen and (max-width: 768px) {
     .admin-header h1 {
         font-size: 1.8rem;

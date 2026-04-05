@@ -2,36 +2,36 @@
 require_once 'functions.php';
 
 $erreur = "";
+
 if (isset($_GET['success'])) {
     $erreur = "Inscription réussie ! Connectez-vous.";
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $mdp   = $_POST['mdp'] ?? '';
+    $email = trim($_POST['email']);
+    $mdp = $_POST['mdp'];
 
     $user = get_user_by_email($email);
 
-    if ($user && password_verify($mdp, $user['mdp'])) {
+    if ($user !== null && password_verify($mdp, $user['mdp'])) {
         if ($user['statut'] === 'bloque') {
             $erreur = "Votre compte a été bloqué. Contactez l'administrateur.";
         } else {
             $_SESSION['user'] = $user;
-            // Redirection selon le rôle
-            switch ($user['role']) {
-                case 'admin':
-                    header('Location: admin.php');
-                    break;
-                case 'restaurateur':
-                    header('Location: commandes-cuisine.php');
-                    break;
-                case 'livreur':
-                    header('Location: livraison.php');
-                    break;
-                default:
-                    header('Location: accueil.php');
+
+            if ($user['role'] === 'admin') {
+                header('Location: admin.php');
+                exit();
+            } else if ($user['role'] === 'restaurateur') {
+                header('Location: commandes-cuisine.php');
+                exit();
+            } else if ($user['role'] === 'livreur') {
+                header('Location: livraison.php');
+                exit();
+            } else {
+                header('Location: accueil.php');
+                exit();
             }
-            exit();
         }
     } else {
         $erreur = "Identifiants incorrects.";
@@ -55,11 +55,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <fieldset>
         <legend>Vos identifiants</legend>
 
-        <?php if ($erreur): ?>
-            <p style="color: <?= isset($_GET['success']) ? '#3a6b3a' : '#a43a3a' ?>; font-weight: bold;">
-                <?= h($erreur) ?>
-            </p>
-        <?php endif; ?>
+        <?php if ($erreur != "") { ?>
+            <?php if (isset($_GET['success'])) { ?>
+                <p style="color: #3a6b3a; font-weight: bold;"><?= h($erreur) ?></p>
+            <?php } else { ?>
+                <p style="color: #a43a3a; font-weight: bold;"><?= h($erreur) ?></p>
+            <?php } ?>
+        <?php } ?>
 
         <p>
             <label for="email">Adresse e-mail :</label>

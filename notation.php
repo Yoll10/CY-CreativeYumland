@@ -2,42 +2,45 @@
 require_once 'functions.php';
 exiger_connexion();
 
-$commande_id = $_GET['commande'] ?? '';
-$commande    = $commande_id ? get_commande_by_id($commande_id) : null;
-$message     = '';
-$erreur      = '';
+$commande_id = '';
+if (isset($_GET['commande'])) {
+    $commande_id = $_GET['commande'];
+}
 
-// BUG CORRIGÉ : l'admin peut consulter n'importe quelle commande
-// Seul un client non-propriétaire est bloqué
-if ($commande && !est_admin()) {
+$commande = null;
+if ($commande_id !== '') {
+    $commande = get_commande_by_id($commande_id);
+}
+
+$message = '';
+$erreur = '';
+if ($commande !== null && !est_admin()) {
     if ($commande['user_email'] !== $_SESSION['user']['email']) {
         header('Location: accueil.php');
         exit();
     }
 }
 
-// Vérification : la commande est bien livrée
-if ($commande && $commande['statut'] !== 'livree') {
+if ($commande !== null && $commande['statut'] !== 'livree') {
     $erreur = "Vous ne pouvez noter qu'une commande livrée.";
 }
 
-// Traitement du formulaire (uniquement si c'est le propriétaire)
-$peut_noter = $commande
-    && empty($erreur)
-    && $commande['note_produits'] === null
-    && $commande['user_email'] === ($_SESSION['user']['email'] ?? '');
+$peut_noter = false;
+if ($commande !== null && $erreur === '' && $commande['note_produits'] === null && $commande['user_email'] === $_SESSION['user']['email']) {
+    $peut_noter = true;
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $peut_noter) {
-    $note_produits  = intval($_POST['rating-produit']   ?? 0);
-    $note_livraison = intval($_POST['rating-livraison'] ?? 0);
-    $commentaire    = trim($_POST['commentaire']        ?? '');
+    $note_produits = intval($_POST['rating-produit']);
+    $note_livraison = intval($_POST['rating-livraison']);
+    $commentaire = trim($_POST['commentaire']);
 
     if ($note_produits < 1 || $note_produits > 5 || $note_livraison < 1 || $note_livraison > 5) {
         $erreur = "Veuillez attribuer une note entre 1 et 5 étoiles pour chaque critère.";
     } else {
         $ok = save_notation($commande_id, $note_produits, $note_livraison, $commentaire);
         if ($ok) {
-            $message  = "Merci pour votre avis ! Il a bien été enregistré.";
+            $message = "Merci pour votre avis ! Il a bien été enregistré.";
             $commande = get_commande_by_id($commande_id);
             $peut_noter = false;
         } else {
@@ -46,7 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $peut_noter) {
     }
 }
 
-$deja_note = $commande && $commande['note_produits'] !== null;
+$deja_note = false;
+if ($commande !== null && $commande['note_produits'] !== null) {
+    $deja_note = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -68,41 +74,37 @@ $deja_note = $commande && $commande['note_produits'] !== null;
             <p>Nous espérons que votre dégustation a été à la hauteur de vos attentes.</p>
         </div>
 
-        <?php if ($message): ?>
+        <?php if ($message !== '') { ?>
             <p class="msg-succes">✅ <?= h($message) ?></p>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if ($erreur): ?>
+        <?php if ($erreur !== '') { ?>
             <p class="msg-erreur">❌ <?= h($erreur) ?></p>
-        <?php endif; ?>
+        <?php } ?>
 
-        <?php if (!$commande): ?>
+        <?php if ($commande === null) { ?>
             <p style="text-align:center;">
                 Commande introuvable. <a href="profil.php">Retour au profil</a>
             </p>
 
-        <?php elseif ($deja_note): ?>
-            <!-- Affichage de la note existante -->
+        <?php } else if ($deja_note) { ?>
             <div style="text-align:center; padding: 2rem;">
                 <h3>Avis pour la commande #<?= h($commande_id) ?></h3>
                 <p>Qualité des produits : <strong><?= afficher_etoiles($commande['note_produits']) ?></strong></p>
                 <p>Service de livraison : <strong><?= afficher_etoiles($commande['note_livraison']) ?></strong></p>
-                <?php if ($commande['commentaire']): ?>
+                <?php if ($commande['commentaire'] !== '') { ?>
                     <p><em>"<?= h($commande['commentaire']) ?>"</em></p>
-                <?php endif; ?>
+                <?php } ?>
                 <a href="profil.php" class="btn-submit" style="display:inline-block; margin-top:1rem;">
                     ← Retour au profil
                 </a>
             </div>
 
-        <?php elseif ($peut_noter): ?>
-            <!-- Formulaire de notation -->
-            <form class="avis-form" method="POST"
-                  action="notation.php?commande=<?= h($commande_id) ?>">
+        <?php } else if ($peut_noter) { ?>
+            <form class="avis-form" method="POST" action="notation.php?commande=<?= h($commande_id) ?>">
 
                 <p style="text-align:center; color:#666; margin-bottom:1rem;">
-                    Commande #<?= h($commande_id) ?>
-                    du <?= h(date('d/m/Y', strtotime($commande['date']))) ?>
+                    Commande #<?= h($commande_id) ?> du <?= h(date('d/m/Y', strtotime($commande['date']))) ?>
                 </p>
 
                 <div class="rating-group">
@@ -139,20 +141,18 @@ $deja_note = $commande && $commande['note_produits'] !== null;
 
                 <div class="comment-group">
                     <h3>Commentaire (optionnel)</h3>
-                    <textarea name="commentaire"
-                              placeholder="Dites-nous en plus sur votre expérience..."
-                              rows="5"></textarea>
+                    <textarea name="commentaire" placeholder="Dites-nous en plus sur votre expérience..." rows="5"></textarea>
                 </div>
 
                 <button type="submit" class="btn-submit">Envoyer mon avis</button>
             </form>
 
-        <?php else: ?>
+        <?php } else { ?>
             <p style="text-align:center;">
-                Cette commande n'est pas encore livrable.
+                Cette commande n'est pas encore livrée.
                 <a href="profil.php">Retour au profil</a>
             </p>
-        <?php endif; ?>
+        <?php } ?>
 
     </section>
 </main>

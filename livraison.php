@@ -3,9 +3,9 @@ require_once 'functions.php';
 exiger_role('livreur');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id     = $_POST['commande_id'] ?? '';
-    $action = $_POST['action']      ?? '';
-    if ($id && $action === 'livree') {
+    $id = $_POST['commande_id'];
+    $action = $_POST['action'];
+    if ($id !== '' && $action === 'livree') {
         update_statut_commande($id, 'livree');
     }
     header('Location: livraison.php');
@@ -23,11 +23,6 @@ $mes_livraisons = get_commandes_livreur($_SESSION['user']['email']);
     <link href="stylecommon.css" rel="stylesheet">
     <link rel="stylesheet" href="stylelivraison.css">
     <style>
-        /*
-         * PAGE LIVREUR — Optimisée smartphone + gants de moto
-         * Toutes les zones cliquables sont grandes (min 56px)
-         */
-
         .livraison-page { max-width: 700px; margin: 0 auto; padding: 1rem; }
 
         .livraison-card {
@@ -39,23 +34,15 @@ $mes_livraisons = get_commandes_livreur($_SESSION['user']['email']);
             box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
 
-        /* EN-TÊTE DE CARTE */
-        .lc-header {
-            background: #2c2c2c;
-            color: #fff;
-            padding: 1rem 1.2rem;
-        }
-
+        .lc-header { background: #2c2c2c; color: #fff; padding: 1rem 1.2rem; }
         .lc-header h2 { margin: 0; font-size: 1.1rem; }
-        .lc-header p  { margin: 0.3rem 0 0; font-size: 0.9rem; opacity: 0.85; }
+        .lc-header p { margin: 0.3rem 0 0; font-size: 0.9rem; opacity: 0.85; }
 
-        /* CORPS DE CARTE */
         .lc-body { padding: 1rem 1.2rem; }
 
         .lc-info { margin-bottom: 0.5rem; font-size: 1rem; line-height: 1.5; }
         .lc-info strong { display: inline-block; min-width: 90px; color: #555; font-size:0.85rem; }
 
-        /* DÉTAILS COMMANDE (accordéon) */
         .lc-details-btn {
             background: #f0ebe2;
             border: none;
@@ -90,17 +77,8 @@ $mes_livraisons = get_commandes_livreur($_SESSION['user']['email']);
 
         .lc-details-liste li:last-child { border-bottom: none; }
 
-        /* ACTIONS : boutons GRANDS pour gants de moto */
-        .lc-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            padding: 0 1.2rem 1.2rem;
-        }
+        .lc-actions { display: flex; flex-direction: column; gap: 0.8rem; padding: 0 1.2rem 1.2rem; }
 
-        /*
-         * BOUTON MAPS — TRÈS GRAND, très visible, facile à taper avec des gants
-         */
         .btn-maps-gros {
             display: flex;
             align-items: center;
@@ -115,17 +93,11 @@ $mes_livraisons = get_commandes_livreur($_SESSION['user']['email']);
             font-weight: bold;
             min-height: 64px;
             box-shadow: 0 3px 10px rgba(26,115,232,0.3);
-            transition: background 0.2s, transform 0.1s;
         }
 
-        .btn-maps-gros:hover  { background: #1558b0; }
-        .btn-maps-gros:active { transform: scale(0.97); }
-
+        .btn-maps-gros:hover { background: #1558b0; }
         .btn-maps-icone { font-size: 1.6rem; }
 
-        /*
-         * BOUTON LIVRÉE — TRÈS GRAND, vert, impossible à rater
-         */
         .btn-livree-gros {
             display: flex;
             align-items: center;
@@ -142,19 +114,11 @@ $mes_livraisons = get_commandes_livreur($_SESSION['user']['email']);
             width: 100%;
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(39,174,96,0.3);
-            transition: background 0.2s, transform 0.1s;
         }
 
-        .btn-livree-gros:hover  { background: #1e8449; }
-        .btn-livree-gros:active { transform: scale(0.97); }
+        .btn-livree-gros:hover { background: #1e8449; }
 
-        /* Message vide */
-        .msg-vide {
-            text-align: center;
-            padding: 3rem 1rem;
-            color: #888;
-            font-size: 1.1rem;
-        }
+        .msg-vide { text-align: center; padding: 3rem 1rem; color: #888; font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -168,96 +132,94 @@ $mes_livraisons = get_commandes_livreur($_SESSION['user']['email']);
         <p><?= count($mes_livraisons) ?> commande(s) à livrer</p>
     </section>
 
-    <?php if (empty($mes_livraisons)): ?>
+    <?php if (count($mes_livraisons) === 0) { ?>
         <div class="msg-vide">
-            ✅ Aucune commande à livrer pour le moment.<br>
+             Aucune commande à livrer pour le moment.<br>
             <small>Revenez plus tard ou contactez le restaurateur.</small>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 
-    <?php foreach ($mes_livraisons as $cmd):
-        $client       = get_user_by_email($cmd['user_email']);
-        $nom_client   = $client ? h($client['prenom'].' '.$client['nom']) : h($cmd['user_email']);
-        $tel_client   = $client ? h($client['telephone'] ?? '—') : '—';
+    <?php foreach ($mes_livraisons as $cmd) {
+        $client = get_user_by_email($cmd['user_email']);
+
+        $nom_client = '';
+        if ($client !== null) {
+            $nom_client = $client['prenom'] . ' ' . $client['nom'];
+        } else {
+            $nom_client = $cmd['user_email'];
+        }
+
+        $tel_client = '—';
+        if ($client !== null && isset($client['telephone'])) {
+            $tel_client = $client['telephone'];
+        }
+
         $adresse_maps = 'https://maps.google.com/?q=' . urlencode($cmd['adresse']);
     ?>
-    <div class="livraison-card">
+        <div class="livraison-card">
 
-        <!-- En-tête -->
-        <div class="lc-header">
-            <h2>Commande #<?= h($cmd['id']) ?></h2>
-            <p>Total : <strong><?= number_format($cmd['total'], 2) ?> €</strong></p>
-        </div>
-
-        <!-- Informations -->
-        <div class="lc-body">
-            <div class="lc-info">
-                <strong>Client</strong> <?= $nom_client ?>
-            </div>
-            <div class="lc-info">
-                <strong>Téléphone</strong>
-                <a href="tel:<?= preg_replace('/\s/', '', $tel_client) ?>" style="color:#1a73e8;">
-                    <?= $tel_client ?>
-                </a>
-            </div>
-            <div class="lc-info">
-                <strong>Adresse</strong> <?= h($cmd['adresse']) ?>
+            <div class="lc-header">
+                <h2>Commande #<?= h($cmd['id']) ?></h2>
+                <p>Total : <strong><?= number_format($cmd['total'], 2) ?> €</strong></p>
             </div>
 
-            <!--
-                DÉTAILS COMMANDE CORRIGÉ :
-                Le bouton "Détails" est séparé de la liste des plats.
-                La liste s'affiche en dessous, pas à côté.
-            -->
-            <button class="lc-details-btn" onclick="toggleDetails('<?= h($cmd['id']) ?>')">
-                📋 Voir le détail de la commande ▼
-            </button>
-            <ul class="lc-details-liste" id="details-<?= h($cmd['id']) ?>">
-                <?php foreach ($cmd['plats'] as $p): ?>
-                    <li><?= h($p['nom']) ?> <strong>× <?= $p['quantite'] ?></strong>
-                        — <?= number_format($p['prix'] * $p['quantite'], 2) ?> €
-                    </li>
-                <?php endforeach; ?>
-                <li><strong>Total : <?= number_format($cmd['total'], 2) ?> €</strong></li>
-            </ul>
-        </div>
+            <div class="lc-body">
+                <div class="lc-info">
+                    <strong>Client</strong> <?= h($nom_client) ?>
+                </div>
+                <div class="lc-info">
+                    <strong>Téléphone</strong>
+                    <a href="tel:<?= preg_replace('/\s/', '', $tel_client) ?>" style="color:#1a73e8;">
+                        <?= h($tel_client) ?>
+                    </a>
+                </div>
+                <div class="lc-info">
+                    <strong>Adresse</strong> <?= h($cmd['adresse']) ?>
+                </div>
 
-        <!-- Actions GRANDES pour smartphone + gants -->
-        <div class="lc-actions">
-
-            <!--
-                BOUTON MAPS GROS
-                Facile à tapper avec des gants de moto
-            -->
-            <a href="<?= $adresse_maps ?>"
-               target="_blank"
-               class="btn-maps-gros">
-                <span class="btn-maps-icone">🗺️</span>
-                Ouvrir dans Maps
-            </a>
-
-            <!--
-                BOUTON LIVRÉE GROS
-            -->
-            <form method="POST">
-                <input type="hidden" name="commande_id" value="<?= h($cmd['id']) ?>">
-                <input type="hidden" name="action"      value="livree">
-                <button type="submit" class="btn-livree-gros"
-                        onclick="return confirm('Confirmer la livraison de cette commande ?')">
-                    ✅ Marquer comme livrée
+                <button class="lc-details-btn" onclick="toggleDetails('<?= h($cmd['id']) ?>')">
+                     Voir le détail de la commande ▼
                 </button>
-            </form>
+                <ul class="lc-details-liste" id="details-<?= h($cmd['id']) ?>">
+                    <?php foreach ($cmd['plats'] as $p) { ?>
+                        <li>
+                            <?= h($p['nom']) ?> <strong>× <?= $p['quantite'] ?></strong>
+                            — <?= number_format($p['prix'] * $p['quantite'], 2) ?> €
+                        </li>
+                    <?php } ?>
+                    <li><strong>Total : <?= number_format($cmd['total'], 2) ?> €</strong></li>
+                </ul>
+            </div>
 
+            <div class="lc-actions">
+
+                <a href="<?= $adresse_maps ?>" target="_blank" class="btn-maps-gros">
+                    <span class="btn-maps-icone">🗺️</span>
+                    Ouvrir dans Maps
+                </a>
+
+                <form method="POST">
+                    <input type="hidden" name="commande_id" value="<?= h($cmd['id']) ?>">
+                    <input type="hidden" name="action" value="livree">
+                    <button type="submit" class="btn-livree-gros" onclick="return confirm('Confirmer la livraison ?')">
+                         Marquer comme livrée
+                    </button>
+                </form>
+
+            </div>
         </div>
-    </div>
-    <?php endforeach; ?>
+    <?php } ?>
 
 </main>
 
 <script>
 function toggleDetails(id) {
-    const liste = document.getElementById('details-' + id);
-    liste.classList.toggle('visible');
+    var liste = document.getElementById('details-' + id);
+    if (liste.classList.contains('visible')) {
+        liste.classList.remove('visible');
+    } else {
+        liste.classList.add('visible');
+    }
 }
 </script>
 

@@ -2,58 +2,65 @@
 require_once 'functions.php';
 exiger_role('admin');
 
-// ============================================================
-// ACTIONS POST
-// ============================================================
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $action = $_POST['action'] ?? '';
-    $email  = $_POST['email']  ?? '';
+    $action = $_POST['action'];
+    $email = $_POST['email'];
 
-    // -- Modifier les infos d'un utilisateur (y compris soi-même) --
     if ($action === 'modifier') {
-        $champs = [];
-        if (!empty($_POST['nom']))      $champs['nom']      = trim($_POST['nom']);
-        if (!empty($_POST['prenom']))   $champs['prenom']   = trim($_POST['prenom']);
-        if (isset($_POST['adresse']))   $champs['adresse']  = trim($_POST['adresse']);
-        if (!empty($_POST['telephone'])) $champs['telephone'] = trim($_POST['telephone']);
-        if (!empty($_POST['role']) && $email !== $_SESSION['user']['email']) {
-            $champs['role'] = $_POST['role']; // on ne peut pas changer son propre rôle
+        $champs = array();
+        if ($_POST['nom'] !== '') {
+            $champs['nom'] = trim($_POST['nom']);
         }
-        if (!empty($champs)) {
+        if ($_POST['prenom'] !== '') {
+            $champs['prenom'] = trim($_POST['prenom']);
+        }
+        if (isset($_POST['adresse'])) {
+            $champs['adresse'] = trim($_POST['adresse']);
+        }
+        if ($_POST['telephone'] !== '') {
+            $champs['telephone'] = trim($_POST['telephone']);
+        }
+        if ($_POST['role'] !== '' && $email !== $_SESSION['user']['email']) {
+            $champs['role'] = $_POST['role'];
+        }
+        if (count($champs) > 0) {
             update_user($email, $champs);
-            // Si c'est l'utilisateur connecté, mettre à jour la session
             if ($email === $_SESSION['user']['email']) {
                 $_SESSION['user'] = get_user_by_email($email);
             }
         }
     }
 
-    // -- Actions rapides (bloquer, débloquer, supprimer, promouvoir) --
-    if ($email && $email !== $_SESSION['user']['email']) {
-        switch ($action) {
-            case 'bloquer':
-                update_user($email, ['statut' => 'bloque']);
-                break;
-            case 'debloquer':
-                update_user($email, ['statut' => 'actif']);
-                break;
-            case 'supprimer':
-                delete_user($email);
-                break;
-            case 'promouvoir':
-                update_user($email, ['role' => 'admin']);
-                break;
+    if ($email !== '' && $email !== $_SESSION['user']['email']) {
+        if ($action === 'bloquer') {
+            update_user($email, array('statut' => 'bloque'));
+        } else if ($action === 'debloquer') {
+            update_user($email, array('statut' => 'actif'));
+        } else if ($action === 'supprimer') {
+            delete_user($email);
+        } else if ($action === 'promouvoir') {
+            update_user($email, array('role' => 'admin'));
         }
     }
 
-    $filtre_redirect = isset($_GET['filtre']) ? '?filtre=' . $_GET['filtre'] : '';
-    header('Location: admin.php' . $filtre_redirect);
+    if (isset($_GET['filtre'])) {
+        header('Location: admin.php?filtre=' . $_GET['filtre']);
+    } else {
+        header('Location: admin.php');
+    }
     exit();
 }
 
-// Filtre
-$filtre = $_GET['filtre'] ?? 'tous';
-$users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
+$filtre = 'tous';
+if (isset($_GET['filtre'])) {
+    $filtre = $_GET['filtre'];
+}
+
+if ($filtre === 'commandes') {
+    $users = get_users_ayant_commande();
+} else {
+    $users = get_users();
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -64,7 +71,6 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
     <link rel="stylesheet" href="stylecommon.css">
     <link rel="stylesheet" href="styleadmin.css">
     <style>
-        /* ---- BOUTON ACTIONS centré et stylé ---- */
         .actions-menu {
             position: relative;
             display: flex;
@@ -80,8 +86,6 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.85rem;
-            letter-spacing: 0.04em;
-            transition: background 0.2s;
         }
 
         .actions-btn:hover { background: #444; }
@@ -101,13 +105,11 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
             overflow: hidden;
         }
 
-        .actions-menu:hover .actions-dropdown,
-        .actions-menu:focus-within .actions-dropdown {
+        .actions-menu:hover .actions-dropdown {
             display: block;
         }
 
-        .actions-dropdown button,
-        .actions-dropdown .action {
+        .actions-dropdown button {
             display: block;
             width: 100%;
             text-align: left;
@@ -117,19 +119,14 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
             cursor: pointer;
             font-size: 0.9rem;
             color: #222;
-            transition: background 0.15s;
-            text-decoration: none;
         }
 
-        .actions-dropdown button:hover,
-        .actions-dropdown .action:hover { background: #f5f5f5; }
-
-        .actions-dropdown button.block  { color: #c0392b; }
+        .actions-dropdown button:hover { background: #f5f5f5; }
+        .actions-dropdown button.block { color: #c0392b; }
         .actions-dropdown button.delete { color: #c0392b; font-weight:bold; }
         .actions-dropdown button.promote { color: #2980b9; }
         .actions-dropdown button.edit-btn { color: #27ae60; }
 
-        /* ---- MODAL MODIFICATION ---- */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -151,13 +148,7 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
             box-shadow: 0 8px 30px rgba(0,0,0,0.2);
         }
 
-        .modal-box h2 {
-            margin-top: 0;
-            font-size: 1.2rem;
-            margin-bottom: 1.2rem;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.6rem;
-        }
+        .modal-box h2 { margin-top: 0; font-size: 1.2rem; margin-bottom: 1.2rem; }
 
         .modal-box label {
             display: block;
@@ -193,13 +184,10 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
         }
 
         .btn-annuler { background: #eee; color: #333; }
-        .btn-sauver  { background: #2c2c2c; color: #fff; }
-        .btn-annuler:hover { background: #ddd; }
-        .btn-sauver:hover  { background: #444; }
+        .btn-sauver { background: #2c2c2c; color: #fff; }
 
-        /* ---- BADGE STATUT ---- */
         .badge-statut { padding: 0.2rem 0.6rem; border-radius: 12px; font-size:0.8rem; font-weight:bold; }
-        .statut-actif  { background:#d4edda; color:#155724; }
+        .statut-actif { background:#d4edda; color:#155724; }
         .statut-bloque { background:#f8d7da; color:#721c24; }
         .user-bloque td { opacity: 0.65; }
     </style>
@@ -215,12 +203,10 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
     </section>
 
     <section class="admin-filtres">
-        <a href="admin.php?filtre=tous"
-           class="<?= $filtre === 'tous' ? 'active' : '' ?>">
+        <a href="admin.php?filtre=tous" class="<?php if ($filtre === 'tous') { echo 'active'; } ?>">
             Tous les utilisateurs (<?= count(get_users()) ?>)
         </a>
-        <a href="admin.php?filtre=commandes"
-           class="<?= $filtre === 'commandes' ? 'active' : '' ?>">
+        <a href="admin.php?filtre=commandes" class="<?php if ($filtre === 'commandes') { echo 'active'; } ?>">
             Ayant passé commande (<?= count(get_users_ayant_commande()) ?>)
         </a>
     </section>
@@ -241,98 +227,103 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                 </tr>
             </thead>
             <tbody>
-                <?php if (empty($users)): ?>
+                <?php if (count($users) === 0) { ?>
                     <tr><td colspan="7" style="text-align:center;">Aucun utilisateur trouvé.</td></tr>
-                <?php endif; ?>
+                <?php } ?>
 
-                <?php foreach ($users as $u): ?>
-                <tr class="<?= $u['statut'] === 'bloque' ? 'user-bloque' : '' ?>">
-                    <td><?= h($u['nom'] . ' ' . $u['prenom']) ?></td>
-                    <td><?= h($u['email']) ?></td>
-                    <td><?= h(libelle_role($u['role'])) ?></td>
-                    <td>
-                        <span class="badge-statut statut-<?= h($u['statut']) ?>">
-                            <?= $u['statut'] === 'actif' ? 'Actif' : 'Bloqué' ?>
-                        </span>
-                    </td>
-                    <td><?= h($u['date_inscription'] ?? '—') ?></td>
+                <?php foreach ($users as $u) { ?>
+                    <tr class="<?php if ($u['statut'] === 'bloque') { echo 'user-bloque'; } ?>">
+                        <td><?= h($u['nom']) ?> <?= h($u['prenom']) ?></td>
+                        <td><?= h($u['email']) ?></td>
+                        <td><?= h(libelle_role($u['role'])) ?></td>
+                        <td>
+                            <span class="badge-statut statut-<?= h($u['statut']) ?>">
+                                <?php if ($u['statut'] === 'actif') { ?>
+                                    Actif
+                                <?php } else { ?>
+                                    Bloqué
+                                <?php } ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?php
+                            if (isset($u['date_inscription'])) {
+                                echo h($u['date_inscription']);
+                            } else {
+                                echo '—';
+                            }
+                            ?>
+                        </td>
 
-                    <td>
-                        <div class="actions-menu">
-                            <button class="actions-btn">Actions ▾</button>
-                            <div class="actions-dropdown">
+                        <td>
+                            <div class="actions-menu">
+                                <button class="actions-btn">Actions ▾</button>
+                                <div class="actions-dropdown">
 
-                                <!-- Modifier (disponible pour tout le monde y compris soi-même) -->
-                                <button type="button" class="action edit-btn"
-                                        onclick="ouvrirModal(
-                                            <?= json_encode($u['email']) ?>,
-                                            <?= json_encode($u['nom']) ?>,
-                                            <?= json_encode($u['prenom']) ?>,
-                                            <?= json_encode($u['adresse'] ?? '') ?>,
-                                            <?= json_encode($u['telephone'] ?? '') ?>,
-                                            <?= json_encode($u['role']) ?>
-                                        )">
-                                    ✏️ Modifier
-                                </button>
+                                    <button type="button" class="action edit-btn"
+                                            onclick="ouvrirModal(
+                                                '<?= h($u['email']) ?>',
+                                                '<?= h($u['nom']) ?>',
+                                                '<?= h($u['prenom']) ?>',
+                                                '<?php if (isset($u['adresse'])) { echo h($u['adresse']); } ?>',
+                                                '<?php if (isset($u['telephone'])) { echo h($u['telephone']); } ?>',
+                                                '<?= h($u['role']) ?>'
+                                            )">Modifier</button>
 
-                                <?php if ($u['email'] !== $_SESSION['user']['email']): ?>
+                                    <?php if ($u['email'] !== $_SESSION['user']['email']) { ?>
 
-                                    <?php if ($u['statut'] === 'actif'): ?>
-                                    <form method="POST" style="display:block;">
-                                        <input type="hidden" name="email"  value="<?= h($u['email']) ?>">
-                                        <input type="hidden" name="action" value="bloquer">
-                                        <button type="submit" class="action block">🚫 Bloquer</button>
-                                    </form>
-                                    <?php else: ?>
-                                    <form method="POST" style="display:block;">
-                                        <input type="hidden" name="email"  value="<?= h($u['email']) ?>">
-                                        <input type="hidden" name="action" value="debloquer">
-                                        <button type="submit" class="action promote">✅ Débloquer</button>
-                                    </form>
-                                    <?php endif; ?>
+                                        <?php if ($u['statut'] === 'actif') { ?>
+                                            <form method="POST" style="display:block;">
+                                                <input type="hidden" name="email" value="<?= h($u['email']) ?>">
+                                                <input type="hidden" name="action" value="bloquer">
+                                                <button type="submit" class="action block">Bloquer</button>
+                                            </form>
+                                        <?php } else { ?>
+                                            <form method="POST" style="display:block;">
+                                                <input type="hidden" name="email" value="<?= h($u['email']) ?>">
+                                                <input type="hidden" name="action" value="debloquer">
+                                                <button type="submit" class="action promote">Débloquer</button>
+                                            </form>
+                                        <?php } ?>
 
-                                    <?php if ($u['role'] !== 'admin'): ?>
-                                    <form method="POST" style="display:block;">
-                                        <input type="hidden" name="email"  value="<?= h($u['email']) ?>">
-                                        <input type="hidden" name="action" value="promouvoir">
-                                        <button type="submit" class="action promote">⬆️ Promouvoir Admin</button>
-                                    </form>
-                                    <?php endif; ?>
+                                        <?php if ($u['role'] !== 'admin') { ?>
+                                            <form method="POST" style="display:block;">
+                                                <input type="hidden" name="email" value="<?= h($u['email']) ?>">
+                                                <input type="hidden" name="action" value="promouvoir">
+                                                <button type="submit" class="action promote">Promouvoir Admin</button>
+                                            </form>
+                                        <?php } ?>
 
-                                    <form method="POST" style="display:block;"
-                                          onsubmit="return confirm('Supprimer définitivement cet utilisateur ?');">
-                                        <input type="hidden" name="email"  value="<?= h($u['email']) ?>">
-                                        <input type="hidden" name="action" value="supprimer">
-                                        <button type="submit" class="action delete">🗑️ Supprimer</button>
-                                    </form>
+                                        <form method="POST" style="display:block;" onsubmit="return confirm('Supprimer cet utilisateur ?');">
+                                            <input type="hidden" name="email" value="<?= h($u['email']) ?>">
+                                            <input type="hidden" name="action" value="supprimer">
+                                            <button type="submit" class="action delete">Supprimer</button>
+                                        </form>
 
-                                <?php else: ?>
-                                    <span style="padding:0.5rem 1rem; display:block; color:#888; font-size:0.8rem;">(vous-même)</span>
-                                <?php endif; ?>
+                                    <?php } else { ?>
+                                        <span style="padding:0.5rem 1rem; display:block; color:#888; font-size:0.8rem;">(vous-même)</span>
+                                    <?php } ?>
 
+                                </div>
                             </div>
-                        </div>
-                    </td>
+                        </td>
 
-                    <td>
-                        <a href="profil.php?email=<?= urlencode($u['email']) ?>">Voir</a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+                        <td>
+                            <a href="profil.php?email=<?= urlencode($u['email']) ?>">Voir</a>
+                        </td>
+                    </tr>
+                <?php } ?>
             </tbody>
         </table>
     </div>
 </section>
 
-<!-- ============================================================ -->
-<!-- MODAL MODIFICATION UTILISATEUR                               -->
-<!-- ============================================================ -->
 <div class="modal-overlay" id="modal-modif">
     <div class="modal-box">
-        <h2>✏️ Modifier l'utilisateur</h2>
-        <form method="POST" action="admin.php<?= $filtre !== 'tous' ? '?filtre='.$filtre : '' ?>">
+        <h2> Modifier l'utilisateur</h2>
+        <form method="POST">
             <input type="hidden" name="action" value="modifier">
-            <input type="hidden" name="email"  id="modal-email" value="">
+            <input type="hidden" name="email" id="modal-email" value="">
 
             <label>Nom</label>
             <input type="text" name="nom" id="modal-nom" placeholder="Nom">
@@ -353,13 +344,11 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                 <option value="restaurateur">Restaurateur</option>
                 <option value="livreur">Livreur</option>
             </select>
-            <small style="color:#888; font-size:0.75rem;">
-                (Le rôle ne peut pas être modifié pour votre propre compte.)
-            </small>
+            <small style="color:#888; font-size:0.75rem;">Le rôle ne peut pas être changé sur votre propre compte.</small>
 
             <div class="modal-actions">
                 <button type="button" class="btn-annuler" onclick="fermerModal()">Annuler</button>
-                <button type="submit" class="btn-sauver">💾 Enregistrer</button>
+                <button type="submit" class="btn-sauver">Enregistrer</button>
             </div>
         </form>
     </div>
@@ -367,12 +356,12 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
 
 <script>
 function ouvrirModal(email, nom, prenom, adresse, telephone, role) {
-    document.getElementById('modal-email').value     = email;
-    document.getElementById('modal-nom').value       = nom;
-    document.getElementById('modal-prenom').value    = prenom;
-    document.getElementById('modal-adresse').value   = adresse;
+    document.getElementById('modal-email').value = email;
+    document.getElementById('modal-nom').value = nom;
+    document.getElementById('modal-prenom').value = prenom;
+    document.getElementById('modal-adresse').value = adresse;
     document.getElementById('modal-telephone').value = telephone;
-    document.getElementById('modal-role').value      = role;
+    document.getElementById('modal-role').value = role;
     document.getElementById('modal-modif').classList.add('actif');
 }
 
@@ -380,9 +369,10 @@ function fermerModal() {
     document.getElementById('modal-modif').classList.remove('actif');
 }
 
-// Fermer en cliquant à l'extérieur
 document.getElementById('modal-modif').addEventListener('click', function(e) {
-    if (e.target === this) fermerModal();
+    if (e.target === this) {
+        fermerModal();
+    }
 });
 </script>
 

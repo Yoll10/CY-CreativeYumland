@@ -1,8 +1,8 @@
 .main-content {
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start; /* Aligne les deux blocs en haut */
-    justify-content: center; /* Espace équitablement */
+    align-items: flex-start; 
+    justify-content: center; 
     padding: 20px;
     gap: 100px; 
     max-width: 95%;
@@ -30,15 +30,14 @@ fieldset {
     font-size: 28px;
     font-weight: bold;
     color: #4b4a4a;
-    margin: 0; /* Important pour que l'alignement soit parfait au milieu */
-    flex: 1;   /* Permet au titre de prendre de la place à gauche */
+    margin: 0; 
+    flex: 1;   
     text-align: center;
 }
 
-/* Structure de chaque ligne */
 .ligne-form {
     display: flex;
-    align-items: flex-end; /* Aligne le bouton avec le bas de l'input */
+    align-items: flex-end; 
     justify-content: space-around;
     gap: 10px;
     margin-bottom: 25px;
@@ -152,9 +151,9 @@ input:focus {
 }
 
 .admin-utilisateurs-wrapper {
-    flex: 1;        /* Prend tout le reste de l'espace */
+    flex: 1;        
     width: 100%;    
-    margin: 0;      /* On annule le margin-left calc */
+    margin: 0;     
     padding-top: 120px;
 }
 

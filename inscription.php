@@ -4,32 +4,32 @@ require_once 'functions.php';
 $message = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email       = trim($_POST['email']       ?? '');
-    $mdp         = $_POST['mdp']              ?? '';
-    $mdp_confirm = $_POST['mdp_confirm']      ?? '';
-    $nom         = trim($_POST['nom']         ?? '');
-    $prenom      = trim($_POST['prenom']      ?? '');
-    $tel         = trim($_POST['telephone']   ?? '');
-    $adresse     = trim($_POST['adresse']     ?? '');
+    $email = trim($_POST['email']);
+    $mdp = $_POST['mdp'];
+    $mdp_confirm = $_POST['mdp_confirm'];
+    $nom = trim($_POST['nom']);
+    $prenom = trim($_POST['prenom']);
+    $tel = trim($_POST['telephone']);
+    $adresse = trim($_POST['adresse']);
 
     if ($mdp !== $mdp_confirm) {
         $message = "Les mots de passe ne correspondent pas.";
-    } elseif (strlen($mdp) < 6) {
+    } else if (strlen($mdp) < 6) {
         $message = "Le mot de passe doit contenir au moins 6 caractères.";
-    } elseif (email_exists($email)) {
+    } else if (email_exists($email)) {
         $message = "Cet email est déjà utilisé.";
     } else {
-        $new_user = [
-            "email"             => $email,
-            "mdp"               => password_hash($mdp, PASSWORD_DEFAULT),
-            "nom"               => $nom,
-            "prenom"            => $prenom,
-            "telephone"         => $tel,
-            "adresse"           => $adresse,
-            "role"              => "client",
-            "statut"            => "actif",
-            "date_inscription"  => date('Y-m-d')
-        ];
+        $new_user = array(
+            "email"            => $email,
+            "mdp"              => password_hash($mdp, PASSWORD_DEFAULT),
+            "nom"              => $nom,
+            "prenom"           => $prenom,
+            "telephone"        => $tel,
+            "adresse"          => $adresse,
+            "role"             => "client",
+            "statut"           => "actif",
+            "date_inscription" => date('Y-m-d')
+        );
         save_user($new_user);
         header('Location: connexion.php?success=1');
         exit();
@@ -53,9 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <fieldset>
         <legend>Créer votre compte</legend>
 
-        <?php if ($message): ?>
+        <?php if ($message != "") { ?>
             <p style="color: #a43a3a; font-weight: bold;"><?= h($message) ?></p>
-        <?php endif; ?>
+        <?php } ?>
 
         <p>
             <label for="email">Adresse e-mail :</label>
