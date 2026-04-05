@@ -1,71 +1,72 @@
 <?php
-// ============================================================
-//  FUNCTIONS.PHP — Bibliothèque centrale du site L'Étoile
-//  Gestion : utilisateurs, plats, menus, commandes
-// ============================================================
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// ------------------------------------------------------------
-// CHEMINS DES FICHIERS DE DONNÉES
-// ------------------------------------------------------------
-define('USERS_FILE',     __DIR__ . '/users.json');
-define('PLATS_FILE',     __DIR__ . '/plats.json');
-define('MENUS_FILE',     __DIR__ . '/menus.json');
-define('COMMANDES_FILE', __DIR__ . '/commandes.json');
+define('USERS_FILE',     __DIR__ . '/data/users.json');
+define('PLATS_FILE',     __DIR__ . '/data/plats.json');
+define('MENUS_FILE',     __DIR__ . '/data/menus.json');
+define('COMMANDES_FILE', __DIR__ . '/data/commandes.json');
 
 
-// ============================================================
-// FONCTIONS GÉNÉRIQUES JSON
-// ============================================================
 
-function lire_json(string $fichier): array {
-    if (!file_exists($fichier)) return [];
+function lire_json($fichier) {
+    if (!file_exists($fichier)) {
+        return array();
+    }
     $contenu = file_get_contents($fichier);
-    return json_decode($contenu, true) ?? [];
+    $data = json_decode($contenu, true);
+    if ($data === null) {
+        return array();
+    }
+    return $data;
 }
 
-function ecrire_json(string $fichier, array $data): bool {
-    return file_put_contents(
-        $fichier,
-        json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
-    ) !== false;
+function ecrire_json($fichier, $data) {
+    $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $result = file_put_contents($fichier, $json);
+    if ($result === false) {
+        return false;
+    }
+    return true;
 }
 
 
-// ============================================================
-// GESTION DES UTILISATEURS
-// ============================================================
 
-function get_users(): array {
+function get_users() {
     return lire_json(USERS_FILE);
 }
 
-function get_user_by_email(string $email): ?array {
-    foreach (get_users() as $user) {
-        if ($user['email'] === $email) return $user;
+function get_user_by_email($email) {
+    $users = get_users();
+    foreach ($users as $user) {
+        if ($user['email'] === $email) {
+            return $user;
+        }
     }
     return null;
 }
 
-function email_exists(string $email): bool {
-    return get_user_by_email($email) !== null;
+function email_exists($email) {
+    $user = get_user_by_email($email);
+    if ($user !== null) {
+        return true;
+    }
+    return false;
 }
 
-function save_user(array $new_user): bool {
+function save_user($new_user) {
     $users = get_users();
     $users[] = $new_user;
     return ecrire_json(USERS_FILE, $users);
 }
 
-function update_user(string $email, array $champs): bool {
+function update_user($email, $champs) {
     $users = get_users();
-    foreach ($users as &$user) {
-        if ($user['email'] === $email) {
+    for ($i = 0; $i < count($users); $i++) {
+        if ($users[$i]['email'] === $email) {
             foreach ($champs as $cle => $valeur) {
-                $user[$cle] = $valeur;
+                $users[$i][$cle] = $valeur;
             }
             return ecrire_json(USERS_FILE, $users);
         }
@@ -73,176 +74,254 @@ function update_user(string $email, array $champs): bool {
     return false;
 }
 
-function delete_user(string $email): bool {
+function delete_user($email) {
     $users = get_users();
-    $users = array_values(array_filter($users, fn($u) => $u['email'] !== $email));
-    return ecrire_json(USERS_FILE, $users);
-}
-
-function get_users_ayant_commande(): array {
-    $commandes = get_commandes();
-    $emails    = array_unique(array_column($commandes, 'user_email'));
-    $users     = get_users();
-    return array_values(array_filter($users, fn($u) => in_array($u['email'], $emails)));
-}
-
-
-// ============================================================
-// GESTION DE LA SESSION
-// ============================================================
-
-function est_connecte(): bool {
-    return isset($_SESSION['user']);
-}
-
-function utilisateur_courant(): ?array {
-    return $_SESSION['user'] ?? null;
-}
-
-function est_admin(): bool {
-    return est_connecte() && $_SESSION['user']['role'] === 'admin';
-}
-
-function est_restaurateur(): bool {
-    return est_connecte() && $_SESSION['user']['role'] === 'restaurateur';
-}
-
-function est_livreur(): bool {
-    return est_connecte() && $_SESSION['user']['role'] === 'livreur';
-}
-
-function est_client(): bool {
-    return est_connecte() && $_SESSION['user']['role'] === 'client';
-}
-
-function exiger_connexion(string $redirect = 'connexion.php'): void {
-    if (!est_connecte()) {
-        header("Location: $redirect");
-        exit();
-    }
-}
-
-function exiger_role(string $role, string $redirect = 'accueil.php'): void {
-    exiger_connexion();
-    if ($_SESSION['user']['role'] !== $role) {
-        header("Location: $redirect");
-        exit();
-    }
-}
-
-
-// ============================================================
-// GESTION DES PLATS
-// ============================================================
-
-function get_plats(): array {
-    return lire_json(PLATS_FILE);
-} 
-
-function get_plat_by_id(string $id): ?array {
-    foreach (get_plats() as $plat) {
-        if ($plat['id'] === $id) return $plat;
-    }
-    return null;
-}
-
-function get_plats_par_categorie(string $categorie): array {
-    return array_values(array_filter(get_plats(), fn($p) => $p['categorie'] === $categorie));
-}
-
-function get_plats_populaires(int $nb = 3): array {
-    $commandes = get_commandes();
-    $compteur  = [];
-    foreach ($commandes as $cmd) {
-        foreach ($cmd['plats'] as $plat) {
-            $compteur[$plat['id']] = ($compteur[$plat['id']] ?? 0) + $plat['quantite'];
+    $nouveaux_users = array();
+    foreach ($users as $user) {
+        if ($user['email'] !== $email) {
+            $nouveaux_users[] = $user;
         }
     }
-    arsort($compteur);
-    $top_ids = array_slice(array_keys($compteur), 0, $nb);
+    return ecrire_json(USERS_FILE, $nouveaux_users);
+}
 
-    $result = [];
-    foreach ($top_ids as $id) {
-        $p = get_plat_by_id($id);
-        if ($p) $result[] = $p;
+function get_users_ayant_commande() {
+    $commandes = get_commandes();
+    $emails_avec_commande = array();
+    foreach ($commandes as $cmd) {
+        if (!in_array($cmd['user_email'], $emails_avec_commande)) {
+            $emails_avec_commande[] = $cmd['user_email'];
+        }
+    }
+    $users = get_users();
+    $result = array();
+    foreach ($users as $user) {
+        if (in_array($user['email'], $emails_avec_commande)) {
+            $result[] = $user;
+        }
     }
     return $result;
 }
 
 
-// ============================================================
-// GESTION DES MENUS
-// ============================================================
 
-function get_menus(): array {
+function est_connecte() {
+    if (isset($_SESSION['user'])) {
+        return true;
+    }
+    return false;
+}
+
+function utilisateur_courant() {
+    if (isset($_SESSION['user'])) {
+        return $_SESSION['user'];
+    }
+    return null;
+}
+
+function est_admin() {
+    if (!est_connecte()) {
+        return false;
+    }
+    if ($_SESSION['user']['role'] === 'admin') {
+        return true;
+    }
+    return false;
+}
+
+function est_restaurateur() {
+    if (!est_connecte()) {
+        return false;
+    }
+    if ($_SESSION['user']['role'] === 'restaurateur') {
+        return true;
+    }
+    return false;
+}
+
+function est_livreur() {
+    if (!est_connecte()) {
+        return false;
+    }
+    if ($_SESSION['user']['role'] === 'livreur') {
+        return true;
+    }
+    return false;
+}
+
+function est_client() {
+    if (!est_connecte()) {
+        return false;
+    }
+    if ($_SESSION['user']['role'] === 'client') {
+        return true;
+    }
+    return false;
+}
+
+function exiger_connexion() {
+    if (!est_connecte()) {
+        header("Location: connexion.php");
+        exit();
+    }
+}
+
+function exiger_role($role) {
+    exiger_connexion();
+    if ($_SESSION['user']['role'] !== $role) {
+        header("Location: accueil.php");
+        exit();
+    }
+}
+
+
+
+function get_plats() {
+    return lire_json(PLATS_FILE);
+}
+
+function get_plat_by_id($id) {
+    $plats = get_plats();
+    foreach ($plats as $plat) {
+        if ($plat['id'] === $id) {
+            return $plat;
+        }
+    }
+    return null;
+}
+
+function get_plats_par_categorie($categorie) {
+    $plats = get_plats();
+    $result = array();
+    foreach ($plats as $plat) {
+        if ($plat['categorie'] === $categorie) {
+            $result[] = $plat;
+        }
+    }
+    return $result;
+}
+
+function get_plats_populaires($nb) {
+    $commandes = get_commandes();
+    $compteur = array();
+    foreach ($commandes as $cmd) {
+        foreach ($cmd['plats'] as $plat) {
+            if (isset($compteur[$plat['id']])) {
+                $compteur[$plat['id']] = $compteur[$plat['id']] + $plat['quantite'];
+            } else {
+                $compteur[$plat['id']] = $plat['quantite'];
+            }
+        }
+    }
+    arsort($compteur);
+    $top_ids = array_slice(array_keys($compteur), 0, $nb);
+    $result = array();
+    foreach ($top_ids as $id) {
+        $p = get_plat_by_id($id);
+        if ($p !== null) {
+            $result[] = $p;
+        }
+    }
+    return $result;
+}
+
+
+
+function get_menus() {
     return lire_json(MENUS_FILE);
 }
 
-function get_menu_by_id(string $id): ?array {
-    foreach (get_menus() as $menu) {
-        if ($menu['id'] === $id) return $menu;
+function get_menu_by_id($id) {
+    $menus = get_menus();
+    foreach ($menus as $menu) {
+        if ($menu['id'] === $id) {
+            return $menu;
+        }
     }
     return null;
 }
 
 
-// ============================================================
-// GESTION DES COMMANDES
-// ============================================================
 
-function get_commandes(): array {
+function get_commandes() {
     return lire_json(COMMANDES_FILE);
 }
 
-function get_commande_by_id(string $id): ?array {
-    foreach (get_commandes() as $cmd) {
-        if ($cmd['id'] === $id) return $cmd;
+function get_commande_by_id($id) {
+    $commandes = get_commandes();
+    foreach ($commandes as $cmd) {
+        if ($cmd['id'] === $id) {
+            return $cmd;
+        }
     }
     return null;
 }
 
-function get_commandes_par_statut(string $statut): array {
-    return array_values(array_filter(get_commandes(), fn($c) => $c['statut'] === $statut));
-}
-
-function get_commandes_user(string $email): array {
-    $cmds = array_filter(get_commandes(), fn($c) => $c['user_email'] === $email);
-    usort($cmds, fn($a, $b) => strcmp($b['date'], $a['date']));
-    return array_values($cmds);
-}
-
-function get_commandes_livreur(string $email): array {
-    return array_values(array_filter(
-        get_commandes(),
-        function ($c) use ($email) {
-            return isset($c['statut'])
-                && $c['statut'] === 'en_livraison'
-                && isset($c['livreur_email'])
-                && $c['livreur_email'] === $email;
-        }
-    ));
-}
-
-function generer_id_commande(): string {
+function get_commandes_par_statut($statut) {
     $commandes = get_commandes();
-    if (empty($commandes)) return 'c001';
-    $ids = array_map(fn($c) => intval(substr($c['id'], 1)), $commandes);
-    return 'c' . str_pad(max($ids) + 1, 3, '0', STR_PAD_LEFT);
+    $result = array();
+    foreach ($commandes as $cmd) {
+        if ($cmd['statut'] === $statut) {
+            $result[] = $cmd;
+        }
+    }
+    return $result;
 }
 
-function save_commande(array $commande): bool {
-    $commandes   = get_commandes();
+function get_commandes_user($email) {
+    $commandes = get_commandes();
+    $result = array();
+    foreach ($commandes as $cmd) {
+        if ($cmd['user_email'] === $email) {
+            $result[] = $cmd;
+        }
+    }
+    usort($result, function($a, $b) {
+        return strcmp($b['date'], $a['date']);
+    });
+    return $result;
+}
+
+function get_commandes_livreur($email) {
+    $commandes = get_commandes();
+    $result = array();
+    foreach ($commandes as $cmd) {
+        if (isset($cmd['livreur_email']) && $cmd['livreur_email'] === $email && $cmd['statut'] === 'en_livraison') {
+            $result[] = $cmd;
+        }
+    }
+    return $result;
+}
+
+function generer_id_commande() {
+    $commandes = get_commandes();
+    if (count($commandes) === 0) {
+        return 'c001';
+    }
+    $max = 0;
+    foreach ($commandes as $cmd) {
+        $num = intval(substr($cmd['id'], 1));
+        if ($num > $max) {
+            $max = $num;
+        }
+    }
+    $nouveau = $max + 1;
+    return 'c' . str_pad($nouveau, 3, '0', STR_PAD_LEFT);
+}
+
+function save_commande($commande) {
+    $commandes = get_commandes();
     $commandes[] = $commande;
     return ecrire_json(COMMANDES_FILE, $commandes);
 }
 
-function update_statut_commande(string $id, string $nouveau_statut, ?string $livreur_email = null): bool {
+function update_statut_commande($id, $nouveau_statut, $livreur_email = null) {
     $commandes = get_commandes();
-    foreach ($commandes as &$cmd) {
-        if ($cmd['id'] === $id) {
-            $cmd['statut'] = $nouveau_statut;
+    for ($i = 0; $i < count($commandes); $i++) {
+        if ($commandes[$i]['id'] === $id) {
+            $commandes[$i]['statut'] = $nouveau_statut;
             if ($livreur_email !== null) {
-                $cmd['livreur_email'] = $livreur_email;
+                $commandes[$i]['livreur_email'] = $livreur_email;
             }
             return ecrire_json(COMMANDES_FILE, $commandes);
         }
@@ -250,13 +329,13 @@ function update_statut_commande(string $id, string $nouveau_statut, ?string $liv
     return false;
 }
 
-function save_notation(string $commande_id, int $note_produits, int $note_livraison, string $commentaire): bool {
+function save_notation($commande_id, $note_produits, $note_livraison, $commentaire) {
     $commandes = get_commandes();
-    foreach ($commandes as &$cmd) {
-        if ($cmd['id'] === $commande_id) {
-            $cmd['note_produits']  = $note_produits;
-            $cmd['note_livraison'] = $note_livraison;
-            $cmd['commentaire']    = htmlspecialchars($commentaire);
+    for ($i = 0; $i < count($commandes); $i++) {
+        if ($commandes[$i]['id'] === $commande_id) {
+            $commandes[$i]['note_produits'] = $note_produits;
+            $commandes[$i]['note_livraison'] = $note_livraison;
+            $commandes[$i]['commentaire'] = htmlspecialchars($commentaire);
             return ecrire_json(COMMANDES_FILE, $commandes);
         }
     }
@@ -264,47 +343,62 @@ function save_notation(string $commande_id, int $note_produits, int $note_livrai
 }
 
 
-// ============================================================
-// FONCTIONS UTILITAIRES D'AFFICHAGE
-// ============================================================
 
-/**
- * Échappe une valeur pour l'affichage HTML.
- * BUG CORRIGÉ : accepte null sans planter (retourne chaîne vide).
- */
-function h(?string $str): string {
-    if ($str === null) return '';
+function h($str) {
+    if ($str === null) {
+        return '';
+    }
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }
 
-function afficher_etoiles(int $note): string {
-    return str_repeat('★', $note) . str_repeat('☆', 5 - $note);
+function afficher_etoiles($note) {
+    $etoiles = '';
+    for ($i = 0; $i < $note; $i++) {
+        $etoiles .= '★';
+    }
+    for ($i = $note; $i < 5; $i++) {
+        $etoiles .= '☆';
+    }
+    return $etoiles;
 }
 
-function libelle_statut(string $statut): string {
-    return match($statut) {
-        'en_attente'     => 'En attente',
-        'en_preparation' => 'En préparation',
-        'en_livraison'   => 'En livraison',
-        'livree'         => 'Livrée',
-        default          => ucfirst($statut)
-    };
+function libelle_statut($statut) {
+    switch ($statut) {
+        case 'en_attente':
+            return 'En attente';
+        case 'en_preparation':
+            return 'En préparation';
+        case 'en_livraison':
+            return 'En livraison';
+        case 'livree':
+            return 'Livrée';
+        default:
+            return $statut;
+    }
 }
 
-function libelle_role(string $role): string {
-    return match($role) {
-        'client'       => 'Client',
-        'admin'        => 'Administrateur',
-        'restaurateur' => 'Restaurateur',
-        'livreur'      => 'Livreur',
-        default        => ucfirst($role)
-    };
+function libelle_role($role) {
+    switch ($role) {
+        case 'client':
+            return 'Client';
+        case 'admin':
+            return 'Administrateur';
+        case 'restaurateur':
+            return 'Restaurateur';
+        case 'livreur':
+            return 'Livreur';
+        default:
+            return $role;
+    }
 }
 
-/**
- * Retourne le nombre total d'articles dans le panier session.
- */
-function nb_articles_panier(): int {
-    if (!isset($_SESSION['panier'])) return 0;
-    return array_sum(array_column($_SESSION['panier'], 'quantite'));
+function nb_articles_panier() {
+    if (!isset($_SESSION['panier'])) {
+        return 0;
+    }
+    $total = 0;
+    foreach ($_SESSION['panier'] as $item) {
+        $total = $total + $item['quantite'];
+    }
+    return $total;
 }

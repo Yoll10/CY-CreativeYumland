@@ -2,10 +2,9 @@
 require_once 'functions.php';
 exiger_connexion();
 
-// Un admin peut voir le profil d'un autre utilisateur via ?email=...
 if (est_admin() && isset($_GET['email'])) {
     $profil_user = get_user_by_email($_GET['email']);
-    if (!$profil_user) {
+    if ($profil_user === null) {
         header('Location: admin.php');
         exit();
     }
@@ -14,14 +13,18 @@ if (est_admin() && isset($_GET['email'])) {
 }
 
 $commandes_user = get_commandes_user($profil_user['email']);
-$vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']['email'];
+
+$vue_admin = false;
+if (est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']['email']) {
+    $vue_admin = true;
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil — <?= h($profil_user['prenom'] . ' ' . $profil_user['nom']) ?></title>
+    <title>Profil — <?= h($profil_user['prenom']) ?> <?= h($profil_user['nom']) ?></title>
     <link href="styleprofil.css" rel="stylesheet">
     <link rel="stylesheet" href="stylecommon.css">
 </head>
@@ -31,12 +34,12 @@ $vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSIO
 
 <main class="main-content">
 
-    <?php if ($vue_admin): ?>
-    <div style="background:#f5e6c8; padding:0.8rem 1.5rem; border-left: 4px solid #b8860b; margin-bottom:1rem;">
-        <strong>Mode Admin</strong> — Vous consultez le profil de <?= h($profil_user['prenom'] . ' ' . $profil_user['nom']) ?>
-        <a href="admin.php" style="margin-left:1rem;">← Retour</a>
-    </div>
-    <?php endif; ?>
+    <?php if ($vue_admin) { ?>
+        <div style="background:#f5e6c8; padding:0.8rem 1.5rem; border-left: 4px solid #b8860b; margin-bottom:1rem;">
+            <strong>Mode Admin</strong> — Vous consultez le profil de <?= h($profil_user['prenom']) ?> <?= h($profil_user['nom']) ?>
+            <a href="admin.php" style="margin-left:1rem;">← Retour</a>
+        </div>
+    <?php } ?>
 
     <form class="forms">
         <fieldset>
@@ -55,7 +58,9 @@ $vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSIO
                     <label>Nom :</label>
                     <input type="text" value="<?= h($profil_user['nom']) ?>" readonly>
                 </div>
-                <?php if (!$vue_admin): ?><button class="edit" type="button">🖌️</button><?php endif; ?>
+                <?php if (!$vue_admin) { ?>
+                    <button class="edit" type="button">🖌️</button>
+                <?php } ?>
             </div>
 
             <div class="ligne-form">
@@ -63,7 +68,9 @@ $vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSIO
                     <label>Prénom :</label>
                     <input type="text" value="<?= h($profil_user['prenom']) ?>" readonly>
                 </div>
-                <?php if (!$vue_admin): ?><button class="edit" type="button">🖌️</button><?php endif; ?>
+                <?php if (!$vue_admin) { ?>
+                    <button class="edit" type="button">🖌️</button>
+                <?php } ?>
             </div>
 
             <div class="ligne-form">
@@ -71,23 +78,41 @@ $vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSIO
                     <label>Adresse e-mail :</label>
                     <input type="email" value="<?= h($profil_user['email']) ?>" readonly>
                 </div>
-                <?php if (!$vue_admin): ?><button class="edit" type="button">🖌️</button><?php endif; ?>
+                <?php if (!$vue_admin) { ?>
+                    <button class="edit" type="button">🖌️</button>
+                <?php } ?>
             </div>
 
             <div class="ligne-form">
                 <div class="zone-contenu">
                     <label>Adresse :</label>
-                    <input type="text" value="<?= h($profil_user['adresse'] ?? '') ?>" readonly>
+                    <?php
+                    $adresse_affichee = '';
+                    if (isset($profil_user['adresse'])) {
+                        $adresse_affichee = $profil_user['adresse'];
+                    }
+                    ?>
+                    <input type="text" value="<?= h($adresse_affichee) ?>" readonly>
                 </div>
-                <?php if (!$vue_admin): ?><button class="edit" type="button">🖌️</button><?php endif; ?>
+                <?php if (!$vue_admin) { ?>
+                    <button class="edit" type="button">🖌️</button>
+                <?php } ?>
             </div>
 
             <div class="ligne-form">
                 <div class="zone-contenu">
                     <label>Numéro de téléphone :</label>
-                    <input type="tel" value="<?= h($profil_user['telephone'] ?? '') ?>" readonly>
+                    <?php
+                    $tel_affiche = '';
+                    if (isset($profil_user['telephone'])) {
+                        $tel_affiche = $profil_user['telephone'];
+                    }
+                    ?>
+                    <input type="tel" value="<?= h($tel_affiche) ?>" readonly>
                 </div>
-                <?php if (!$vue_admin): ?><button class="edit" type="button">🖌️</button><?php endif; ?>
+                <?php if (!$vue_admin) { ?>
+                    <button class="edit" type="button">🖌️</button>
+                <?php } ?>
             </div>
 
             <div class="ligne-form">
@@ -100,14 +125,17 @@ $vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSIO
             <div class="ligne-form">
                 <div class="zone-contenu">
                     <label>Statut du compte :</label>
-                    <input type="text" value="<?= $profil_user['statut'] === 'actif' ? 'Actif' : 'Bloqué' ?>" readonly>
+                    <?php if ($profil_user['statut'] === 'actif') { ?>
+                        <input type="text" value="Actif" readonly>
+                    <?php } else { ?>
+                        <input type="text" value="Bloqué" readonly>
+                    <?php } ?>
                 </div>
             </div>
 
         </fieldset>
     </form>
 
-    <!-- HISTORIQUE DES COMMANDES -->
     <section class="admin-utilisateurs-wrapper">
         <div class="admin-utilisateurs">
             <table class="admin-table">
@@ -123,28 +151,34 @@ $vue_admin = est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSIO
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (empty($commandes_user)): ?>
-                    <tr><td colspan="6" style="text-align:center;">Aucune commande pour le moment.</td></tr>
-                    <?php endif; ?>
+                    <?php if (count($commandes_user) === 0) { ?>
+                        <tr><td colspan="6" style="text-align:center;">Aucune commande pour le moment.</td></tr>
+                    <?php } ?>
 
-                    <?php foreach ($commandes_user as $cmd): ?>
-                    <tr>
-                        <td>#<?= h($cmd['id']) ?></td>
-                        <td><?= h(date('d/m/Y H:i', strtotime($cmd['date']))) ?></td>
-                        <td><?= number_format($cmd['total'], 2) ?> €</td>
-                        <td><?= $cmd['mode'] === 'livraison' ? '🚚 Livraison' : '🏠 Emporter' ?></td>
-                        <td><?= h(libelle_statut($cmd['statut'])) ?></td>
-                        <td>
-                            <?php if ($cmd['statut'] === 'livree' && $cmd['note_produits'] === null && !$vue_admin): ?>
-                                <a href="notation.php?commande=<?= h($cmd['id']) ?>" class="btn-primary">Noter</a>
-                            <?php elseif ($cmd['statut'] === 'livree' && $cmd['note_produits'] !== null): ?>
-                                <span><?= afficher_etoiles($cmd['note_produits']) ?></span>
-                            <?php else: ?>
-                                <em>En cours</em>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                    <?php foreach ($commandes_user as $cmd) { ?>
+                        <tr>
+                            <td>#<?= h($cmd['id']) ?></td>
+                            <td><?= h(date('d/m/Y H:i', strtotime($cmd['date']))) ?></td>
+                            <td><?= number_format($cmd['total'], 2) ?> €</td>
+                            <td>
+                                <?php if ($cmd['mode'] === 'livraison') { ?>
+                                    🚚 Livraison
+                                <?php } else { ?>
+                                    🏠 Emporter
+                                <?php } ?>
+                            </td>
+                            <td><?= h(libelle_statut($cmd['statut'])) ?></td>
+                            <td>
+                                <?php if ($cmd['statut'] === 'livree' && $cmd['note_produits'] === null && !$vue_admin) { ?>
+                                    <a href="notation.php?commande=<?= h($cmd['id']) ?>" class="btn-primary">Noter</a>
+                                <?php } else if ($cmd['statut'] === 'livree' && $cmd['note_produits'] !== null) { ?>
+                                    <span><?= afficher_etoiles($cmd['note_produits']) ?></span>
+                                <?php } else { ?>
+                                    <em>En cours</em>
+                                <?php } ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
         </div>

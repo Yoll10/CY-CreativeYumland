@@ -4,7 +4,6 @@ require_once 'functions.php';
 $plats  = get_plats();
 $menus  = get_menus();
 
-// Recherche
 $recherche = trim($_GET['q'] ?? '');
 $resultats = [];
 if ($recherche !== '') {
@@ -15,12 +14,10 @@ if ($recherche !== '') {
     }
 }
 
-// Catégories à afficher
 $entrees  = get_plats_par_categorie('entree');
 $plats_p  = get_plats_par_categorie('plat');
 $desserts = get_plats_par_categorie('dessert');
 
-// Fonction d'affichage d'un bloc de plats par groupes de 3
 function afficher_plats_grille(array $liste): void {
     $groupes = array_chunk($liste, 3);
     foreach ($groupes as $groupe): ?>
@@ -89,7 +86,6 @@ function afficher_plats_grille(array $liste): void {
         <a href="#desserts" class="btn-primary">Desserts</a>
     </nav>
 
-    <!-- MENUS -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="menus" class="titre2">Nos Menus</div>
     <div class="colonnes">
@@ -108,17 +104,14 @@ function afficher_plats_grille(array $liste): void {
         <?php endforeach; ?>
     </div>
 
-    <!-- ENTRÉES -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="entrees" class="titre2">Nos Entrées</div>
     <?php afficher_plats_grille($entrees); ?>
 
-    <!-- PLATS -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="plats" class="titre2">Nos Plats</div>
     <?php afficher_plats_grille($plats_p); ?>
 
-    <!-- DESSERTS -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="desserts" class="titre2">Nos Desserts</div>
     <?php afficher_plats_grille($desserts); ?>

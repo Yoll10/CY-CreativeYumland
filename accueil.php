@@ -1,9 +1,12 @@
 <?php
 require_once 'functions.php';
 
-// Recherche de plats
-$recherche = trim($_GET['q'] ?? '');
-$resultats_recherche = [];
+$recherche = "";
+if (isset($_GET['q'])) {
+    $recherche = trim($_GET['q']);
+}
+
+$resultats_recherche = array();
 
 if ($recherche !== '') {
     $tous_plats = get_plats();
@@ -14,15 +17,23 @@ if ($recherche !== '') {
     }
 }
 
-// Plats populaires (les 3 plus commandés)
 $plats_populaires = get_plats_populaires(3);
-// Si pas assez de commandes, on complète avec les premiers plats
+
 if (count($plats_populaires) < 3) {
     $tous = get_plats();
     foreach ($tous as $p) {
-        if (count($plats_populaires) >= 3) break;
-        $deja = array_filter($plats_populaires, fn($x) => $x['id'] === $p['id']);
-        if (empty($deja)) $plats_populaires[] = $p;
+        if (count($plats_populaires) >= 3) {
+            break;
+        }
+        $deja_la = false;
+        foreach ($plats_populaires as $pop) {
+            if ($pop['id'] === $p['id']) {
+                $deja_la = true;
+            }
+        }
+        if (!$deja_la) {
+            $plats_populaires[] = $p;
+        }
     }
 }
 ?>
@@ -57,40 +68,40 @@ if (count($plats_populaires) < 3) {
         </form>
     </section>
 
-    <?php if ($recherche !== ''): ?>
-    <section class="plats">
-        <h2>Résultats pour "<?= h($recherche) ?>"</h2>
-        <?php if (empty($resultats_recherche)): ?>
-            <p>Aucun plat trouvé pour cette recherche.</p>
-        <?php else: ?>
-        <div class="plats-container">
-            <?php foreach ($resultats_recherche as $plat): ?>
-            <article class="plat">
-                <h3><?= h($plat['nom']) ?></h3>
-                <p><?= h($plat['description']) ?></p>
-                <p><strong><?= number_format($plat['prix'], 2) ?> €</strong></p>
-                <p><em>Allergènes : <?= h($plat['allergenes']) ?></em></p>
-            </article>
-            <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-    </section>
-    <?php else: ?>
+    <?php if ($recherche !== '') { ?>
+        <section class="plats">
+            <h2>Résultats pour "<?= h($recherche) ?>"</h2>
+            <?php if (count($resultats_recherche) === 0) { ?>
+                <p>Aucun plat trouvé pour cette recherche.</p>
+            <?php } else { ?>
+                <div class="plats-container">
+                    <?php foreach ($resultats_recherche as $plat) { ?>
+                        <article class="plat">
+                            <h3><?= h($plat['nom']) ?></h3>
+                            <p><?= h($plat['description']) ?></p>
+                            <p><strong><?= number_format($plat['prix'], 2) ?> €</strong></p>
+                            <p><em>Allergènes : <?= h($plat['allergenes']) ?></em></p>
+                        </article>
+                    <?php } ?>
+                </div>
+            <?php } ?>
+        </section>
+    <?php } else { ?>
 
-    <section class="plats">
-        <h2>Nos incontournables</h2>
-        <div class="plats-container">
-            <?php foreach ($plats_populaires as $plat): ?>
-            <article class="plat">
-                <h3><?= h($plat['nom']) ?></h3>
-                <p><?= h($plat['description']) ?></p>
-                <p><strong><?= number_format($plat['prix'], 2) ?> €</strong></p>
-            </article>
-            <?php endforeach; ?>
-        </div>
-    </section>
+        <section class="plats">
+            <h2>Nos incontournables</h2>
+            <div class="plats-container">
+                <?php foreach ($plats_populaires as $plat) { ?>
+                    <article class="plat">
+                        <h3><?= h($plat['nom']) ?></h3>
+                        <p><?= h($plat['description']) ?></p>
+                        <p><strong><?= number_format($plat['prix'], 2) ?> €</strong></p>
+                    </article>
+                <?php } ?>
+            </div>
+        </section>
 
-    <?php endif; ?>
+    <?php } ?>
 
 </main>
 
