@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $new_user = array(
             "email"            => $email,
-            "mdp"              => password_hash($mdp, PASSWORD_DEFAULT),
+            "mdp"              => $mdp,
             "nom"              => $nom,
             "prenom"           => $prenom,
             "telephone"        => $tel,

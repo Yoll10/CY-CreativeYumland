@@ -3,10 +3,10 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-define('USERS_FILE',     __DIR__ . '/users.json');
-define('PLATS_FILE',     __DIR__ . '/plats.json');
-define('MENUS_FILE',     __DIR__ . '/menus.json');
-define('COMMANDES_FILE', __DIR__ . '/commandes.json');
+define('USERS_FILE',     __DIR__ . '/data/users.json');
+define('PLATS_FILE',     __DIR__ . '/data/plats.json');
+define('MENUS_FILE',     __DIR__ . '/data/menus.json');
+define('COMMANDES_FILE', __DIR__ . '/data/commandes.json');
 
 
 

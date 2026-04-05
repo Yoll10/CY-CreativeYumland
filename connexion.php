@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user = get_user_by_email($email);
 
-    if ($user !== null && password_verify($mdp, $user['mdp'])) {
+    if ($user !== null && $mdp==$user['mdp']) {
         if ($user['statut'] === 'bloque') {
             $erreur = "Votre compte a été bloqué. Contactez l'administrateur.";
         } else {

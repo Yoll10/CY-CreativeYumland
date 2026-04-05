@@ -93,7 +93,6 @@ function afficher_plats_grille(array $liste): void {
         <div style="background-color: #e2d3c3; min-height: 350px; padding: 1rem;">
             <p class="titre3"><?= h($menu['nom']) ?></p>
             <p style="font-style: italic; padding: 0.5rem 0;"><?= h($menu['description']) ?></p>
-            <p style="font-size: 0.9rem; color: #666;">Disponibilité : <?= h($menu['disponibilite']) ?></p>
             <p class="titre3" style="font-size: 1.4rem;"><?= number_format($menu['prix'], 2) ?> €</p>
             <?php if (est_connecte()): ?>
                 <a href="commande-template.php?menu=<?= h($menu['id']) ?>" class="bouton-discover">Choisir ce menu</a>
