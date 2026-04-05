@@ -153,7 +153,125 @@ body {
 .action.delete {
     color: #a43a3a;
 }
+.actions-menu {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
+        .actions-btn {
+            background: #2c2c2c;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .actions-btn:hover { background: #444; }
+
+        .actions-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+            min-width: 160px;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .actions-menu:hover .actions-dropdown {
+            display: block;
+        }
+
+        .actions-dropdown button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 0.6rem 1rem;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: #222;
+        }
+
+        .actions-dropdown button:hover { background: #f5f5f5; }
+        .actions-dropdown button.block { color: #c0392b; }
+        .actions-dropdown button.delete { color: #c0392b; font-weight:bold; }
+        .actions-dropdown button.promote { color: #2980b9; }
+        .actions-dropdown button.edit-btn { color: #27ae60; }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.actif { display: flex; }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            width: 90%;
+            max-width: 480px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .modal-box h2 { margin-top: 0; font-size: 1.2rem; margin-bottom: 1.2rem; }
+
+        .modal-box label {
+            display: block;
+            font-size: 0.85rem;
+            color: #555;
+            margin-bottom: 0.2rem;
+            margin-top: 0.8rem;
+        }
+
+        .modal-box input,
+        .modal-box select {
+            width: 100%;
+            padding: 0.5rem 0.7rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-actions button {
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-annuler { background: #eee; color: #333; }
+        .btn-sauver { background: #2c2c2c; color: #fff; }
+
+        .badge-statut { padding: 0.2rem 0.6rem; border-radius: 12px; font-size:0.8rem; font-weight:bold; }
+        .statut-actif { background:#d4edda; color:#155724; }
+        .statut-bloque { background:#f8d7da; color:#721c24; }
+        .user-bloque td { opacity: 0.65; }
 
 @media screen and (max-width: 1024px) {
 
