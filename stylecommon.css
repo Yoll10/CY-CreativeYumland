@@ -24,6 +24,18 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+    --creme: #1a1714;      /* Fond très sombre */
+    --beige: #2a241f;      
+    --sable: #332c26;      /* Footer sombre */
+    --brun: #f6f1eb;       /* Texte clair */
+    --marron: #d4b89d;     /* Accentuation plus claire pour lisibilité */
+    --marron-clair: #5d534a;
+    --gris-texte: #b89b82;
+    --formulaire-fond: #2d2621;
 }
 
 .cartenav{
@@ -32,7 +44,7 @@ body {
     padding: 0;
     font-size: 20px;
     font-weight: bold;
-    color: #4b4a4a;
+    color: var(--brun);
 }
 
 main {
@@ -135,6 +147,7 @@ a:hover {
 
 .footer {
     background-color: var(--sable);
+    transition: background-color 0.3s ease;
     padding: 60px 20px 30px;
     margin-top: auto;
 }

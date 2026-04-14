@@ -21,7 +21,7 @@ legend {
     padding: 0;
     font-size: 28px;
     font-weight: bold;
-    color: #4b4a4a;
+    color:var(--brun);
 }
 
 p {
@@ -47,12 +47,15 @@ input {
     font-size: 16px;
     transition: 0.3s;
     text-align: center;
+    border: 1px solid var(--marron-clair);
+    background-color: var(--creme); /* Au lieu de #f5f2ec */
+    color: var(--brun);
 }
 
 input:focus { 
     outline: none;
-    border-color: #eee5d9; 
-    background-color: #fff;
+    border-color: var(--marron); 
+    background-color: var(--beige);
     box-shadow: 0 0 10px #f8d1aa;
 }
 
