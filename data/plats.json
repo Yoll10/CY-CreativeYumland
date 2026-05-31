@@ -3,135 +3,150 @@
         "id": "p01",
         "nom": "Velouté de butternut à la truffe",
         "description": "Crème de courge butternut, huile de truffe noire et copeaux de parmesan",
-        "prix": 14,
+        "prix": 14.0,
         "categorie": "entree",
         "allergenes": "Lait, céleri",
-        "image": "images\/plats\/veloute-butternut.jpg"
+        "image": "images/plats/veloute-butternut.jpg",
+        "calories": 180
     },
     {
         "id": "p02",
         "nom": "Foie gras mi-cuit maison",
         "description": "Foie gras de canard, chutney de figues et brioche toastée",
-        "prix": 22,
+        "prix": 22.0,
         "categorie": "entree",
         "allergenes": "Gluten, oeufs, lait",
-        "image": "images\/plats\/foie-gras.jpg"
+        "image": "images/plats/foie-gras.jpg",
+        "calories": 420
     },
     {
         "id": "p03",
         "nom": "Carpaccio de Saint-Jacques",
         "description": "Noix de Saint-Jacques marinées au citron vert, avocat et fleur de sel",
-        "prix": 18,
+        "prix": 18.0,
         "categorie": "entree",
         "allergenes": "Crustacés, mollusques",
-        "image": "images\/plats\/carpaccio-saint-jacques.jpg"
+        "image": "images/plats/carpaccio-saint-jacques.jpg",
+        "calories": 210
     },
     {
         "id": "p04",
         "nom": "Tartare de saumon fumé",
         "description": "Saumon Atlantique, câpres, oignon rouge, crème fraîche et toast grillé",
-        "prix": 16,
+        "prix": 16.0,
         "categorie": "entree",
         "allergenes": "Poisson, gluten, lait",
-        "image": "images\/plats\/tartare-saumon.jpg"
+        "image": "images/plats/tartare-saumon.jpg",
+        "calories": 290
     },
     {
         "id": "p05",
         "nom": "Salade de homard breton",
         "description": "Demi-homard grillé, mesclun, vinaigrette à l'estragon",
-        "prix": 26,
+        "prix": 26.0,
         "categorie": "entree",
         "allergenes": "Crustacés",
-        "image": "images\/plats\/salade-homard.jpg"
+        "image": "images/plats/salade-homard.jpg",
+        "calories": 240
     },
     {
         "id": "p06",
         "nom": "Filet de bœuf aux morilles",
         "description": "Filet de bœuf maturé 45 jours, sauce aux morilles fraîches et pommes dauphine",
-        "prix": 38,
+        "prix": 38.0,
         "categorie": "plat",
         "allergenes": "Lait, gluten",
-        "image": "images\/plats\/filet-boeuf.jpg"
+        "image": "images/plats/filet-boeuf.jpg",
+        "calories": 680
     },
     {
         "id": "p07",
         "nom": "Risotto crémeux à la truffe noire",
         "description": "Risotto Arborio, truffe noire du Périgord, parmesan 24 mois et beurre noisette",
-        "prix": 32,
+        "prix": 32.0,
         "categorie": "plat",
         "allergenes": "Lait",
-        "image": "images\/plats\/risotto-truffe.jpg"
+        "image": "images/plats/risotto-truffe.jpg",
+        "calories": 590
     },
     {
         "id": "p08",
         "nom": "Turbot rôti beurre blanc",
         "description": "Turbot entier rôti, beurre blanc au Muscadet et légumes racines glacés",
-        "prix": 36,
+        "prix": 36.0,
         "categorie": "plat",
         "allergenes": "Poisson, lait",
-        "image": "images\/plats\/turbot.jpg"
+        "image": "images/plats/turbot.jpg",
+        "calories": 480
     },
     {
         "id": "p09",
         "nom": "Agneau de lait des Pyrénées",
         "description": "Carré d'agneau en croûte d'herbes, jus corsé et tian de légumes provençaux",
-        "prix": 34,
+        "prix": 34.0,
         "categorie": "plat",
         "allergenes": "Gluten, lait",
-        "image": "images\/plats\/agneau.jpg"
+        "image": "images/plats/agneau.jpg",
+        "calories": 620
     },
     {
         "id": "p10",
         "nom": "Ravioles fines aux truffes",
         "description": "Pâtes fraîches maison farcies à la ricotta et truffe, crème légère et parmesan affiné",
-        "prix": 28,
+        "prix": 28.0,
         "categorie": "plat",
         "allergenes": "Gluten, oeufs, lait",
-        "image": "images\/plats\/ravioles-truffe.jpg"
+        "image": "images/plats/ravioles-truffe.jpg",
+        "calories": 540
     },
     {
         "id": "p11",
         "nom": "Suprême de volaille de Bresse",
         "description": "Volaille rôtie à la broche, jus de cuisson et pommes grenailles au romarin",
-        "prix": 30,
+        "prix": 30.0,
         "categorie": "plat",
         "allergenes": "Aucun",
-        "image": "images\/plats\/volaille-bresse.jpg"
+        "image": "images/plats/volaille-bresse.jpg",
+        "calories": 510
     },
     {
         "id": "p12",
         "nom": "Soufflé au Grand Marnier",
         "description": "Soufflé chaud à l'orange et au Grand Marnier, servi avec une crème anglaise vanillée",
-        "prix": 14,
+        "prix": 14.0,
         "categorie": "dessert",
         "allergenes": "Oeufs, lait, gluten",
-        "image": "images\/plats\/souffle.jpg"
+        "image": "images/plats/souffle.jpg",
+        "calories": 320
     },
     {
         "id": "p13",
         "nom": "Tarte fine aux pommes",
         "description": "Pâte feuilletée caramélisée, pommes Golden, glace vanille Bourbon et caramel beurre salé",
-        "prix": 12,
+        "prix": 12.0,
         "categorie": "dessert",
         "allergenes": "Gluten, lait, oeufs",
-        "image": "images\/plats\/tarte-pomme.jpg"
+        "image": "images/plats/tarte-pomme.jpg",
+        "calories": 380
     },
     {
         "id": "p14",
         "nom": "Moelleux chocolat Valrhona",
         "description": "Cœur coulant au chocolat noir 70%, glace à la vanille de Madagascar",
-        "prix": 13,
+        "prix": 13.0,
         "categorie": "dessert",
         "allergenes": "Oeufs, lait, gluten",
-        "image": "images\/plats\/moelleux-chocolat.jpg"
+        "image": "images/plats/moelleux-chocolat.jpg",
+        "calories": 410
     },
     {
         "id": "p15",
         "nom": "Assiette de fromages affinés",
         "description": "Sélection de 5 fromages de France, confiture de cerises et pain aux noix",
-        "prix": 16,
+        "prix": 16.0,
         "categorie": "dessert",
         "allergenes": "Lait, gluten, fruits à coque",
-        "image": "images\/plats\/fromages.jpg"
+        "image": "images/plats/fromages.jpg",
+        "calories": 350
     }
 ]
