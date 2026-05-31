@@ -5,9 +5,11 @@ exiger_role('restaurateur');
 $message = '';
 $erreur  = '';
 
+// ── TRAITEMENT POST ──────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
+    // ── SUPPRIMER ──
     if ($action === 'supprimer') {
         $id = trim($_POST['plat_id'] ?? '');
         if ($id !== '') {
@@ -21,6 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // ── AJOUTER ──
     if ($action === 'ajouter') {
         $nom        = trim($_POST['nom']        ?? '');
         $desc       = trim($_POST['description'] ?? '');
@@ -28,10 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categorie  = trim($_POST['categorie']  ?? '');
         $allergenes = trim($_POST['allergenes'] ?? '');
         $image      = trim($_POST['image']      ?? '');
+        $calories   = intval($_POST['calories'] ?? 0);
 
         if ($nom === '' || $prix <= 0 || !in_array($categorie, ['entree','plat','dessert'])) {
             $erreur = "Veuillez remplir tous les champs obligatoires (nom, prix, catégorie).";
         } else {
+            // Générer un id unique
             $plats  = get_plats();
             $max_id = 0;
             foreach ($plats as $p) {
@@ -48,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'categorie'   => $categorie,
                 'allergenes'  => $allergenes !== '' ? $allergenes : 'Aucun',
                 'image'       => $image !== '' ? $image : 'images/plats/default.jpg',
+                'calories'    => $calories,
             ];
 
             $plats[] = $nouveau_plat;
@@ -59,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
+    // ── MODIFIER ──
     if ($action === 'modifier') {
         $id         = trim($_POST['plat_id']     ?? '');
         $nom        = trim($_POST['nom']         ?? '');
@@ -67,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $categorie  = trim($_POST['categorie']   ?? '');
         $allergenes = trim($_POST['allergenes']  ?? '');
         $image      = trim($_POST['image']       ?? '');
+        $calories   = intval($_POST['calories']  ?? 0);
 
         if ($id === '' || $nom === '' || $prix <= 0 || !in_array($categorie, ['entree','plat','dessert'])) {
             $erreur = "Données invalides pour la modification.";
@@ -81,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $plats[$i]['categorie']   = $categorie;
                     $plats[$i]['allergenes']  = $allergenes !== '' ? $allergenes : 'Aucun';
                     $plats[$i]['image']       = $image !== '' ? $image : $plats[$i]['image'];
+                    $plats[$i]['calories']    = $calories;
                     $trouve = true;
                     break;
                 }
@@ -132,6 +141,7 @@ if ($filtre_cat !== 'tous') {
         <div class="gp-msg gp-erreur">❌ <?= h($erreur) ?></div>
     <?php endif; ?>
 
+    <!-- Filtres catégorie -->
     <nav class="gp-filtres">
         <a href="gestion-plats.php?cat=tous"    class="<?= $filtre_cat === 'tous'    ? 'actif' : '' ?>">Tous (<?= count($plats_tous) ?>)</a>
         <a href="gestion-plats.php?cat=entree"  class="<?= $filtre_cat === 'entree'  ? 'actif' : '' ?>">Entrées</a>
@@ -139,6 +149,7 @@ if ($filtre_cat !== 'tous') {
         <a href="gestion-plats.php?cat=dessert" class="<?= $filtre_cat === 'dessert' ? 'actif' : '' ?>">Desserts</a>
     </nav>
 
+    <!-- Tableau des plats -->
     <div class="gp-table-wrapper">
         <table class="gp-table">
             <thead>
@@ -148,6 +159,7 @@ if ($filtre_cat !== 'tous') {
                     <th>Catégorie</th>
                     <th>Prix</th>
                     <th>Allergènes</th>
+                    <th>Calories</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -167,6 +179,7 @@ if ($filtre_cat !== 'tous') {
                     <td><span class="badge-cat badge-<?= h($plat['categorie']) ?>"><?= h(ucfirst($plat['categorie'])) ?></span></td>
                     <td><?= number_format($plat['prix'], 2) ?> €</td>
                     <td><small><?= h($plat['allergenes']) ?></small></td>
+                    <td><?= isset($plat['calories']) ? $plat['calories'] . ' kcal' : '—' ?></td>
                     <td>
                         <div class="gp-actions">
                             <button class="btn-edit-plat"
@@ -176,7 +189,8 @@ if ($filtre_cat !== 'tous') {
                                     data-prix="<?= h($plat['prix']) ?>"
                                     data-categorie="<?= h($plat['categorie']) ?>"
                                     data-allergenes="<?= h($plat['allergenes']) ?>"
-                                    data-image="<?= h($plat['image'] ?? '') ?>">
+                                    data-image="<?= h($plat['image'] ?? '') ?>"
+                                    data-calories="<?= h($plat['calories'] ?? '') ?>">
                                 ✏️ Modifier
                             </button>
                             <form method="POST"
@@ -195,6 +209,7 @@ if ($filtre_cat !== 'tous') {
 
 </main>
 
+<!-- ═══ MODAL AJOUT ═══ -->
 <div class="gp-modal-overlay" id="modal-ajout">
     <div class="gp-modal">
         <h2>Ajouter un plat</h2>
@@ -225,6 +240,9 @@ if ($filtre_cat !== 'tous') {
             <label>Allergènes</label>
             <input type="text" name="allergenes" placeholder="Ex : gluten, lait, œufs">
 
+            <label>Calories (kcal)</label>
+            <input type="number" name="calories" min="0" placeholder="Ex : 450">
+
             <label>Chemin image</label>
             <input type="text" name="image" placeholder="images/plats/mon-plat.jpg">
 
@@ -236,6 +254,7 @@ if ($filtre_cat !== 'tous') {
     </div>
 </div>
 
+<!-- ═══ MODAL MODIFICATION ═══ -->
 <div class="gp-modal-overlay" id="modal-modif">
     <div class="gp-modal">
         <h2>Modifier le plat</h2>
@@ -266,6 +285,9 @@ if ($filtre_cat !== 'tous') {
 
             <label>Allergènes</label>
             <input type="text" name="allergenes" id="modif-allergenes">
+
+            <label>Calories (kcal)</label>
+            <input type="number" name="calories" id="modif-calories" min="0">
 
             <label>Chemin image</label>
             <input type="text" name="image" id="modif-image">

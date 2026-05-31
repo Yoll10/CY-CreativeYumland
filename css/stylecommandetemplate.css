@@ -251,3 +251,41 @@
     }
 
 }
+
+/* ── Compteur de calories ── */
+.panier-item-cal {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--gris-texte);
+    margin-top: 2px;
+}
+
+.panier-calories {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px dashed var(--marron-clair);
+    margin-top: 5px;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.cal-valeur {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.cal-ok     { background: #d4edda; color: #155724; }
+.cal-moyen  { background: #fff3cd; color: #856404; }
+.cal-eleve  { background: #f8d7da; color: #721c24; }
+
+.cal-info {
+    font-size: 0.75rem;
+    color: var(--gris-texte);
+    text-align: right;
+    margin-top: 4px;
+    font-style: italic;
+}

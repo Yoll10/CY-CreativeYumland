@@ -50,6 +50,7 @@ if (isset($_GET['cmd_id'], $_GET['transaction'], $_GET['status'],
     }
 }
 
+// POINT 1 — Redirection vers CYBank avec auto-submit du formulaire
 if (isset($_GET['payer']) && !empty($_SESSION['cybank_pending'])) {
     $params = $_SESSION['cybank_pending'];
     unset($_SESSION['cybank_pending']);
@@ -81,7 +82,6 @@ if (isset($_GET['payer']) && !empty($_SESSION['cybank_pending'])) {
 
 if (isset($_GET['ajouter'])) {
     $id   = $_GET['ajouter'];
-    if (isset($_GET['mode'])) $_SESSION['mode_commande'] = $_GET['mode'];
     $plat = get_plat_by_id($id);
     if ($plat) {
         if (isset($_SESSION['panier'][$id])) {
@@ -91,6 +91,7 @@ if (isset($_GET['ajouter'])) {
                 'id'       => $plat['id'],
                 'nom'      => $plat['nom'],
                 'prix'     => $plat['prix'],
+                'calories' => $plat['calories'] ?? 0,
                 'quantite' => 1
             ];
         }
@@ -110,6 +111,7 @@ if (isset($_GET['menu'])) {
                 'id'       => $menu_key,
                 'nom'      => $menu['nom'] . ' (menu)',
                 'prix'     => $menu['prix'],
+                'calories' => $menu['calories'] ?? 0,
                 'quantite' => 1
             ];
         }
@@ -124,10 +126,12 @@ if (isset($_GET['vider'])) {
     exit();
 }
 
+// Recommander une ancienne commande : remet tous ses plats dans le panier
 if (isset($_GET['recommander'])) {
     $cmd_rec = get_commande_by_id($_GET['recommander']);
     if ($cmd_rec !== null && $cmd_rec['user_email'] === $_SESSION['user']['email']) {
         foreach ($cmd_rec['plats'] as $item) {
+            // Ignorer les menus (id commence par "menu_")
             if (strpos($item['id'], 'menu_') === 0) continue;
             $plat = get_plat_by_id($item['id']);
             if ($plat === null) continue;
@@ -138,6 +142,7 @@ if (isset($_GET['recommander'])) {
                     'id'       => $plat['id'],
                     'nom'      => $plat['nom'],
                     'prix'     => $plat['prix'],
+                    'calories' => $plat['calories'] ?? 0,
                     'quantite' => $item['quantite']
                 ];
             }
@@ -150,7 +155,6 @@ if (isset($_GET['recommander'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['ajouter_plat'])) {
-        if (isset($_POST['mode_courant'])) $_SESSION['mode_commande'] = $_POST['mode_courant'];
         $id   = $_POST['ajouter_plat'];
         $plat = get_plat_by_id($id);
         if ($plat) {
@@ -161,6 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'id'       => $plat['id'],
                     'nom'      => $plat['nom'],
                     'prix'     => $plat['prix'],
+                    'calories' => $plat['calories'] ?? 0,
                     'quantite' => 1
                 ];
             }
@@ -170,7 +175,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['ajouter_menu'])) {
-        if (isset($_POST['mode_courant'])) $_SESSION['mode_commande'] = $_POST['mode_courant'];
         $menu_id = $_POST['ajouter_menu'];
         $menu    = get_menu_by_id($menu_id);
         if ($menu) {
@@ -182,6 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'id'       => $menu_key,
                     'nom'      => $menu['nom'] . ' (menu)',
                     'prix'     => $menu['prix'],
+                    'calories' => $menu['calories'] ?? 0,
                     'quantite' => 1
                 ];
             }
@@ -191,7 +196,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (isset($_POST['retirer'])) {
-        if (isset($_POST['mode_courant'])) $_SESSION['mode_commande'] = $_POST['mode_courant'];
         $id = $_POST['retirer'];
         if (isset($_SESSION['panier'][$id])) {
             if ($_SESSION['panier'][$id]['quantite'] > 1) {
@@ -288,8 +292,6 @@ foreach ($_SESSION['panier'] as $item) {
     $total_panier += $item['prix'] * $item['quantite'];
 }
 
-$mode_sauvegarde = $_SESSION['mode_commande'] ?? 'emporter';
-
 $menus   = get_menus();
 $entrees = get_plats_par_categorie('entree');
 $plats_p = get_plats_par_categorie('plat');
@@ -302,6 +304,7 @@ $user    = utilisateur_courant();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commander — L'Étoile</title>
+    <!-- POINT 6+7 — CSS dans css/, JS dans js/ avec defer -->
     <link rel="stylesheet" href="css/stylecommon.css">
     <link rel="stylesheet" href="css/stylecommandetemplate.css">
     <script src="js/scriptjs.js" defer></script>
@@ -341,6 +344,9 @@ $user    = utilisateur_courant();
                     <div>
                         <h4><?= h($menu['nom']) ?></h4>
                         <p><?= h($menu['description']) ?></p>
+                        <?php if (isset($menu['calories'])): ?>
+                            <small style="color:var(--gris-texte);">🔥 <?= $menu['calories'] ?> kcal</small>
+                        <?php endif; ?>
                     </div>
                     <span><?= number_format($menu['prix'], 2) ?> €</span>
                     <form method="POST">
@@ -359,6 +365,9 @@ $user    = utilisateur_courant();
                         <h4><?= h($p['nom']) ?></h4>
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
+                        <?php if (isset($p['calories'])): ?>
+                            <small style="color:var(--gris-texte);">🔥 <?= $p['calories'] ?> kcal</small>
+                        <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
                     <form method="POST">
@@ -377,6 +386,9 @@ $user    = utilisateur_courant();
                         <h4><?= h($p['nom']) ?></h4>
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
+                        <?php if (isset($p['calories'])): ?>
+                            <small style="color:var(--gris-texte);">🔥 <?= $p['calories'] ?> kcal</small>
+                        <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
                     <form method="POST">
@@ -395,6 +407,9 @@ $user    = utilisateur_courant();
                         <h4><?= h($p['nom']) ?></h4>
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
+                        <?php if (isset($p['calories'])): ?>
+                            <small style="color:var(--gris-texte);">🔥 <?= $p['calories'] ?> kcal</small>
+                        <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
                     <form method="POST">
@@ -422,11 +437,13 @@ $user    = utilisateur_courant();
                     <div class="panier-item-nom">
                         <?= h($item['nom']) ?>
                         <span class="panier-item-prix"><?= number_format($item['prix'], 2) ?> € / u</span>
+                        <?php if (isset($item['calories'])): ?>
+                            <span class="panier-item-cal">🔥 <?= $item['calories'] ?> kcal / u</span>
+                        <?php endif; ?>
                     </div>
                     <div class="panier-item-qte">
                         <form method="POST" style="display:inline;">
                             <input type="hidden" name="retirer" value="<?= h($key) ?>">
-                            <input type="hidden" name="mode_courant" class="input-mode-courant" value="<?= h($mode_sauvegarde) ?>">
                             <button type="submit" class="btn-qte btn-moins" title="Retirer un">−</button>
                         </form>
                         <span class="qte"><?= $item['quantite'] ?></span>
@@ -436,7 +453,6 @@ $user    = utilisateur_courant();
                             <?php else: ?>
                                 <input type="hidden" name="ajouter_plat" value="<?= h($key) ?>">
                             <?php endif; ?>
-                            <input type="hidden" name="mode_courant" class="input-mode-courant" value="<?= h($mode_sauvegarde) ?>">
                             <button type="submit" class="btn-qte btn-plus" title="Ajouter un">+</button>
                         </form>
                     </div>
@@ -451,6 +467,25 @@ $user    = utilisateur_courant();
                     <strong><?= number_format($total_panier, 2) ?> €</strong>
                 </div>
 
+                <?php
+                // Calculer le total calorique du panier
+                $total_calories = 0;
+                foreach ($_SESSION['panier'] as $item) {
+                    if (isset($item['calories'])) {
+                        $total_calories += $item['calories'] * $item['quantite'];
+                    }
+                }
+                ?>
+                <?php if ($total_calories > 0): ?>
+                <div class="panier-calories">
+                    <span>🔥 Total estimé</span>
+                    <span class="cal-valeur <?= $total_calories > 2000 ? 'cal-eleve' : ($total_calories > 1200 ? 'cal-moyen' : 'cal-ok') ?>">
+                        <?= $total_calories ?> kcal
+                    </span>
+                </div>
+                <p class="cal-info">Apport journalier recommandé : ~2000 kcal</p>
+                <?php endif; ?>
+
                 <form method="GET">
                     <input type="hidden" name="vider" value="1">
                     <button type="submit" class="btn-vider">🗑️ Vider le panier</button>
@@ -463,18 +498,16 @@ $user    = utilisateur_courant();
 
                 <div class="commande-mode">
                     <label>
-                        <input type="radio" name="mode" value="emporter" id="mode-emporter"
-                               <?= $mode_sauvegarde === 'emporter' ? 'checked' : '' ?>>
+                        <input type="radio" name="mode" value="emporter" id="mode-emporter" checked>
                         À emporter
                     </label>
                     <label>
-                        <input type="radio" name="mode" value="livraison" id="mode-livraison"
-                               <?= $mode_sauvegarde === 'livraison' ? 'checked' : '' ?>>
+                        <input type="radio" name="mode" value="livraison" id="mode-livraison">
                         Livraison à domicile
                     </label>
                 </div>
 
-                <div id="bloc-adresse" style="margin-top:0.6rem; <?= $mode_sauvegarde === 'emporter' ? 'display:none;' : '' ?>">
+                <div style="margin-top:0.6rem;">
                     <label for="adresse">Adresse de livraison :</label>
                     <input type="text" name="adresse" id="adresse"
                            placeholder="Ex : 12 rue de la Paix, 75001 Paris"
@@ -496,27 +529,6 @@ $user    = utilisateur_courant();
         </aside>
     </div>
 </main>
-
-<script>
-(function() {
-    const radios   = document.querySelectorAll('input[name="mode"]');
-    const blocAdr  = document.getElementById('bloc-adresse');
-    const inputs   = document.querySelectorAll('.input-mode-courant');
-
-    function appliquerMode(mode) {
-        if (blocAdr) blocAdr.style.display = (mode === 'livraison') ? '' : 'none';
-        inputs.forEach(function(inp) { inp.value = mode; });
-    }
-
-    radios.forEach(function(radio) {
-        radio.addEventListener('change', function() {
-            appliquerMode(this.value);
-        });
-    });
-})();
-</script>
-</body>
-</html>
 
 <footer class="footer">
     <div class="footer-container">

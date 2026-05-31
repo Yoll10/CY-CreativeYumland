@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('modif-categorie').value   = btn.dataset.categorie;
             document.getElementById('modif-allergenes').value  = btn.dataset.allergenes;
             document.getElementById('modif-image').value       = btn.dataset.image;
+            document.getElementById('modif-calories').value    = btn.dataset.calories || '';
             ouvrirModalGP('modal-modif');
         });
     });

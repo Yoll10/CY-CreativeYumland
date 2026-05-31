@@ -23,12 +23,18 @@ function afficher_plats_grille(array $liste): void {
             <?php foreach ($groupe as $plat): ?>
             <div>
                 <p class="titre3"><?= h($plat['nom']) ?></p>
+                <?php if (isset($plat['calories'])): ?>
+                    <p style="font-size:0.85rem; color:var(--gris-texte); margin-bottom:8px;">🔥 <?= $plat['calories'] ?> kcal</p>
+                <?php endif; ?>
                 <div class="plat">
                     <img class="img" src="<?= h($plat['image']) ?>" alt="<?= h($plat['nom']) ?>"
                          onerror="this.src='images/plats/default.jpg'">
                     <div class="overlay-texte">
                         Allergènes : <?= h($plat['allergenes']) ?><br>
-                        Prix : <?= number_format($plat['prix'], 2) ?> €
+                        Prix : <?= number_format($plat['prix'], 2) ?> €<br>
+                        <?php if (isset($plat['calories'])): ?>
+                        🔥 <?= $plat['calories'] ?> kcal
+                        <?php endif; ?>
                     </div>
                 </div>
                 <?php if (isset($_SESSION['user'])): ?>
@@ -59,6 +65,7 @@ function afficher_plats_grille(array $liste): void {
 
 <div class="titre1">Notre carte</div>
 
+<!-- Barre de recherche classique -->
 <form method="GET" action="carte.php">
     <div class="barre">
         <span class="loupe">🔍</span>
@@ -79,6 +86,7 @@ function afficher_plats_grille(array $liste): void {
 
 <?php else: ?>
 
+    <!-- Navigation par ancres -->
     <nav class="nav-categories">
         <a href="#menus"    class="btn-primary">Menus</a>
         <a href="#filtres"  class="btn-primary">🔎 Filtrer les plats</a>
@@ -87,13 +95,17 @@ function afficher_plats_grille(array $liste): void {
         <a href="#desserts" class="btn-primary">Desserts</a>
     </nav>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <!-- Menus -->
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="menus" class="titre2">Nos Menus</div>
     <div class="colonnes">
         <?php foreach ($menus as $menu): ?>
         <div style="background-color: #e2d3c3; min-height: 350px; padding: 1rem;">
             <p class="titre3"><?= h($menu['nom']) ?></p>
             <p style="font-style: italic; padding: 0.5rem 0;"><?= h($menu['description']) ?></p>
+            <?php if (isset($menu['calories'])): ?>
+                <p style="font-size:0.85rem; color:var(--gris-texte); margin-bottom:6px;">🔥 <?= $menu['calories'] ?> kcal</p>
+            <?php endif; ?>
             <p class="titre3" style="font-size: 1.4rem;"><?= number_format($menu['prix'], 2) ?> €</p>
             <?php if (est_connecte()): ?>
                 <a href="commande-template.php?menu=<?= h($menu['id']) ?>" class="bouton-discover">Choisir ce menu</a>
@@ -104,7 +116,8 @@ function afficher_plats_grille(array $liste): void {
         <?php endforeach; ?>
     </div>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <!-- ===== ZONE FILTRES / TRIS ASYNCHRONES ===== -->
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="filtres" class="titre2">Filtrer les plats</div>
 
     <div class="filtres-wrapper">
@@ -138,20 +151,22 @@ function afficher_plats_grille(array $liste): void {
 
     </div>
 
+    <!-- Conteneur des résultats filtrés/triés -->
     <div id="carte-resultats"
          data-connecte="<?= isset($_SESSION['user']) ? '1' : '0' ?>">
         <p class="carte-vide">Chargement des plats…</p>
     </div>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <!-- Sections statiques par catégorie -->
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="entrees" class="titre2">Nos Entrées</div>
     <?php afficher_plats_grille(get_plats_par_categorie('entree')); ?>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="plats" class="titre2">Nos Plats</div>
     <?php afficher_plats_grille(get_plats_par_categorie('plat')); ?>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="desserts" class="titre2">Nos Desserts</div>
     <?php afficher_plats_grille(get_plats_par_categorie('dessert')); ?>
 
