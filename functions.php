@@ -164,8 +164,7 @@ function exiger_connexion() {
         header("Location: connexion.php");
         exit();
     }
-    // Vérification en direct : si l'utilisateur a été bloqué depuis sa connexion,
-    // on détruit sa session immédiatement et on le redirige.
+    
     $user_frais = get_user_by_email($_SESSION['user']['email']);
     if ($user_frais === null || $user_frais['statut'] === 'bloque') {
         $_SESSION['panier'] = [];
@@ -173,8 +172,7 @@ function exiger_connexion() {
         header("Location: connexion.php?bloque=1");
         exit();
     }
-    // On resynchronise la session avec les données les plus récentes
-    // (utile si un admin a modifié le rôle ou le nom entre-temps)
+    
     $_SESSION['user'] = $user_frais;
 }
 
@@ -422,9 +420,7 @@ function nb_articles_panier() {
 }
 
 
-// ══════════════════════════════════════════════════════
-//  LOGS D'INCIDENTS
-// ══════════════════════════════════════════════════════
+
 
 define('LOGS_FILE', __DIR__ . '/data/logs.json');
 
@@ -440,7 +436,6 @@ function ajouter_log($type, $details) {
         'details' => $details,
         'ip'      => $_SERVER['REMOTE_ADDR'] ?? 'inconnue'
     ];
-    // Garder seulement les 500 derniers logs pour ne pas surcharger
     if (count($logs) > 500) {
         $logs = array_slice($logs, -500);
     }
@@ -448,14 +443,11 @@ function ajouter_log($type, $details) {
 }
 
 
-// ══════════════════════════════════════════════════════
-//  LIMITE DE TENTATIVES DE CONNEXION
-// ══════════════════════════════════════════════════════
+
 
 define('TENTATIVES_FILE', __DIR__ . '/data/tentatives.json');
 define('MAX_TENTATIVES', 5);
-define('DUREE_BLOCAGE', 600); // 10 minutes en secondes
-
+define('DUREE_BLOCAGE', 600); 
 function get_tentatives() {
     return lire_json(TENTATIVES_FILE);
 }
@@ -465,12 +457,12 @@ function est_ip_bloquee($ip) {
     if (!isset($tentatives[$ip])) return false;
 
     $info = $tentatives[$ip];
-    // Si le blocage est expiré, on nettoie
+    
     if (isset($info['bloque_jusqu'])) {
         if (time() < $info['bloque_jusqu']) {
-            return true; // toujours bloqué
+            return true; 
         } else {
-            // Blocage expiré : on remet à zéro
+            
             unset($tentatives[$ip]);
             ecrire_json(TENTATIVES_FILE, $tentatives);
             return false;
@@ -492,7 +484,6 @@ function enregistrer_tentative_echouee($ip, $email) {
         $tentatives[$ip] = ['count' => 0, 'derniere' => 0];
     }
 
-    // Si la dernière tentative date de plus de 10 min, on repart à 0
     if (time() - $tentatives[$ip]['derniere'] > DUREE_BLOCAGE) {
         $tentatives[$ip]['count'] = 0;
         unset($tentatives[$ip]['bloque_jusqu']);
@@ -523,7 +514,7 @@ function get_commandes_disponibles_livraison() {
     $commandes = get_commandes();
     $result = array();
     foreach ($commandes as $cmd) {
-        // La commande cherche un livreur et n'en a pas encore
+        
         if ($cmd['statut'] === 'en_livraison' && (!isset($cmd['livreur_email']) || $cmd['livreur_email'] === null || $cmd['livreur_email'] === '')) {
             $result[] = $cmd;
         }
@@ -535,7 +526,7 @@ function get_commandes_livreur($email) {
     $commandes = get_commandes();
     $result = array();
     foreach ($commandes as $cmd) {
-        // La commande est assignée à CE livreur spécifiquement
+        
         if (isset($cmd['livreur_email']) && $cmd['livreur_email'] === $email && $cmd['statut'] === 'en_livraison') {
             $result[] = $cmd;
         }

@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mdp   = $_POST['mdp'];
     $ip    = $_SERVER['REMOTE_ADDR'] ?? 'inconnue';
 
-    // Vérifier si l'IP est bloquée
     if (est_ip_bloquee($ip)) {
         $minutes = ceil(temps_restant_blocage($ip) / 60);
         $erreur  = "Trop de tentatives échouées. Réessayez dans $minutes minute(s).";
@@ -26,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $erreur = "Votre compte a été bloqué. Contactez l'administrateur.";
                 ajouter_log('connexion_compte_bloque', "Tentative de connexion sur le compte bloqué : $email");
             } else {
-                // Connexion réussie : on remet les tentatives à zéro
                 reinitialiser_tentatives($ip);
                 $_SESSION['user'] = $user;
 
@@ -45,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             }
         } else {
-            // Mauvais identifiants
             enregistrer_tentative_echouee($ip, $email);
             ajouter_log('mauvais_mdp', "Échec de connexion pour l'email : $email");
 

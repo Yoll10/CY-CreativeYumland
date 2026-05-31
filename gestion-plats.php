@@ -5,11 +5,9 @@ exiger_role('restaurateur');
 $message = '';
 $erreur  = '';
 
-// ── TRAITEMENT POST ──────────────────────────────────────────────────
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
-    // ── SUPPRIMER ──
     if ($action === 'supprimer') {
         $id = trim($_POST['plat_id'] ?? '');
         if ($id !== '') {
@@ -23,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // ── AJOUTER ──
     if ($action === 'ajouter') {
         $nom        = trim($_POST['nom']        ?? '');
         $desc       = trim($_POST['description'] ?? '');
@@ -35,7 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($nom === '' || $prix <= 0 || !in_array($categorie, ['entree','plat','dessert'])) {
             $erreur = "Veuillez remplir tous les champs obligatoires (nom, prix, catégorie).";
         } else {
-            // Générer un id unique
             $plats  = get_plats();
             $max_id = 0;
             foreach ($plats as $p) {
@@ -63,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // ── MODIFIER ──
     if ($action === 'modifier') {
         $id         = trim($_POST['plat_id']     ?? '');
         $nom        = trim($_POST['nom']         ?? '');
@@ -137,7 +132,6 @@ if ($filtre_cat !== 'tous') {
         <div class="gp-msg gp-erreur">❌ <?= h($erreur) ?></div>
     <?php endif; ?>
 
-    <!-- Filtres catégorie -->
     <nav class="gp-filtres">
         <a href="gestion-plats.php?cat=tous"    class="<?= $filtre_cat === 'tous'    ? 'actif' : '' ?>">Tous (<?= count($plats_tous) ?>)</a>
         <a href="gestion-plats.php?cat=entree"  class="<?= $filtre_cat === 'entree'  ? 'actif' : '' ?>">Entrées</a>
@@ -145,7 +139,6 @@ if ($filtre_cat !== 'tous') {
         <a href="gestion-plats.php?cat=dessert" class="<?= $filtre_cat === 'dessert' ? 'actif' : '' ?>">Desserts</a>
     </nav>
 
-    <!-- Tableau des plats -->
     <div class="gp-table-wrapper">
         <table class="gp-table">
             <thead>
@@ -202,7 +195,6 @@ if ($filtre_cat !== 'tous') {
 
 </main>
 
-<!-- ═══ MODAL AJOUT ═══ -->
 <div class="gp-modal-overlay" id="modal-ajout">
     <div class="gp-modal">
         <h2>Ajouter un plat</h2>
@@ -244,7 +236,6 @@ if ($filtre_cat !== 'tous') {
     </div>
 </div>
 
-<!-- ═══ MODAL MODIFICATION ═══ -->
 <div class="gp-modal-overlay" id="modal-modif">
     <div class="gp-modal">
         <h2>Modifier le plat</h2>

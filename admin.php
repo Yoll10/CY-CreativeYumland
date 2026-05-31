@@ -99,7 +99,7 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                                 <button class="actions-btn">Actions ▾</button>
                                 <div class="actions-dropdown">
 
-                                    <!-- Modifier (modal) -->
+                                    
                                     <button type="button" class="action edit-btn"
                                             onclick="ouvrirModal(
                                                 '<?= h($u['email']) ?>',
@@ -112,7 +112,6 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
 
                                     <?php if ($u['email'] !== $_SESSION['user']['email']) { ?>
 
-                                        <!-- Bloquer / Débloquer en ASYNCHRONE -->
                                         <?php if ($u['statut'] === 'actif') { ?>
                                             <button type="button"
                                                     class="action block btn-bloquer-async"
@@ -168,7 +167,6 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
     </div>
 </section>
 
-<!-- Modal modification -->
 <div class="modal-overlay" id="modal-modif">
     <div class="modal-box">
         <h2>Modifier l'utilisateur</h2>
@@ -200,7 +198,6 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
 </div>
 
 
-<!-- ═══ SECTION LOGS ═══ -->
 <section class="admin-logs-wrapper">
     <div class="admin-logs">
         <h2>📋 Journal des incidents

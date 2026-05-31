@@ -10,11 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if ($id !== '') {
         if ($action === 'accepter') {
-            // Le livreur s'attribue la commande
             update_statut_commande($id, 'en_livraison', $mon_email);
             ajouter_log('livraison_acceptee', "Le livreur $mon_email a pris en charge la commande $id");
         } else if ($action === 'livree') {
-            // Le livreur termine la commande
             update_statut_commande($id, 'livree');
         }
     }
@@ -22,7 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-// Récupération des deux listes
 $commandes_dispo = get_commandes_disponibles_livraison();
 $mes_livraisons = get_commandes_livreur($mon_email);
 ?>

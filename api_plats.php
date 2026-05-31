@@ -8,7 +8,6 @@ $allergene = isset($_GET['allergene']) ? trim($_GET['allergene']) : 'tous';
 
 $plats = get_plats();
 
-// Filtre par catégorie
 if ($categorie !== '' && $categorie !== 'tous') {
     $plats = array_filter($plats, function($p) use ($categorie) {
         return $p['categorie'] === $categorie;
@@ -16,7 +15,6 @@ if ($categorie !== '' && $categorie !== 'tous') {
     $plats = array_values($plats);
 }
 
-// Filtre par allergène (exclusion)
 if ($allergene !== '' && $allergene !== 'tous') {
     $motsCles = [];
     switch ($allergene) {
@@ -30,7 +28,7 @@ if ($allergene !== '' && $allergene !== 'tous') {
             $allergenes_plat = strtolower($p['allergenes']);
             foreach ($motsCles as $mot) {
                 if (strpos($allergenes_plat, $mot) !== false) {
-                    return false; // Contient l'allergène → exclure
+                    return false; 
                 }
             }
             return true;
@@ -39,7 +37,6 @@ if ($allergene !== '' && $allergene !== 'tous') {
     }
 }
 
-// Ajouter le nombre de commandes pour le tri par popularité
 $commandes = get_commandes();
 $compteur  = [];
 foreach ($commandes as $cmd) {
