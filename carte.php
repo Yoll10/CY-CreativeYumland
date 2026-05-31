@@ -87,7 +87,7 @@ function afficher_plats_grille(array $liste): void {
         <a href="#desserts" class="btn-primary">Desserts</a>
     </nav>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="menus" class="titre2">Nos Menus</div>
     <div class="colonnes">
         <?php foreach ($menus as $menu): ?>
@@ -104,7 +104,7 @@ function afficher_plats_grille(array $liste): void {
         <?php endforeach; ?>
     </div>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="filtres" class="titre2">Filtrer les plats</div>
 
     <div class="filtres-wrapper">
@@ -143,15 +143,15 @@ function afficher_plats_grille(array $liste): void {
         <p class="carte-vide">Chargement des plats…</p>
     </div>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="entrees" class="titre2">Nos Entrées</div>
     <?php afficher_plats_grille(get_plats_par_categorie('entree')); ?>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="plats" class="titre2">Nos Plats</div>
     <?php afficher_plats_grille(get_plats_par_categorie('plat')); ?>
 
-    <img class="dividing" src="divider.png" alt="separateur">
+    <img class="dividing" src="images/divider.png" alt="separateur">
     <div id="desserts" class="titre2">Nos Desserts</div>
     <?php afficher_plats_grille(get_plats_par_categorie('dessert')); ?>
 
