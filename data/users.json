@@ -1,0 +1,145 @@
+[
+    {
+        "email": "jean.dupont@mail.com",
+        "mdp": "$2y$10$sPNndh2Jes7KRH0SJCnLAuM5nASYyxibWpThveIaiMlFX1jYsAi0y",
+        "nom": "Dupont",
+        "prenom": "Jean",
+        "telephone": "01 23 45 67 89",
+        "adresse": "12 rue de la Paix, 75001 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-09-10"
+    },
+    {
+        "email": "sophie.martin@mail.com",
+        "mdp": "$2y$10$9Jze2qpeEUGgSUl2RbNDZ.Oll89Agki5SKRnr6hLKNtHLPA5a7zKe",
+        "nom": "Martin",
+        "prenom": "Sophie",
+        "telephone": "06 22 33 44 55",
+        "adresse": "5 avenue des Fleurs, 75008 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-10-03"
+    },
+    {
+        "email": "paul.lemoine@mail.com",
+        "mdp": "$2y$10$ghu3XzPHLIxunOqlLiYQo.usJsFUG0omz1UX.XU.HR6yt2OCS.LIy",
+        "nom": "Lemoine",
+        "prenom": "Paul",
+        "telephone": "06 33 44 55 66",
+        "adresse": "88 boulevard Haussmann, 75009 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-11-15"
+    },
+    {
+        "email": "clara.bernard@mail.com",
+        "mdp": "$2y$10$nI6WR3pjoY1J7nUpx\/b3TeC59RNfjOMVdoRJGzP1iL5BaUp9BMRIG",
+        "nom": "Bernard",
+        "prenom": "Clara",
+        "telephone": "06 44 55 66 77",
+        "adresse": "3 impasse du Moulin, 92100 Boulogne",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2025-12-01"
+    },
+    {
+        "email": "marc.petit@mail.com",
+        "mdp": "$2y$10$XFPAmmzvBFkm6odxpO\/FQ.r.YNRLNFPQSZA84W.vDYw4TLqRTvTAG",
+        "nom": "Petit",
+        "prenom": "Marc",
+        "telephone": "06 55 66 77 88",
+        "adresse": "21 rue du Commerce, 75015 Paris",
+        "role": "admin",
+        "statut": "actif",
+        "date_inscription": "2026-01-08"
+    },
+    {
+        "email": "admin@letoile.fr",
+        "mdp": "$2y$10$yDcrA0tzYFrI79dusL.sVexKwJQ56IaNO9sQrW8MM0J4LNgKlraM2",
+        "nom": "Admin",
+        "prenom": "Principal",
+        "telephone": "06 00 00 00 01",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "admin",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "gestionnaire@letoile.fr",
+        "mdp": "$2y$10$246KA6T5w4P1LoCpEHJhvumo7MqYgK9xSSAc7dK\/qHKAvtk3NLgTe",
+        "nom": "Granger",
+        "prenom": "Lucie",
+        "telephone": "06 00 00 00 02",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "admin",
+        "statut": "bloque",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "chef@letoile.fr",
+        "mdp": "$2y$10$yEl70UBdjKleR7Pwpwnry.9819lw1mPoV4fVA363pYCZh.JYNqiIW",
+        "nom": "Roux",
+        "prenom": "Antoine",
+        "telephone": "06 00 00 00 03",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "restaurateur",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "livreur1@letoile.fr",
+        "mdp": "$2y$10$vs.xGhWQRaNlaMmNp0oqv.MlrklgDoEbuneE3HjD9UjEM1qTUFe\/2",
+        "nom": "Moreau",
+        "prenom": "Kevin",
+        "telephone": "06 00 00 00 04",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "livreur",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "livreur2@letoile.fr",
+        "mdp": "$2y$10$vs.xGhWQRaNlaMmNp0oqv.MlrklgDoEbuneE3HjD9UjEM1qTUFe\/2",
+        "nom": "Pierre",
+        "prenom": "Paul",
+        "telephone": "06 00 00 00 04",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "livreur",
+        "statut": "actif",
+        "date_inscription": "2025-08-01"
+    },
+    {
+        "email": "ethangnass@gmail.com",
+        "mdp": "$2y$10$f99RzD1uExYfj3j0GuFNm.y4xnJobd..gf\/JhVIIDArRbG\/M4Ubc2",
+        "nom": "Gnassounou-boulay",
+        "prenom": "Ethan",
+        "telephone": "0649009690",
+        "adresse": "21 SENTE DES CHASSEURS",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-04-03"
+    },
+    {
+        "email": "antoine.test@gmail.com",
+        "mdp": "$2y$10$kOEfw5LAH85W6iA9w2OuRe7mVW0STMd2GV9JUSecyTB.HnliClZsy",
+        "nom": "test1",
+        "prenom": "test7",
+        "telephone": "0524447788",
+        "adresse": "67 rue du flop",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-04-05"
+    },
+    {
+        "email": "ATEST@test.com",
+        "mdp": "$2y$10$1TtFN\/FKgAENMWaXZWNbUOeHhlKzhe2oJLDECsvH.c4VEzZ0WhABu",
+        "nom": "a",
+        "prenom": "a",
+        "telephone": "0600000011",
+        "adresse": "a",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-05-15"
+    }
+]

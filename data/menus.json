@@ -1,0 +1,26 @@
+[
+    {
+        "id": "m01",
+        "nom": "Menu Prestige",
+        "description": "Notre menu signature : une entrée, un plat et un dessert au choix parmi une sélection d'exception.",
+        "prix": 75.00,
+        "plats_ids": ["p02", "p06", "p12"],
+        "nb_personnes_min": 1
+    },
+    {
+        "id": "m02",
+        "nom": "Menu Découverte",
+        "description": "Idéal pour découvrir l'Étoile : entrée légère, plat signature et dessert maison.",
+        "prix": 55.00,
+        "plats_ids": ["p01", "p07", "p13"],
+        "nb_personnes_min": 1
+    },
+    {
+        "id": "m03",
+        "nom": "Menu Déjeuner",
+        "description": "Un menu express midi : plat du jour et dessert à prix doux, servi en moins de 45 minutes.",
+        "prix": 35.00,
+        "plats_ids": ["p10", "p14"],
+        "nb_personnes_min": 1
+    }
+]

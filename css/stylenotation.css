@@ -1,0 +1,153 @@
+.avis-page {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.avis-container {
+    max-width: 600px;
+    width: 100%;
+    background-color: var(--beige);
+    padding: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.avis-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.avis-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.avis-header p {
+    color: var(--gris-texte);
+    font-size: 0.95rem;
+}
+
+.rating-group {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.rating-group h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+
+.stars {
+    display: flex;
+    flex-direction: row-reverse; 
+    justify-content: center;
+    gap: 5px;
+}
+
+.stars input {
+    display: none;
+}
+
+.stars label {
+    font-size: 2.5rem;
+    color: var(--sable);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+
+.stars label:hover,
+.stars label:hover ~ label,
+.stars input:checked ~ label {
+    color: var(--marron);
+}
+
+.comment-group h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.comment-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--marron-clair);
+    background-color: var(--creme);
+    resize: none;
+    outline: none;
+}
+
+.btn-submit {
+    width: 100%;
+    margin-top: 30px;
+    padding: 15px;
+    background-color: var(--marron);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: var(--brun);
+}
+
+
+@media screen and (max-width: 1024px) {
+
+    .avis-container {
+        padding: 40px;
+    }
+
+    .avis-header h1 {
+        font-size: 1.9rem;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .avis-page {
+        padding: 40px 15px;
+        align-items: flex-start;
+    }
+
+    .avis-container {
+        padding: 30px 20px;
+        border-radius: 10px;
+    }
+
+    .avis-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .avis-header p {
+        font-size: 0.9rem;
+    }
+
+    
+    .stars label {
+        font-size: 2.2rem;
+    }
+
+    .rating-group {
+        margin-bottom: 25px;
+    }
+
+    .comment-group textarea {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    .btn-submit {
+        padding: 14px;
+        font-size: 0.95rem;
+    }
+
+}
+
+

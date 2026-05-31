@@ -1,0 +1,255 @@
+.gp-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 50px 20px;
+}
+
+.gp-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.gp-header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.gp-header p {
+    color: var(--gris-texte);
+    margin-bottom: 20px;
+}
+
+.btn-ajouter-plat {
+    padding: 12px 28px;
+    background-color: var(--marron);
+    color: var(--creme);
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-ajouter-plat:hover {
+    background-color: var(--marron-clair);
+    transform: translateY(-2px);
+}
+
+.gp-msg {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.gp-succes { background: #d4edda; color: #155724; }
+.gp-erreur { background: #f8d7da; color: #721c24; }
+
+/* Filtres */
+.gp-filtres {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+.gp-filtres a {
+    padding: 8px 20px;
+    border: 1px solid var(--marron);
+    color: var(--marron);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.gp-filtres a:hover,
+.gp-filtres a.actif {
+    background: var(--marron);
+    color: var(--creme);
+}
+
+/* Tableau */
+.gp-table-wrapper {
+    overflow-x: auto;
+}
+
+.gp-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--sable);
+}
+
+.gp-table thead {
+    background: var(--marron);
+    color: var(--creme);
+}
+
+.gp-table th,
+.gp-table td {
+    padding: 14px 16px;
+    font-size: 0.9rem;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.gp-table tbody tr {
+    background: #f3ede6;
+    border-bottom: 1px solid #e0d5c5;
+}
+
+.gp-table tbody tr:hover {
+    background: #e9dfd3;
+}
+
+/* Badges catégorie */
+.badge-cat {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.78rem;
+    font-weight: bold;
+}
+
+.badge-entree  { background: #d4edda; color: #155724; }
+.badge-plat    { background: #cce5ff; color: #004085; }
+.badge-dessert { background: #fff3cd; color: #856404; }
+
+/* Actions */
+.gp-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.btn-edit-plat {
+    padding: 6px 12px;
+    background: var(--marron);
+    color: var(--creme);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: 0.2s;
+}
+
+.btn-edit-plat:hover {
+    background: var(--marron-clair);
+}
+
+.btn-del-plat {
+    padding: 6px 12px;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.82rem;
+    transition: 0.2s;
+}
+
+.btn-del-plat:hover {
+    background: #922b21;
+}
+
+/* Modals */
+.gp-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+}
+
+.gp-modal-overlay.actif {
+    display: flex;
+}
+
+.gp-modal {
+    background: var(--creme);
+    border-radius: 12px;
+    padding: 2rem;
+    width: 90%;
+    max-width: 550px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+}
+
+.gp-modal h2 {
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+    color: var(--brun);
+}
+
+.gp-modal label {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--gris-texte);
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+}
+
+.req { color: #c0392b; }
+
+.gp-modal input,
+.gp-modal select,
+.gp-modal textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid var(--marron-clair);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: var(--beige);
+    color: var(--brun);
+    box-sizing: border-box;
+}
+
+.gp-modal textarea {
+    resize: vertical;
+}
+
+.gp-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.gp-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 1.5rem;
+}
+
+.btn-annuler {
+    padding: 8px 18px;
+    background: #eee;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-sauver {
+    padding: 8px 18px;
+    background: var(--marron);
+    color: var(--creme);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.btn-sauver:hover {
+    background: var(--marron-clair);
+}
+
+@media (max-width: 600px) {
+    .gp-row { grid-template-columns: 1fr; }
+    .gp-actions { flex-direction: column; }
+}
