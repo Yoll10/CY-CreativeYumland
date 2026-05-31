@@ -50,7 +50,6 @@ if (isset($_GET['cmd_id'], $_GET['transaction'], $_GET['status'],
     }
 }
 
-// POINT 1 — Redirection vers CYBank avec auto-submit du formulaire
 if (isset($_GET['payer']) && !empty($_SESSION['cybank_pending'])) {
     $params = $_SESSION['cybank_pending'];
     unset($_SESSION['cybank_pending']);
@@ -82,7 +81,6 @@ if (isset($_GET['payer']) && !empty($_SESSION['cybank_pending'])) {
 
 if (isset($_GET['ajouter'])) {
     $id   = $_GET['ajouter'];
-    // Sauvegarder le mode sélectionné avant rechargement
     if (isset($_GET['mode'])) $_SESSION['mode_commande'] = $_GET['mode'];
     $plat = get_plat_by_id($id);
     if ($plat) {
@@ -126,12 +124,10 @@ if (isset($_GET['vider'])) {
     exit();
 }
 
-// Recommander une ancienne commande : remet tous ses plats dans le panier
 if (isset($_GET['recommander'])) {
     $cmd_rec = get_commande_by_id($_GET['recommander']);
     if ($cmd_rec !== null && $cmd_rec['user_email'] === $_SESSION['user']['email']) {
         foreach ($cmd_rec['plats'] as $item) {
-            // Ignorer les menus (id commence par "menu_")
             if (strpos($item['id'], 'menu_') === 0) continue;
             $plat = get_plat_by_id($item['id']);
             if ($plat === null) continue;
@@ -154,7 +150,6 @@ if (isset($_GET['recommander'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['ajouter_plat'])) {
-        // Sauvegarder le mode avant rechargement
         if (isset($_POST['mode_courant'])) $_SESSION['mode_commande'] = $_POST['mode_courant'];
         $id   = $_POST['ajouter_plat'];
         $plat = get_plat_by_id($id);
@@ -293,7 +288,6 @@ foreach ($_SESSION['panier'] as $item) {
     $total_panier += $item['prix'] * $item['quantite'];
 }
 
-// Récupérer le mode sauvegardé en session (bug 3)
 $mode_sauvegarde = $_SESSION['mode_commande'] ?? 'emporter';
 
 $menus   = get_menus();
@@ -308,7 +302,6 @@ $user    = utilisateur_courant();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commander — L'Étoile</title>
-    <!-- POINT 6+7 — CSS dans css/, JS dans js/ avec defer -->
     <link rel="stylesheet" href="css/stylecommon.css">
     <link rel="stylesheet" href="css/stylecommandetemplate.css">
     <script src="js/scriptjs.js" defer></script>
@@ -481,7 +474,6 @@ $user    = utilisateur_courant();
                     </label>
                 </div>
 
-                <!-- Bug 2 : masquer l'adresse si mode emporter -->
                 <div id="bloc-adresse" style="margin-top:0.6rem; <?= $mode_sauvegarde === 'emporter' ? 'display:none;' : '' ?>">
                     <label for="adresse">Adresse de livraison :</label>
                     <input type="text" name="adresse" id="adresse"
@@ -506,7 +498,6 @@ $user    = utilisateur_courant();
 </main>
 
 <script>
-// Bug 2 & 3 — Masquage adresse + mise à jour mode_courant en temps réel
 (function() {
     const radios   = document.querySelectorAll('input[name="mode"]');
     const blocAdr  = document.getElementById('bloc-adresse');

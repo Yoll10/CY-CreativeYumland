@@ -3,7 +3,6 @@ require_once 'functions.php';
 
 header('Content-Type: application/json');
 
-// Vérifier que l'utilisateur est admin
 if (!est_admin()) {
     echo json_encode(['succes' => false, 'message' => 'Accès non autorisé.']);
     exit();
@@ -25,7 +24,6 @@ if ($data === null || !isset($data['action']) || !isset($data['email'])) {
 $action = $data['action'];
 $email  = $data['email'];
 
-// Impossible de se bloquer soi-même
 if ($email === $_SESSION['user']['email']) {
     echo json_encode(['succes' => false, 'message' => 'Vous ne pouvez pas modifier votre propre statut.']);
     exit();

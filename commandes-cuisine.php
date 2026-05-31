@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             update_statut_commande($id, 'livree');
 
         } else if ($action === 'envoyer_livraison') {
-            // La commande est prête à être livrée, elle rejoint la file d'attente globale des livreurs
             update_statut_commande($id, 'en_livraison', null);
         } else {
                 update_statut_commande($id, 'en_livraison');

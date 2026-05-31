@@ -22,7 +22,7 @@ if ($data === null || !isset($data['commande_id']) || !isset($data['plats'])) {
 }
 
 $commande_id = trim($data['commande_id']);
-$plats_new   = $data['plats']; // [{ id, quantite }, ...]
+$plats_new   = $data['plats']; 
 
 $commande = get_commande_by_id($commande_id);
 
@@ -31,28 +31,24 @@ if ($commande === null) {
     exit();
 }
 
-// Sécurité : seul le propriétaire peut modifier
 if ($commande['user_email'] !== $_SESSION['user']['email']) {
     echo json_encode(['succes' => false, 'message' => 'Accès non autorisé.']);
     exit();
 }
 
-// Seules les commandes en_attente sont modifiables
 if ($commande['statut'] !== 'en_attente') {
     echo json_encode(['succes' => false, 'message' => 'Cette commande ne peut plus être modifiée.']);
     exit();
 }
 
-// Construire la nouvelle liste de plats avec nom et prix à jour
 $plats_final = [];
 $nouveau_total = 0;
 foreach ($plats_new as $item) {
     $q = intval($item['quantite']);
     if ($q <= 0) continue;
 
-    // Gérer les menus (id commence par "menu_")
     if (strpos($item['id'], 'menu_') === 0) {
-        $menu_id = substr($item['id'], 5); // retirer "menu_"
+        $menu_id = substr($item['id'], 5); 
         $menu = get_menu_by_id($menu_id);
         if ($menu === null) continue;
         $plats_final[] = [
@@ -84,7 +80,6 @@ $nouveau_total = round($nouveau_total, 2);
 $ancien_total  = round($commande['total'], 2);
 $difference    = round($nouveau_total - $ancien_total, 2);
 
-// Sauvegarder les modifications
 $ok = update_plats_commande($commande_id, $plats_final, $nouveau_total);
 
 if (!$ok) {
@@ -92,7 +87,6 @@ if (!$ok) {
     exit();
 }
 
-// Si le nouveau total est plus élevé → paiement complémentaire CYBank
 if ($difference > 0.01) {
     $transaction_cybank = 'TXN' . date('YmdHis') . rand(100, 999);
     $montant_cybank = number_format($difference, 2, '.', '');
@@ -124,7 +118,6 @@ if ($difference > 0.01) {
         'redirect'  => 'commande-template.php?payer=1'
     ]);
 } else {
-    // Pas de supplément à payer
     echo json_encode([
         'succes'   => true,
         'paiement' => false,

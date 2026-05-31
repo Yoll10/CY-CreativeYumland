@@ -11,7 +11,6 @@ if ($id === '') {
 
 $commande = get_commande_by_id($id);
 
-// Vérifications de sécurité
 if ($commande === null) {
     header('Location: profil.php');
     exit();
@@ -25,12 +24,10 @@ if ($commande['statut'] !== 'en_attente') {
     exit();
 }
 
-// Récupérer tous les plats pour permettre d'en ajouter
 $tous_plats = get_plats();
 
-// Construire un tableau id => quantite actuelle dans la commande
 $plats_commande = [];
-$menus_commande = []; // menus dans la commande (lecture seule)
+$menus_commande = [];
 foreach ($commande['plats'] as $p) {
     if (strpos($p['id'], 'menu_') === 0) {
         $menus_commande[$p['id']] = $p;
@@ -126,7 +123,6 @@ foreach ($commande['plats'] as $p) {
             </span>
         </div>
 
-        <!-- Total de référence (original) pour calculer la différence -->
         <div id="modif-ancien-total"
              data-total="<?= number_format($commande['total'], 2, '.', '') ?>"
              style="display:none;"></div>

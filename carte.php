@@ -59,7 +59,6 @@ function afficher_plats_grille(array $liste): void {
 
 <div class="titre1">Notre carte</div>
 
-<!-- Barre de recherche classique -->
 <form method="GET" action="carte.php">
     <div class="barre">
         <span class="loupe">🔍</span>
@@ -80,7 +79,6 @@ function afficher_plats_grille(array $liste): void {
 
 <?php else: ?>
 
-    <!-- Navigation par ancres -->
     <nav class="nav-categories">
         <a href="#menus"    class="btn-primary">Menus</a>
         <a href="#filtres"  class="btn-primary">🔎 Filtrer les plats</a>
@@ -89,7 +87,6 @@ function afficher_plats_grille(array $liste): void {
         <a href="#desserts" class="btn-primary">Desserts</a>
     </nav>
 
-    <!-- Menus -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="menus" class="titre2">Nos Menus</div>
     <div class="colonnes">
@@ -107,7 +104,6 @@ function afficher_plats_grille(array $liste): void {
         <?php endforeach; ?>
     </div>
 
-    <!-- ===== ZONE FILTRES / TRIS ASYNCHRONES ===== -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="filtres" class="titre2">Filtrer les plats</div>
 
@@ -142,13 +138,11 @@ function afficher_plats_grille(array $liste): void {
 
     </div>
 
-    <!-- Conteneur des résultats filtrés/triés -->
     <div id="carte-resultats"
          data-connecte="<?= isset($_SESSION['user']) ? '1' : '0' ?>">
         <p class="carte-vide">Chargement des plats…</p>
     </div>
 
-    <!-- Sections statiques par catégorie -->
     <img class="dividing" src="divider.png" alt="separateur">
     <div id="entrees" class="titre2">Nos Entrées</div>
     <?php afficher_plats_grille(get_plats_par_categorie('entree')); ?>

@@ -21,7 +21,6 @@ $champ  = trim($data['champ']);
 $valeur = trim($data['valeur']);
 $email  = $_SESSION['user']['email'];
 
-// Champs autorisés à être modifiés par le client lui-même
 $champs_autorises = ['nom', 'prenom', 'adresse', 'telephone', 'email'];
 
 if (!in_array($champ, $champs_autorises)) {
@@ -29,7 +28,7 @@ if (!in_array($champ, $champs_autorises)) {
     exit();
 }
 
-// Validations
+// 
 if ($champ === 'nom' && strlen($valeur) < 2) {
     echo json_encode(['succes' => false, 'message' => 'Le nom doit contenir au moins 2 caractères.']);
     exit();
@@ -45,7 +44,6 @@ if ($champ === 'email') {
         echo json_encode(['succes' => false, 'message' => 'Adresse e-mail invalide.']);
         exit();
     }
-    // Vérifier que l'email n'est pas déjà pris par quelqu'un d'autre
     if ($valeur !== $email && email_exists($valeur)) {
         echo json_encode(['succes' => false, 'message' => 'Cette adresse e-mail est déjà utilisée.']);
         exit();
@@ -60,11 +58,9 @@ if ($champ === 'telephone' && $valeur !== '') {
     }
 }
 
-// Mise à jour
 $ok = update_user($email, [$champ => $valeur]);
 
 if ($ok) {
-    // Mettre à jour la session
     $_SESSION['user'] = get_user_by_email(
         $champ === 'email' ? $valeur : $email
     );
