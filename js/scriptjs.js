@@ -1,6 +1,6 @@
-/* ============================================================
-   UTILITAIRES COOKIES
-   ============================================================ */
+/*
+UTILITAIRES COOKIES
+*/
 
 function setCookie(name, value, days) {
     const d = new Date();
@@ -21,9 +21,9 @@ function getCookie(name) {
 }
 
 
-/* ============================================================
-   ÉTAPE 1 — MODE SOMBRE (cookie)
-   ============================================================ */
+/* 
+MODE SOMBRE (cookie)
+*/
 
 function toggleDarkMode() {
     const body = document.body;
@@ -55,15 +55,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ============================================================
-   DOMContentLoaded — tout le reste
-   ============================================================ */
+/* 
+DOMContentLoaded 
+*/
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    /* ============================================================
-       ÉTAPE 2A — COMPTEUR DE CARACTÈRES
-       ============================================================ */
+/*
+COMPTEUR DE CARACTÈRES
+*/
 
     document.querySelectorAll('[data-max-length]').forEach(function (field) {
         const counterId = field.getAttribute('data-counter');
@@ -78,9 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ============================================================
-       ÉTAPE 2B — AFFICHER / CACHER MOT DE PASSE
-       ============================================================ */
+/*
+AFFICHER / CACHER MOT DE PASSE
+*/
 
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -98,9 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 
-    /* ============================================================
-       ÉTAPE 2C — VALIDATION FORMULAIRE INSCRIPTION
-       ============================================================ */
+    /* 
+    VALIDATION FORMULAIRE INSCRIPTION
+    */
 
     const formInscription = document.getElementById('form-inscription');
     if (formInscription) {
@@ -171,9 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ============================================================
-       ÉTAPE 2D — VALIDATION FORMULAIRE CONNEXION
-       ============================================================ */
+    /*
+    VALIDATION FORMULAIRE CONNEXION
+    */
 
     const formConnexion = document.getElementById('form-connexion');
     if (formConnexion) {
@@ -216,9 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ============================================================
-       ÉTAPE 3 — MODIFICATION DU PROFIL EN ASYNCHRONE
-       ============================================================ */
+    /*
+    MODIFICATION DU PROFIL EN ASYNCHRONE
+    */
 
     document.querySelectorAll('.edit').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -301,9 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ============================================================
-       ÉTAPE 4 — FILTRES ET TRIS SUR LA CARTE (asynchrone)
-       ============================================================ */
+    /* 
+    FILTRES ET TRIS SUR LA CARTE (asynchrone)
+    */
 
     const conteneurCarte = document.getElementById('carte-resultats');
     if (conteneurCarte) {
@@ -415,9 +415,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ============================================================
-       ÉTAPE 5 — MODIFICATION DE COMMANDE
-       ============================================================ */
+    /*
+    MODIFICATION DE COMMANDE
+   */
 
     const formModifCommande = document.getElementById('form-modif-commande');
     if (formModifCommande) {
@@ -495,9 +495,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    /* ============================================================
-       ÉTAPE 6 — BLOCAGE/DÉBLOCAGE ADMIN EN ASYNCHRONE
-       ============================================================ */
+    /* 
+    BLOCAGE/DÉBLOCAGE ADMIN EN ASYNCHRONE
+   */
 
     document.querySelectorAll('.btn-bloquer-async, .btn-debloquer-async').forEach(function(btn) {
         btn.addEventListener('click', function() {
