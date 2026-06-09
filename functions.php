@@ -178,6 +178,10 @@ function exiger_connexion() {
 
 function exiger_role($role) {
     exiger_connexion();
+    // L'admin a accès à toutes les pages du site
+    if ($_SESSION['user']['role'] === 'admin') {
+        return;
+    }
     if ($_SESSION['user']['role'] !== $role) {
         header("Location: accueil.php");
         exit();

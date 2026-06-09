@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <legend>Créer votre compte</legend>
 
         <?php if ($message != "") { ?>
-            <p style="color: #a43a3a; font-weight: bold;"><?= h($message) ?></p>
+            <p class="msg-erreur-form"><?= h($message) ?></p>
         <?php } ?>
 
         <p>

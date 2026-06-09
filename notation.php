@@ -84,19 +84,19 @@ if ($commande !== null && $commande['note_produits'] !== null) {
         <?php } ?>
 
         <?php if ($commande === null) { ?>
-            <p style="text-align:center;">
+            <p class="notation-center">
                 Commande introuvable. <a href="profil.php">Retour au profil</a>
             </p>
 
         <?php } else if ($deja_note) { ?>
-            <div style="text-align:center; padding: 2rem;">
+            <div class="notation-avis-bloc">
                 <h3>Avis pour la commande #<?= h($commande_id) ?></h3>
                 <p>Qualité des produits : <strong><?= afficher_etoiles($commande['note_produits']) ?></strong></p>
                 <p>Service de livraison : <strong><?= afficher_etoiles($commande['note_livraison']) ?></strong></p>
                 <?php if ($commande['commentaire'] !== '') { ?>
                     <p><em>"<?= h($commande['commentaire']) ?>"</em></p>
                 <?php } ?>
-                <a href="profil.php" class="btn-submit" style="display:inline-block; margin-top:1rem;">
+                <a href="profil.php" class="btn-submit notation-retour-btn">
                     ← Retour au profil
                 </a>
             </div>
@@ -114,7 +114,7 @@ if ($commande !== null && $commande['note_produits'] !== null) {
         </div>
             <form class="avis-form" method="POST" action="notation.php?commande=<?= h($commande_id) ?>">
 
-                <p style="text-align:center; color:#666; margin-bottom:1rem;">
+                <p class="notation-commande-ref">
                     Commande #<?= h($commande_id) ?> du <?= h(date('d/m/Y', strtotime($commande['date']))) ?>
                 </p>
 
@@ -155,7 +155,7 @@ if ($commande !== null && $commande['note_produits'] !== null) {
                     <textarea id="avis-commentaire" name="commentaire" maxlength="100"
                               data-max-length="100" data-counter="char-counter"
                               placeholder="Dites-nous en plus sur votre expérience..." rows="5"></textarea>
-                    <p id="char-counter" style="text-align: right; font-size: 0.8rem; color: var(--gris-texte); margin-top: 5px;">
+                    <p id="char-counter" class="char-counter-p">
                         100 caractères restants
                     </p>
                 </div>
@@ -164,7 +164,7 @@ if ($commande !== null && $commande['note_produits'] !== null) {
             </form>
 
         <?php } else { ?>
-            <p style="text-align:center;">
+            <p class="notation-center">
                 Cette commande n'est pas encore livrée.
                 <a href="profil.php">Retour au profil</a>
             </p>

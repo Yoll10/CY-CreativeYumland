@@ -78,7 +78,7 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
             </thead>
             <tbody>
                 <?php if (count($users) === 0) { ?>
-                    <tr><td colspan="7" style="text-align:center;">Aucun utilisateur trouvé.</td></tr>
+                    <tr><td colspan="7" class="vide-td">Aucun utilisateur trouvé.</td></tr>
                 <?php } ?>
 
                 <?php foreach ($users as $u) { ?>
@@ -117,34 +117,34 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                                                     class="action block btn-bloquer-async"
                                                     data-email="<?= h($u['email']) ?>"
                                                     data-action="bloquer"
-                                                    style="display:inline-block;">Bloquer</button>
+                                                    class="btn-visible">Bloquer</button>
                                             <button type="button"
                                                     class="action promote btn-debloquer-async"
                                                     data-email="<?= h($u['email']) ?>"
                                                     data-action="debloquer"
-                                                    style="display:none;">Débloquer</button>
+                                                    class="btn-hidden">Débloquer</button>
                                         <?php } else { ?>
                                             <button type="button"
                                                     class="action block btn-bloquer-async"
                                                     data-email="<?= h($u['email']) ?>"
                                                     data-action="bloquer"
-                                                    style="display:none;">Bloquer</button>
+                                                    class="btn-hidden">Bloquer</button>
                                             <button type="button"
                                                     class="action promote btn-debloquer-async"
                                                     data-email="<?= h($u['email']) ?>"
                                                     data-action="debloquer"
-                                                    style="display:inline-block;">Débloquer</button>
+                                                    class="btn-visible">Débloquer</button>
                                         <?php } ?>
 
                                         <?php if ($u['role'] !== 'admin') { ?>
-                                            <form method="POST" style="display:block;">
+                                            <form method="POST" class="form-inline">
                                                 <input type="hidden" name="email" value="<?= h($u['email']) ?>">
                                                 <input type="hidden" name="action" value="promouvoir">
                                                 <button type="submit" class="action promote">Promouvoir Admin</button>
                                             </form>
                                         <?php } ?>
 
-                                        <form method="POST" style="display:block;"
+                                        <form method="POST" class="form-inline"
                                               onsubmit="return confirm('Supprimer cet utilisateur ?');">
                                             <input type="hidden" name="email" value="<?= h($u['email']) ?>">
                                             <input type="hidden" name="action" value="supprimer">
@@ -152,7 +152,7 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                                         </form>
 
                                     <?php } else { ?>
-                                        <span style="padding:0.5rem 1rem; display:block; color:#888; font-size:0.8rem;">(vous-même)</span>
+                                        <span class="actions-vous-meme">(vous-même)</span>
                                     <?php } ?>
 
                                 </div>
@@ -188,7 +188,7 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                 <option value="restaurateur">Restaurateur</option>
                 <option value="livreur">Livreur</option>
             </select>
-            <small style="color:#888; font-size:0.75rem;">Le rôle ne peut pas être changé sur votre propre compte.</small>
+            <small class="modal-role-hint">Le rôle ne peut pas être changé sur votre propre compte.</small>
             <div class="modal-actions">
                 <button type="button" class="btn-annuler" onclick="fermerModal()">Annuler</button>
                 <button type="submit" class="btn-sauver">Enregistrer</button>
@@ -201,7 +201,7 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
 <section class="admin-logs-wrapper">
     <div class="admin-logs">
         <h2>📋 Journal des incidents
-            <span style="font-size:0.8rem; font-weight:normal; color:var(--gris-texte);">
+            <span class="logs-subtitle">
                 (50 derniers événements)
             </span>
         </h2>
@@ -212,9 +212,9 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
         ?>
 
         <?php if (empty($logs)): ?>
-            <p style="text-align:center; padding:2rem; color:var(--gris-texte);">Aucun incident enregistré.</p>
+            <p class="log-vide">Aucun incident enregistré.</p>
         <?php else: ?>
-        <table class="admin-table" style="margin-top:1rem;">
+        <table class="admin-table logs-table">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -244,10 +244,10 @@ $users  = ($filtre === 'commandes') ? get_users_ayant_commande() : get_users();
                 };
                 ?>
                 <tr>
-                    <td style="white-space:nowrap; font-size:0.82rem;"><?= h($log['date']) ?></td>
+                    <td class="log-td-date"><?= h($log['date']) ?></td>
                     <td><span class="badge-log <?= $badge_class ?>"><?= $label ?></span></td>
-                    <td style="font-size:0.85rem;"><?= h($log['details']) ?></td>
-                    <td style="font-size:0.82rem; color:var(--gris-texte);"><?= h($log['ip']) ?></td>
+                    <td class="log-td-detail"><?= h($log['details']) ?></td>
+                    <td class="log-td-ip"><?= h($log['ip']) ?></td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>

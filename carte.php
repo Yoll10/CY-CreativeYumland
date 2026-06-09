@@ -24,7 +24,7 @@ function afficher_plats_grille(array $liste): void {
             <div>
                 <p class="titre3"><?= h($plat['nom']) ?></p>
                 <?php if (isset($plat['calories'])): ?>
-                    <p style="font-size:0.85rem; color:var(--gris-texte); margin-bottom:8px;">🔥 <?= $plat['calories'] ?> kcal</p>
+                    <p class="cal-label">🔥 <?= $plat['calories'] ?> kcal</p>
                 <?php endif; ?>
                 <div class="plat">
                     <img class="img" src="<?= h($plat['image']) ?>" alt="<?= h($plat['nom']) ?>"
@@ -79,7 +79,7 @@ function afficher_plats_grille(array $liste): void {
 
     <div class="titre2">Résultats pour "<?= h($recherche) ?>"</div>
     <?php if (empty($resultats)): ?>
-        <p style="text-align:center; padding: 2rem;">Aucun plat trouvé.</p>
+        <p class="vide-message">Aucun plat trouvé.</p>
     <?php else: ?>
         <?php afficher_plats_grille($resultats); ?>
     <?php endif; ?>
@@ -100,13 +100,13 @@ function afficher_plats_grille(array $liste): void {
     <div id="menus" class="titre2">Nos Menus</div>
     <div class="colonnes">
         <?php foreach ($menus as $menu): ?>
-        <div style="background-color: #e2d3c3; min-height: 350px; padding: 1rem;">
+        <div class="menu-card-inner">
             <p class="titre3"><?= h($menu['nom']) ?></p>
-            <p style="font-style: italic; padding: 0.5rem 0;"><?= h($menu['description']) ?></p>
+            <p class="menu-description"><?= h($menu['description']) ?></p>
             <?php if (isset($menu['calories'])): ?>
-                <p style="font-size:0.85rem; color:var(--gris-texte); margin-bottom:6px;">🔥 <?= $menu['calories'] ?> kcal</p>
+                <p class="cal-label-sm">🔥 <?= $menu['calories'] ?> kcal</p>
             <?php endif; ?>
-            <p class="titre3" style="font-size: 1.4rem;"><?= number_format($menu['prix'], 2) ?> €</p>
+            <p class="titre3 menu-prix-large"><?= number_format($menu['prix'], 2) ?> €</p>
             <?php if (est_connecte()): ?>
                 <a href="commande-template.php?menu=<?= h($menu['id']) ?>" class="bouton-discover">Choisir ce menu</a>
             <?php else: ?>

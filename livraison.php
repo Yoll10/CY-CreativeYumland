@@ -40,16 +40,16 @@ $mes_livraisons = get_commandes_livreur($mon_email);
 
 <main class="livraison-page">
 
-    <section class="admin-header" style="text-align:center; padding:1.5rem 1rem 1rem;">
+    <section class="admin-header livraison-header-section">
         <h1>Espace Livraisons</h1>
         <p>Gérez vos courses en temps réel</p>
     </section>
 
-    <section class="livraison-section" style="margin-bottom: 3rem;">
-        <h2 style="padding: 0 1rem; color: #bca374;">🛒 Commandes disponibles (<?= count($commandes_dispo) ?>)</h2>
+    <section class="livraison-section livraison-section-wrap">
+        <h2 class="livraison-titre-dispo">🛒 Commandes disponibles (<?= count($commandes_dispo) ?>)</h2>
         
         <?php if (count($commandes_dispo) === 0) { ?>
-            <div class="msg-vide" style="background: #f9f9f9; border: 1px dashed #ccc; padding: 1.5rem; text-align: center; margin: 1rem;">
+            <div class="msg-vide msg-vide-dispo">
                  Aucune nouvelle commande à pourvoir pour le moment.
             </div>
         <?php } ?>
@@ -58,7 +58,7 @@ $mes_livraisons = get_commandes_livreur($mon_email);
             $client = get_user_by_email($cmd['user_email']);
             $nom_client = $client ? $client['prenom'] . ' ' . $client['nom'] : $cmd['user_email'];
         ?>
-            <div class="livraison-card" style="border-left: 5px solid #bca374;">
+            <div class="livraison-card livraison-card-dispo">
                 <div class="lc-header">
                     <h2>Commande #<?= h($cmd['id']) ?></h2>
                     <p>Total : <strong><?= number_format($cmd['total'], 2) ?> €</strong></p>
@@ -68,10 +68,10 @@ $mes_livraisons = get_commandes_livreur($mon_email);
                     <div class="lc-info"><strong>Ville / Adresse de livraison :</strong> <?= h($cmd['adresse']) ?></div>
                 </div>
                 <div class="lc-actions">
-                    <form method="POST" style="width: 100%;">
+                    <form method="POST" class="form-livraison-full">
                         <input type="hidden" name="commande_id" value="<?= h($cmd['id']) ?>">
                         <input type="hidden" name="action" value="accepter">
-                        <button type="submit" class="btn-livree-gros" style="background-color: #28a745; color: white;">
+                        <button type="submit" class="btn-livree-gros btn-accepter">
                              Prendre en charge cette commande
                         </button>
                     </form>
@@ -80,10 +80,10 @@ $mes_livraisons = get_commandes_livreur($mon_email);
         <?php } ?>
     </section>
 
-    <hr style="border: 0; height: 1px; background: #eee; margin: 2rem 0;">
+    <hr class="livraison-separateur">
 
     <section class="livraison-section">
-        <h2 style="padding: 0 1rem; color: #1a73e8;">🚴 Mes livraisons en cours (<?= count($mes_livraisons) ?>)</h2>
+        <h2 class="livraison-titre-encours">🚴 Mes livraisons en cours (<?= count($mes_livraisons) ?>)</h2>
 
         <?php if (count($mes_livraisons) === 0) { ?>
             <div class="msg-vide">
@@ -98,7 +98,7 @@ $mes_livraisons = get_commandes_livreur($mon_email);
             $tel_client = ($client && isset($client['telephone'])) ? $client['telephone'] : '—';
             $adresse_maps = 'https://maps.google.com/?q=' . urlencode($cmd['adresse']);
         ?>
-            <div class="livraison-card" style="border-left: 5px solid #1a73e8;">
+            <div class="livraison-card livraison-card-encours">
 
                 <div class="lc-header">
                     <h2>Commande #<?= h($cmd['id']) ?></h2>
@@ -111,7 +111,7 @@ $mes_livraisons = get_commandes_livreur($mon_email);
                     </div>
                     <div class="lc-info">
                         <strong>Téléphone :</strong>
-                        <a href="tel:<?= preg_replace('/\s/', '', $tel_client) ?>" style="color:#1a73e8;">
+                        <a href="tel:<?= preg_replace('/\s/', '', $tel_client) ?>" class="tel-client">
                             <?= h($tel_client) ?>
                         </a>
                     </div>

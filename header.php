@@ -17,6 +17,10 @@
                 
                 <?php elseif ($_SESSION['user']['role'] === 'admin'): ?>
                     <a href="admin.php" class="btn-primary">Vue Admin</a>
+                    <a href="commandes-cuisine.php" class="btn-primary">Commandes</a>
+                    <a href="gestion-plats.php" class="btn-primary">Plats</a>
+                    <a href="livraison.php" class="btn-primary">Livraisons</a>
+                    <a href="commande-template.php" class="btn-primary">Commander</a>
                     <a href="profil.php" class="btn-primary">Mon Profil</a>
 
                 <?php elseif ($_SESSION['user']['role'] === 'restaurateur'): ?>
