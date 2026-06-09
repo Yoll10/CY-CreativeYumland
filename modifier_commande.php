@@ -53,7 +53,7 @@ foreach ($commande['plats'] as $p) {
 
 <main class="modif-page">
     <h1>Modifier la commande #<?= h($id) ?></h1>
-    <p style="text-align:center; color:var(--gris-texte);">
+    <p class="modif-subtitle">
         Date : <?= h(date('d/m/Y H:i', strtotime($commande['date']))) ?> —
         Mode : <?= $commande['mode'] === 'livraison' ? '🚚 Livraison' : '🏠 À emporter' ?>
     </p>
@@ -65,16 +65,16 @@ foreach ($commande['plats'] as $p) {
 
         <?php if (!empty($menus_commande)): ?>
         <h2>Menus dans la commande</h2>
-        <p style="font-size:0.85rem; color:var(--gris-texte); margin-bottom:10px;">
+        <p class="modif-info-menus">
             ℹ️ Les menus ne peuvent pas être modifiés individuellement. Ils sont comptabilisés dans le total.
         </p>
         <?php foreach ($menus_commande as $menu_item): ?>
-            <div class="modif-plat-item" style="background:#ede5d8;"
+            <div class="modif-plat-item modif-menu-item"
                  data-plat-id="<?= h($menu_item['id']) ?>"
                  data-prix="<?= h($menu_item['prix']) ?>">
                 <div class="modif-plat-nom">
                     <?= h($menu_item['nom']) ?>
-                    <small style="font-weight:normal; color:var(--gris-texte);">— menu</small>
+                    <small class="modif-menu-small">— menu</small>
                 </div>
                 <div class="modif-plat-prix"><?= number_format($menu_item['prix'], 2) ?> €</div>
                 <div class="modif-controles">
@@ -100,7 +100,7 @@ foreach ($commande['plats'] as $p) {
 
                 <div class="modif-plat-nom">
                     <?= h($plat['nom']) ?>
-                    <small style="font-weight:normal; color:var(--gris-texte);">
+                    <small class="modif-plat-small">
                         — <?= h($plat['categorie']) ?>
                     </small>
                 </div>
@@ -125,7 +125,7 @@ foreach ($commande['plats'] as $p) {
 
         <div id="modif-ancien-total"
              data-total="<?= number_format($commande['total'], 2, '.', '') ?>"
-             style="display:none;"></div>
+             class="modif-hidden"></div>
 
         <div id="modif-diff" class="modif-diff neutre">Aucun changement de montant.</div>
 

@@ -65,7 +65,7 @@ $en_livraison = get_commandes_par_statut('en_livraison');
                         <p>📍 <?= h($cmd['adresse']) ?></p>
                     <?php endif; ?>
 
-                    <div class="liste-plats-direct" style="margin-top:15px;">
+                    <div class="liste-plats-direct liste-plats-section">
                         <p><strong>À préparer :</strong></p>
                         <ul>
                             <?php foreach ($cmd['plats'] as $p) { ?>
@@ -101,7 +101,7 @@ $en_livraison = get_commandes_par_statut('en_livraison');
                         <p>📍 <?= h($cmd['adresse']) ?></p>
                     <?php endif; ?>
 
-                    <div class="liste-plats-direct" style="margin-top:15px;">
+                    <div class="liste-plats-direct liste-plats-section">
                         <p><strong>En cours :</strong></p>
                         <ul>
                             <?php foreach ($cmd['plats'] as $p) { ?>

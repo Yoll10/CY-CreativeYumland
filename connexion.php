@@ -77,11 +77,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <?php if ($erreur != "") { ?>
             <?php if (isset($_GET['success'])) { ?>
-                <p style="color: #3a6b3a; font-weight: bold;"><?= h($erreur) ?></p>
+                <p class="msg-succes-connexion"><?= h($erreur) ?></p>
             <?php } else if (isset($_GET['bloque'])) { ?>
-                <p style="color: #b07b2c; font-weight: bold; background:#fff3cd; padding:10px; border-radius:6px;"><?= h($erreur) ?></p>
+                <p class="msg-bloque-connexion"><?= h($erreur) ?></p>
             <?php } else { ?>
-                <p style="color: #a43a3a; font-weight: bold;"><?= h($erreur) ?></p>
+                <p class="msg-erreur-connexion"><?= h($erreur) ?></p>
             <?php } ?>
         <?php } ?>
 
@@ -105,9 +105,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button class="buttonco" type="submit">Vous connecter</button>
         </p>
 
-        <a href="inscription.php" class="bouton-lien">Pas de compte ? Inscrivez-vous !</a>
+        <p>
+            <a href="inscription.php" class="bouton-lien">Pas de compte ? Inscrivez-vous !</a>
+        </p>
 
-        <p style="font-size:0.8rem; color:#888; margin-top:1rem;">
+        <p class="comptes-test">
             <strong>Comptes de test</strong> (mdp : <em>password</em>) :<br>
             Client : jean.dupont@mail.com<br>
             Admin : admin@letoile.fr<br>

@@ -37,14 +37,14 @@ if (est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']
 <main class="main-content">
 
     <?php if ($vue_admin) { ?>
-        <div style="background:#f5e6c8; padding:0.8rem 1.5rem; border-left: 4px solid #b8860b; margin-bottom:1rem; width:100%;">
+        <div class="profil-admin-banner">
             <strong>Mode Admin</strong> — Vous consultez le profil de <?= h($profil_user['prenom']) ?> <?= h($profil_user['nom']) ?>
-            <a href="admin.php" style="margin-left:1rem;">← Retour</a>
+            <a href="admin.php" class="profil-retour-lien">← Retour</a>
         </div>
     <?php } ?>
 
     <?php if (!$vue_admin) { ?>
-        <div id="msg-profil" style="width:100%;"></div>
+        <div id="msg-profil" class="profil-msg-wrap"></div>
     <?php } ?>
 
     <form class="forms">
@@ -110,7 +110,7 @@ if (est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']
                 <div class="zone-contenu">
                     <label>Rôle :</label>
                     <input type="text" value="<?= h(libelle_role($profil_user['role'])) ?>" readonly>
-                    <small style="color:var(--gris-texte); font-size:0.75rem;">Non modifiable</small>
+                    <small class="profil-non-modifiable">Non modifiable</small>
                 </div>
             </div>
 
@@ -118,7 +118,7 @@ if (est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']
                 <div class="zone-contenu">
                     <label>Statut du compte :</label>
                     <input type="text" value="<?= $profil_user['statut'] === 'actif' ? 'Actif' : 'Bloqué' ?>" readonly>
-                    <small style="color:var(--gris-texte); font-size:0.75rem;">Non modifiable</small>
+                    <small class="profil-non-modifiable">Non modifiable</small>
                 </div>
             </div>
 
@@ -141,7 +141,7 @@ if (est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']
                 </thead>
                 <tbody>
                     <?php if (count($commandes_user) === 0) { ?>
-                        <tr><td colspan="6" style="text-align:center;">Aucune commande pour le moment.</td></tr>
+                        <tr><td colspan="6" class="profil-vide-td">Aucune commande pour le moment.</td></tr>
                     <?php } ?>
 
                     <?php foreach ($commandes_user as $cmd) { ?>
@@ -155,7 +155,7 @@ if (est_admin() && isset($_GET['email']) && $_GET['email'] !== $_SESSION['user']
                             </td>
                             <td><?= h(libelle_statut($cmd['statut'])) ?></td>
                             <td>
-                                <div style="display:flex; flex-direction:column; gap:6px;">
+                                <div class="profil-actions-wrap">
                                 <?php if ($cmd['statut'] === 'en_attente' && !$vue_admin) { ?>
                                     <a href="modifier_commande.php?id=<?= h($cmd['id']) ?>" class="btn-modifier-commande">✏️ Modifier</a>
                                 <?php } else if ($cmd['statut'] === 'livree' && $cmd['note_produits'] === null && !$vue_admin) { ?>

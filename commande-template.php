@@ -304,7 +304,6 @@ $user    = utilisateur_courant();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commander — L'Étoile</title>
-    <!-- POINT 6+7 — CSS dans css/, JS dans js/ avec defer -->
     <link rel="stylesheet" href="css/stylecommon.css">
     <link rel="stylesheet" href="css/stylecommandetemplate.css">
     <script src="js/scriptjs.js" defer></script>
@@ -345,7 +344,7 @@ $user    = utilisateur_courant();
                         <h4><?= h($menu['nom']) ?></h4>
                         <p><?= h($menu['description']) ?></p>
                         <?php if (isset($menu['calories'])): ?>
-                            <small style="color:var(--gris-texte);">🔥 <?= $menu['calories'] ?> kcal</small>
+                            <small class="cal-small">🔥 <?= $menu['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($menu['prix'], 2) ?> €</span>
@@ -366,7 +365,7 @@ $user    = utilisateur_courant();
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
                         <?php if (isset($p['calories'])): ?>
-                            <small style="color:var(--gris-texte);">🔥 <?= $p['calories'] ?> kcal</small>
+                            <small class="cal-small">🔥 <?= $p['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
@@ -387,7 +386,7 @@ $user    = utilisateur_courant();
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
                         <?php if (isset($p['calories'])): ?>
-                            <small style="color:var(--gris-texte);">🔥 <?= $p['calories'] ?> kcal</small>
+                            <small class="cal-small">🔥 <?= $p['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
@@ -408,7 +407,7 @@ $user    = utilisateur_courant();
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
                         <?php if (isset($p['calories'])): ?>
-                            <small style="color:var(--gris-texte);">🔥 <?= $p['calories'] ?> kcal</small>
+                            <small class="cal-small">🔥 <?= $p['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
@@ -442,12 +441,12 @@ $user    = utilisateur_courant();
                         <?php endif; ?>
                     </div>
                     <div class="panier-item-qte">
-                        <form method="POST" style="display:inline;">
+                        <form method="POST" class="form-panier-inline">
                             <input type="hidden" name="retirer" value="<?= h($key) ?>">
                             <button type="submit" class="btn-qte btn-moins" title="Retirer un">−</button>
                         </form>
                         <span class="qte"><?= $item['quantite'] ?></span>
-                        <form method="POST" style="display:inline;">
+                        <form method="POST" class="form-panier-inline">
                             <?php if (strpos($key, 'menu_') === 0): ?>
                                 <input type="hidden" name="ajouter_menu" value="<?= h(substr($key, 5)) ?>">
                             <?php else: ?>
@@ -507,11 +506,11 @@ $user    = utilisateur_courant();
                     </label>
                 </div>
 
-                <div style="margin-top:0.6rem;">
+                <div id="bloc-adresse" class="bloc-adresse-wrap hidden">
                     <label for="adresse">Adresse de livraison :</label>
                     <input type="text" name="adresse" id="adresse"
-                           placeholder="Ex : 12 rue de la Paix, 75001 Paris"
-                           value="<?= h($user['adresse'] ?? '') ?>">
+                        placeholder="Ex : 12 rue de la Paix, 75001 Paris"
+                        value="<?= h($user['adresse'] ?? '') ?>">
                     <small>(requis uniquement pour une livraison à domicile)</small>
                 </div>
 
@@ -528,6 +527,9 @@ $user    = utilisateur_courant();
 
         </aside>
     </div>
+    <script>
+
+</script>
 </main>
 
 <footer class="footer">

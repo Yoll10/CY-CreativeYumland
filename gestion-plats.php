@@ -165,7 +165,7 @@ if ($filtre_cat !== 'tous') {
             </thead>
             <tbody>
                 <?php if (empty($plats_affiches)): ?>
-                    <tr><td colspan="6" style="text-align:center;">Aucun plat.</td></tr>
+                    <tr><td colspan="6" class="vide-td">Aucun plat.</td></tr>
                 <?php endif; ?>
                 <?php foreach ($plats_affiches as $plat): ?>
                 <tr>
