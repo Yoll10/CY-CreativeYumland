@@ -338,3 +338,9 @@ form {
         font-size: 35px;
     }
 }
+/* ── Carte intérieure des menus ── */
+.menu-card-inner {
+    background-color: #e2d3c3;
+    min-height: 350px;
+    padding: 1rem;
+}

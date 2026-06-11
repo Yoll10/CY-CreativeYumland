@@ -138,6 +138,14 @@
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
+.calories-label {
+    color: var(--gris-texte);
+}
+
+.form-inline {
+    display: inline;
+}
+
 
 
 @media screen and (max-width: 1024px) {
@@ -289,3 +297,6 @@
     margin-top: 4px;
     font-style: italic;
 }
+
+.bloc-adresse-wrap { margin-top: 0.6rem; }
+.bloc-adresse-wrap.hidden { display: none; }

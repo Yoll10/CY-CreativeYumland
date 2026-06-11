@@ -1,8 +1,8 @@
-/*
-UTILITAIRES COOKIES
-*/
+/* ============================================================
+   UTILITAIRES COOKIES
+   ============================================================ */
 
-function setCookie(name, value, days) {
+   function setCookie(name, value, days) {
     const d = new Date();
     d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
     document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/';
@@ -21,21 +21,22 @@ function getCookie(name) {
 }
 
 
-/* 
-MODE SOMBRE (cookie)
-*/
+/* ============================================================
+   ÉTAPE 1 — MODE SOMBRE (cookie)
+   ============================================================ */
 
 function toggleDarkMode() {
     const body = document.body;
     const btn = document.getElementById('dark-mode-btn');
     body.classList.toggle('dark-mode');
-    if (body.classList.contains('dark-mode')) {
-        if (btn) btn.innerHTML = '☀️';
-        setCookie('theme', 'dark', 365);
-    } else {
-        if (btn) btn.innerHTML = '🌙';
-        setCookie('theme', 'light', 365);
-    }
+    const theme = body.classList.contains('dark-mode') ? 'dark' : 'light';
+    if (btn) btn.innerHTML = theme === 'dark' ? '☀️' : '🌙';
+    setCookie('theme', theme, 365);
+    fetch('api_theme.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ theme: theme })
+    });
 }
 
 // Applique la classe dark-mode immédiatement pour éviter le flash
@@ -55,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* 
-DOMContentLoaded 
-*/
+/* ============================================================
+   DOMContentLoaded — tout le reste
+   ============================================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
 
-/*
-COMPTEUR DE CARACTÈRES
-*/
+    /* ============================================================
+       ÉTAPE 2A — COMPTEUR DE CARACTÈRES
+       ============================================================ */
 
     document.querySelectorAll('[data-max-length]').forEach(function (field) {
         const counterId = field.getAttribute('data-counter');
@@ -78,9 +79,9 @@ COMPTEUR DE CARACTÈRES
         });
     });
 
-/*
-AFFICHER / CACHER MOT DE PASSE
-*/
+    /* ============================================================
+       ÉTAPE 2B — AFFICHER / CACHER MOT DE PASSE
+       ============================================================ */
 
     document.querySelectorAll('.toggle-password').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -98,9 +99,9 @@ AFFICHER / CACHER MOT DE PASSE
     });
 
 
-    /* 
-    VALIDATION FORMULAIRE INSCRIPTION
-    */
+    /* ============================================================
+       ÉTAPE 2C — VALIDATION FORMULAIRE INSCRIPTION
+       ============================================================ */
 
     const formInscription = document.getElementById('form-inscription');
     if (formInscription) {
@@ -171,9 +172,9 @@ AFFICHER / CACHER MOT DE PASSE
     }
 
 
-    /*
-    VALIDATION FORMULAIRE CONNEXION
-    */
+    /* ============================================================
+       ÉTAPE 2D — VALIDATION FORMULAIRE CONNEXION
+       ============================================================ */
 
     const formConnexion = document.getElementById('form-connexion');
     if (formConnexion) {
@@ -216,9 +217,9 @@ AFFICHER / CACHER MOT DE PASSE
     }
 
 
-    /*
-    MODIFICATION DU PROFIL EN ASYNCHRONE
-    */
+    /* ============================================================
+       ÉTAPE 3 — MODIFICATION DU PROFIL EN ASYNCHRONE
+       ============================================================ */
 
     document.querySelectorAll('.edit').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -301,9 +302,9 @@ AFFICHER / CACHER MOT DE PASSE
     }
 
 
-    /* 
-    FILTRES ET TRIS SUR LA CARTE (asynchrone)
-    */
+    /* ============================================================
+       ÉTAPE 4 — FILTRES ET TRIS SUR LA CARTE (asynchrone)
+       ============================================================ */
 
     const conteneurCarte = document.getElementById('carte-resultats');
     if (conteneurCarte) {
@@ -415,9 +416,9 @@ AFFICHER / CACHER MOT DE PASSE
     }
 
 
-    /*
-    MODIFICATION DE COMMANDE
-   */
+    /* ============================================================
+       ÉTAPE 5 — MODIFICATION DE COMMANDE
+       ============================================================ */
 
     const formModifCommande = document.getElementById('form-modif-commande');
     if (formModifCommande) {
@@ -495,9 +496,9 @@ AFFICHER / CACHER MOT DE PASSE
     }
 
 
-    /* 
-    BLOCAGE/DÉBLOCAGE ADMIN EN ASYNCHRONE
-   */
+    /* ============================================================
+       ÉTAPE 6 — BLOCAGE/DÉBLOCAGE ADMIN EN ASYNCHRONE
+       ============================================================ */
 
     document.querySelectorAll('.btn-bloquer-async, .btn-debloquer-async').forEach(function(btn) {
         btn.addEventListener('click', function() {
@@ -539,4 +540,112 @@ AFFICHER / CACHER MOT DE PASSE
         });
     });
 
+
+    //bouton livraison domicile vs emporter
+    (function() {
+    const radios   = document.querySelectorAll('input[name="mode"]');
+    const blocAdr  = document.getElementById('bloc-adresse');
+    const inputs   = document.querySelectorAll('.input-mode-courant');
+
+    function appliquerMode(mode) {
+        if (blocAdr) blocAdr.classList.toggle('hidden', mode !== 'livraison');
+        inputs.forEach(function(inp) { inp.value = mode; });
+    }
+
+    radios.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            appliquerMode(this.value);
+        });
+    });
+    })();
+
+
+    //memoriser la hauteur sur la page sur commande-template 
+    // Sauvegarder la position du scroll juste avant le rechargement de la page
+    window.addEventListener('beforeunload', () => {
+        localStorage.setItem('restaurerScrollCommande', window.scrollY);
+    });
+
+    // Restaurer la position du scroll dès que la page est prête
+    window.addEventListener('DOMContentLoaded', () => {
+        const positionSauvegardee = localStorage.getItem('restaurerScrollCommande');
+        if (positionSauvegardee) {
+            window.scrollTo(0, parseInt(positionSauvegardee, 10));
+            localStorage.removeItem('restaurerScrollCommande'); // Nettoyage après utilisation
+        }
+    });
+
+
+    //RETENIR LE MODE ET L'ADRESSE
+    window.addEventListener('DOMContentLoaded', () => {
+        // Restauration du scroll
+        const positionSauvegardee = localStorage.getItem('restaurerScrollCommande');
+        if (positionSauvegardee) {
+            window.scrollTo(0, parseInt(positionSauvegardee, 10));
+            localStorage.removeItem('restaurerScrollCommande');
+        }
+
+        // Ciblage des éléments du formulaire
+        const modeEmporter = document.getElementById('mode-emporter');
+        const modeLivraison = document.getElementById('mode-livraison');
+        const blocAdresse = document.getElementById('bloc-adresse');
+        const inputAdresse = document.getElementById('adresse');
+
+        // Fonction pour afficher/masquer le bloc adresse
+        function ajusterBlocAdresse() {
+            if (modeLivraison && modeLivraison.checked) {
+                blocAdresse && blocAdresse.classList.remove('hidden');
+            } else {
+                blocAdresse && blocAdresse.classList.add('hidden');
+            }
+        }
+
+        // Récupération des choix sauvegardés
+        const modeSauvegarde = sessionStorage.getItem('commande_mode');
+        const adresseSauvegardee = sessionStorage.getItem('commande_adresse');
+
+        // Appliquer le mode sauvegardé s'il existe
+        if (modeSauvegarde === 'livraison' && modeLivraison) {
+            modeLivraison.checked = true;
+            if (modeEmporter) modeEmporter.checked = false;
+            ajusterBlocAdresse();
+        } else if (modeSauvegarde === 'emporter' && modeEmporter) {
+            modeEmporter.checked = true;
+            if (modeLivraison) modeLivraison.checked = false;
+            ajusterBlocAdresse();
+        }
+
+        // Restaurer l'adresse tapée si elle existe
+        if (adresseSauvegardee !== null && inputAdresse) {
+            inputAdresse.value = adresseSauvegardee;
+        }
+
+        // Écouter les changements pour sauvegarder en temps réel
+        if (modeEmporter && modeLivraison) {
+            modeEmporter.addEventListener('change', () => {
+                sessionStorage.setItem('commande_mode', 'emporter');
+                ajusterBlocAdresse();
+            });
+
+            modeLivraison.addEventListener('change', () => {
+                sessionStorage.setItem('commande_mode', 'livraison');
+                ajusterBlocAdresse();
+            });
+        }
+
+        if (inputAdresse) {
+            inputAdresse.addEventListener('input', () => {
+                sessionStorage.setItem('commande_adresse', inputAdresse.value);
+            });
+        }
+        
+        // Nettoyer la session une fois le formulaire final validé
+        const formValidation = document.querySelector('.form-validation');
+        if (formValidation) {
+            formValidation.addEventListener('submit', () => {
+                sessionStorage.removeItem('commande_mode');
+                sessionStorage.removeItem('commande_adresse');
+            });
+        }
+    });
 }); // fin DOMContentLoaded

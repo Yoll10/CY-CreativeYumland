@@ -52,5 +52,107 @@
         "type": "livraison_acceptee",
         "details": "Le livreur livreur1@letoile.fr a pris en charge la commande c040",
         "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 18:48:55",
+        "type": "livraison_acceptee",
+        "details": "Le livreur livreur1@letoile.fr a pris en charge la commande c041",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 18:51:23",
+        "type": "livraison_acceptee",
+        "details": "Le livreur livreur2@letoile.fr a pris en charge la commande c044",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 18:51:31",
+        "type": "livraison_acceptee",
+        "details": "Le livreur livreur2@letoile.fr a pris en charge la commande c045",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:10:47",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : atest2@gmail.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:11:41",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : atest2@test.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:17:51",
+        "type": "compte_bloque",
+        "details": "Compte bloqué par l'admin admin@letoile.fr : jean.dupont@mail.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:18:30",
+        "type": "livraison_acceptee",
+        "details": "Le livreur livreur2@letoile.fr a pris en charge la commande c050",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:20:04",
+        "type": "compte_debloque",
+        "details": "Compte débloqué par l'admin admin@letoile.fr : jean.dupont@mail.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:34:21",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : test@test.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:35:07",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : test@test.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:35:10",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : test@test.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:35:14",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : admin@letoile.fr",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:35:17",
+        "type": "ip_bloquee",
+        "details": "IP ::1 bloquée après 5 tentatives échouées (email essayé : jean.dupont@mail.com)",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-10 21:35:17",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : jean.dupont@mail.com",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-11 10:16:29",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : admin@letoile.fr",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-11 10:16:35",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : admin@letoile.fr",
+        "ip": "::1"
+    },
+    {
+        "date": "2026-06-11 17:55:33",
+        "type": "mauvais_mdp",
+        "details": "Échec de connexion pour l'email : antoine.test@gmail.com",
+        "ip": "::1"
     }
 ]

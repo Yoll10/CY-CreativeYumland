@@ -887,7 +887,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_preparation",
+        "statut": "livree",
         "date": "2026-05-17 21:55:20",
         "total": 48,
         "transaction_cybank": "TXN20260517215520594",
@@ -937,7 +937,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_attente",
+        "statut": "livree",
         "date": "2026-05-30 11:18:32",
         "total": 150,
         "transaction_cybank": "TXN20260530111832370",
@@ -971,7 +971,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_preparation",
+        "statut": "livree",
         "date": "2026-05-30 11:20:42",
         "total": 91,
         "transaction_cybank": "TXN20260530112042867",
@@ -1049,7 +1049,7 @@
         ],
         "mode": "livraison",
         "adresse": "12 rue de la Paix, 75001 Paris",
-        "statut": "en_livraison",
+        "statut": "livree",
         "date": "2026-05-30 14:02:57",
         "total": 89,
         "transaction_cybank": "TXN20260530140257474",
@@ -1077,7 +1077,7 @@
         ],
         "mode": "livraison",
         "adresse": "12 rue de la Paix, 75001 Paris",
-        "statut": "en_livraison",
+        "statut": "livree",
         "date": "2026-05-30 14:09:49",
         "total": 90,
         "transaction_cybank": "TXN20260530140949946",
@@ -1099,11 +1099,11 @@
         ],
         "mode": "livraison",
         "adresse": "12 rue de la Paix, 75001 Paris",
-        "statut": "en_livraison",
+        "statut": "livree",
         "date": "2026-05-30 14:10:00",
         "total": 55,
         "transaction_cybank": "TXN20260530141000133",
-        "livreur_email": null,
+        "livreur_email": "livreur1@letoile.fr",
         "note_produits": null,
         "note_livraison": null,
         "commentaire": ""
@@ -1121,7 +1121,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_attente",
+        "statut": "livree",
         "date": "2026-05-31 13:48:51",
         "total": 34,
         "transaction_cybank": "TXN20260531134851518",
@@ -1143,7 +1143,7 @@
         ],
         "mode": "emporter",
         "adresse": "",
-        "statut": "en_attente",
+        "statut": "livree",
         "date": "2026-05-31 13:55:33",
         "total": 16,
         "transaction_cybank": "TXN20260531135533414",
@@ -1165,11 +1165,11 @@
         ],
         "mode": "livraison",
         "adresse": "21 SENTE DES CHASSEURS",
-        "statut": "en_attente",
+        "statut": "livree",
         "date": "2026-05-31 14:00:48",
         "total": 64,
         "transaction_cybank": "TXN20260531140048539",
-        "livreur_email": null,
+        "livreur_email": "livreur2@letoile.fr",
         "note_produits": null,
         "note_livraison": null,
         "commentaire": ""
@@ -1193,10 +1193,194 @@
         ],
         "mode": "livraison",
         "adresse": "21 SENTE DES CHASSEURS",
-        "statut": "en_attente",
+        "statut": "livree",
         "date": "2026-05-31 14:09:32",
         "total": 88,
         "transaction_cybank": "TXN20260531140932734",
+        "livreur_email": "livreur2@letoile.fr",
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c046",
+        "user_email": "ethangnass@gmail.com",
+        "plats": [
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "livree",
+        "date": "2026-06-10 18:21:26",
+        "total": 55,
+        "transaction_cybank": "TXN20260610182126767",
+        "livreur_email": null,
+        "note_produits": 5,
+        "note_livraison": 5,
+        "commentaire": "test test"
+    },
+    {
+        "id": "c047",
+        "user_email": "ethangnass@gmail.com",
+        "plats": [
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 4
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "livree",
+        "date": "2026-06-10 18:49:33",
+        "total": 220,
+        "transaction_cybank": "TXN20260610184933839",
+        "livreur_email": null,
+        "note_produits": 2,
+        "note_livraison": 4,
+        "commentaire": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+        "id": "c048",
+        "user_email": "admin@letoile.fr",
+        "plats": [
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 2
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente_paiement",
+        "date": "2026-06-10 19:02:21",
+        "total": 110,
+        "transaction_cybank": "TXN20260610190221607",
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c049",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "p06",
+                "nom": "Filet de bœuf aux morilles",
+                "prix": 38,
+                "quantite": 1
+            },
+            {
+                "id": "p08",
+                "nom": "Turbot rôti beurre blanc",
+                "prix": 36,
+                "quantite": 4
+            },
+            {
+                "id": "menu_m02",
+                "nom": "Menu Découverte (menu)",
+                "prix": 55,
+                "quantite": 1
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "livree",
+        "date": "2026-06-10 21:14:09",
+        "total": 237,
+        "transaction_cybank": "TXN20260610211409871",
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c050",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "menu_m01",
+                "nom": "Menu Prestige (menu)",
+                "prix": 75,
+                "quantite": 1
+            }
+        ],
+        "mode": "livraison",
+        "adresse": "12 rue de la Paix, 75001 Paris",
+        "statut": "livree",
+        "date": "2026-06-10 21:14:40",
+        "total": 75,
+        "transaction_cybank": "TXN20260610211440977",
+        "livreur_email": "livreur2@letoile.fr",
+        "note_produits": 5,
+        "note_livraison": 3,
+        "commentaire": "<script>alert(\"prout\")<\/script>"
+    },
+    {
+        "id": "c051",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "p06",
+                "nom": "Filet de bœuf aux morilles",
+                "prix": 38,
+                "quantite": 1
+            },
+            {
+                "id": "p08",
+                "nom": "Turbot rôti beurre blanc",
+                "prix": 36,
+                "quantite": 4
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente_paiement",
+        "date": "2026-06-10 21:24:52",
+        "total": 182,
+        "transaction_cybank": "TXN20260610212452201",
+        "livreur_email": null,
+        "note_produits": null,
+        "note_livraison": null,
+        "commentaire": ""
+    },
+    {
+        "id": "c052",
+        "user_email": "jean.dupont@mail.com",
+        "plats": [
+            {
+                "id": "p01",
+                "nom": "Velouté de butternut à la truffe",
+                "prix": 14,
+                "quantite": 1
+            },
+            {
+                "id": "p02",
+                "nom": "Foie gras mi-cuit maison",
+                "prix": 22,
+                "quantite": 1
+            },
+            {
+                "id": "p08",
+                "nom": "Turbot rôti beurre blanc",
+                "prix": 36,
+                "quantite": 4
+            }
+        ],
+        "mode": "emporter",
+        "adresse": "",
+        "statut": "en_attente",
+        "date": "2026-06-10 21:26:10",
+        "total": 180,
+        "transaction_cybank": "TXN20260610212610454",
         "livreur_email": null,
         "note_produits": null,
         "note_livraison": null,

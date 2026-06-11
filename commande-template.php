@@ -96,7 +96,7 @@ if (isset($_GET['ajouter'])) {
             ];
         }
     }
-    header('Location: commande-template.php#panier');
+    header('Location: commande-template.php');
     exit();
 }
 
@@ -116,13 +116,13 @@ if (isset($_GET['menu'])) {
             ];
         }
     }
-    header('Location: commande-template.php#panier');
+    header('Location: commande-template.php');
     exit();
 }
 
 if (isset($_GET['vider'])) {
     $_SESSION['panier'] = [];
-    header('Location: commande-template.php#panier');
+    header('Location: commande-template.php');
     exit();
 }
 
@@ -131,25 +131,30 @@ if (isset($_GET['recommander'])) {
     $cmd_rec = get_commande_by_id($_GET['recommander']);
     if ($cmd_rec !== null && $cmd_rec['user_email'] === $_SESSION['user']['email']) {
         foreach ($cmd_rec['plats'] as $item) {
-            // Ignorer les menus (id commence par "menu_")
-            if (strpos($item['id'], 'menu_') === 0) continue;
-            $plat = get_plat_by_id($item['id']);
-            if ($plat === null) continue;
-            if (isset($_SESSION['panier'][$item['id']])) {
-                $_SESSION['panier'][$item['id']]['quantite'] += $item['quantite'];
+            $key = $item['id'];
+            if (strpos($key, 'menu_') === 0) {
+                // Menu : on essaie de récupérer les calories depuis menus.json, sinon 0
+                $menu_id = substr($key, 5);
+                $menu_data = get_menu_by_id($menu_id);
+                $calories = $menu_data['calories'] ?? 0;
             } else {
-                $_SESSION['panier'][$item['id']] = [
-                    'id'       => $plat['id'],
-                    'nom'      => $plat['nom'],
-                    'prix'     => $plat['prix'],
-                    'calories' => $plat['calories'] ?? 0,
+                // Plat : on essaie de récupérer les calories depuis plats.json, sinon 0
+                $plat_data = get_plat_by_id($key);
+                $calories = $plat_data['calories'] ?? 0;
+            }
+            if (isset($_SESSION['panier'][$key])) {
+                $_SESSION['panier'][$key]['quantite'] += $item['quantite'];
+            } else {
+                $_SESSION['panier'][$key] = [
+                    'id'       => $item['id'],
+                    'nom'      => $item['nom'],
+                    'prix'     => $item['prix'],
+                    'calories' => $calories,
                     'quantite' => $item['quantite']
                 ];
             }
         }
     }
-    header('Location: commande-template.php#panier');
-    exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -170,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
             }
         }
-        header('Location: commande-template.php#panier');
+        header('Location: commande-template.php');
         exit();
     }
 
@@ -191,7 +196,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ];
             }
         }
-        header('Location: commande-template.php#panier');
+        header('Location: commande-template.php');
         exit();
     }
 
@@ -204,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($_SESSION['panier'][$id]);
             }
         }
-        header('Location: commande-template.php#panier');
+        header('Location: commande-template.php');
         exit();
     }
 
@@ -344,7 +349,7 @@ $user    = utilisateur_courant();
                         <h4><?= h($menu['nom']) ?></h4>
                         <p><?= h($menu['description']) ?></p>
                         <?php if (isset($menu['calories'])): ?>
-                            <small class="cal-small">🔥 <?= $menu['calories'] ?> kcal</small>
+                            <small class="calories-label">🔥 <?= $menu['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($menu['prix'], 2) ?> €</span>
@@ -365,7 +370,7 @@ $user    = utilisateur_courant();
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
                         <?php if (isset($p['calories'])): ?>
-                            <small class="cal-small">🔥 <?= $p['calories'] ?> kcal</small>
+                            <small class="calories-label">🔥 <?= $p['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
@@ -386,7 +391,7 @@ $user    = utilisateur_courant();
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
                         <?php if (isset($p['calories'])): ?>
-                            <small class="cal-small">🔥 <?= $p['calories'] ?> kcal</small>
+                            <small class="calories-label">🔥 <?= $p['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
@@ -407,7 +412,7 @@ $user    = utilisateur_courant();
                         <p><?= h($p['description']) ?></p>
                         <small><em>Allergènes : <?= h($p['allergenes']) ?></em></small>
                         <?php if (isset($p['calories'])): ?>
-                            <small class="cal-small">🔥 <?= $p['calories'] ?> kcal</small>
+                            <small class="calories-label">🔥 <?= $p['calories'] ?> kcal</small>
                         <?php endif; ?>
                     </div>
                     <span><?= number_format($p['prix'], 2) ?> €</span>
@@ -421,7 +426,7 @@ $user    = utilisateur_courant();
         </section>
 
         <aside class="panier" id="panier">
-            <h2>Récapitulatif
+            <h2>Article(s)
                 <?php $nb = nb_articles_panier(); if ($nb > 0): ?>
                     <span class="badge-panier"><?= $nb ?></span>
                 <?php endif; ?>
@@ -441,12 +446,12 @@ $user    = utilisateur_courant();
                         <?php endif; ?>
                     </div>
                     <div class="panier-item-qte">
-                        <form method="POST" class="form-panier-inline">
+                        <form method="POST" class="form-inline">
                             <input type="hidden" name="retirer" value="<?= h($key) ?>">
                             <button type="submit" class="btn-qte btn-moins" title="Retirer un">−</button>
                         </form>
                         <span class="qte"><?= $item['quantite'] ?></span>
-                        <form method="POST" class="form-panier-inline">
+                        <form method="POST" class="form-inline">
                             <?php if (strpos($key, 'menu_') === 0): ?>
                                 <input type="hidden" name="ajouter_menu" value="<?= h(substr($key, 5)) ?>">
                             <?php else: ?>
@@ -492,7 +497,7 @@ $user    = utilisateur_courant();
 
             <?php endif; ?>
 
-            <form method="POST" action="commande-template.php#panier" class="form-validation">
+            <form method="POST" action="commande-template.php" class="form-validation">
                 <h3>Valider la commande</h3>
 
                 <div class="commande-mode">
@@ -527,9 +532,6 @@ $user    = utilisateur_courant();
 
         </aside>
     </div>
-    <script>
-
-</script>
 </main>
 
 <footer class="footer">

@@ -2,7 +2,7 @@
     {
         "id": "m01",
         "nom": "Menu Prestige",
-        "description": "Notre menu signature : une entrée, un plat et un dessert au choix parmi une sélection d'exception.",
+        "description": "Notre menu signature : une entrée, un plat et un dessert parmi une sélection d'exception.",
         "prix": 75.0,
         "plats_ids": [
             "p02",

@@ -126,3 +126,7 @@
             margin-top: 0.8rem;
             color: var(--gris-texte);
         }
+/* ── Item menu (fond beige rosé) ── */
+.modif-menu-item {
+    background: #ede5d8;
+}

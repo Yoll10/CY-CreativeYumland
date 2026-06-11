@@ -8,7 +8,8 @@
         "adresse": "12 rue de la Paix, 75001 Paris",
         "role": "client",
         "statut": "actif",
-        "date_inscription": "2025-09-10"
+        "date_inscription": "2025-09-10",
+        "theme": "light"
     },
     {
         "email": "sophie.martin@mail.com",
@@ -63,7 +64,8 @@
         "adresse": "10 chemin de la Vie, 75001 Paris",
         "role": "admin",
         "statut": "actif",
-        "date_inscription": "2025-08-01"
+        "date_inscription": "2025-08-01",
+        "theme": "light"
     },
     {
         "email": "gestionnaire@letoile.fr",
@@ -118,7 +120,8 @@
         "adresse": "21 SENTE DES CHASSEURS",
         "role": "client",
         "statut": "actif",
-        "date_inscription": "2026-04-03"
+        "date_inscription": "2026-04-03",
+        "theme": "dark"
     },
     {
         "email": "antoine.test@gmail.com",
@@ -141,5 +144,60 @@
         "role": "client",
         "statut": "actif",
         "date_inscription": "2026-05-15"
+    },
+    {
+        "email": "test@mail.com",
+        "mdp": "$2y$10$BZ.RjFnFuY9MHYLW1o2Dn.U8SdZdQcYoIHkXIuqxHqbaoyb.cPDl.",
+        "nom": "25",
+        "prenom": "25",
+        "telephone": "06 22 33 44 55",
+        "adresse": "14",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-06-10"
+    },
+    {
+        "email": "jean.dupont2@mail.com",
+        "mdp": "$2y$10$O6debPeULXuPahtvcEx8sO3zR\/sHDWgnEkSS597hwyQJyCg.3re7S",
+        "nom": "12",
+        "prenom": "12",
+        "telephone": "0524447788",
+        "adresse": "10 chemin de la Vie, 75001 Paris",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-06-10"
+    },
+    {
+        "email": "aaaa@test.com",
+        "mdp": "$2y$10$\/9VsyCoexAKBXYb8IA7Ofu4yTwfFsushQov1XJ749Ex61Nb8mGifK",
+        "nom": "25",
+        "prenom": "12",
+        "telephone": "06 22 33 44 44",
+        "adresse": "67 rue du flop",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-06-10"
+    },
+    {
+        "email": "atest3@test.com",
+        "mdp": "$2y$10$rIiwwN7c4rHLXvZFejr3JOygMU4cAKD0.\/tEiREFdExHY\/ZcT71Oi",
+        "nom": "antoine",
+        "prenom": "testt",
+        "telephone": "0102030405",
+        "adresse": "12 rue du test",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-06-10"
+    },
+    {
+        "email": "test@test.com",
+        "mdp": "$2y$10$W2fnTGv.XIAxjQQC0HUEiOTiJrBtH1mOj.s0mkhh\/PrvimOaKt\/UO",
+        "nom": "test",
+        "prenom": "test",
+        "telephone": "0000000000",
+        "adresse": "test",
+        "role": "client",
+        "statut": "actif",
+        "date_inscription": "2026-06-10"
     }
 ]

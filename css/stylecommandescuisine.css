@@ -157,3 +157,39 @@
 .action.delete {
     color: #a43a3a;
 }
+
+.cuisine-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Styles ajoutés pour les commandes terminées */
+.commande-card.terminee {
+    border-left: 5px solid #3a6b3a;
+}
+
+.client-review {
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--marron-clair);
+}
+
+.review-rating {
+    font-weight: bold;
+    color: #b07b2c;
+}
+
+.review-text {
+    margin-top: 5px;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.no-review {
+    margin-top: 10px;
+    font-style: italic;
+    opacity: 0.7;
+}

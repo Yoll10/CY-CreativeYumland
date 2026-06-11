@@ -179,3 +179,54 @@ body {
         font-size: 1.8rem;
     }
 }
+/* ── Titres de sections ── */
+.livraison-titre-dispo {
+    padding: 0 1rem;
+    color: #bca374;
+}
+
+.livraison-titre-encours {
+    padding: 0 1rem;
+    color: #1a73e8;
+}
+
+/* ── Message vide section disponible ── */
+.msg-vide-dispo {
+    background: #f9f9f9;
+    border: 1px dashed #ccc;
+    padding: 1.5rem;
+    text-align: center;
+    margin: 1rem;
+}
+
+/* ── Bordures colorées des cartes ── */
+.livraison-card-dispo {
+    border-left: 5px solid #bca374;
+}
+
+.livraison-card-encours {
+    border-left: 5px solid #1a73e8;
+}
+
+/* ── Bouton accepter commande ── */
+.btn-accepter {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-accepter:hover {
+    background-color: #218838;
+}
+
+/* ── Séparateur horizontal ── */
+.livraison-separateur {
+    border: 0;
+    height: 1px;
+    background: #eee;
+    margin: 2rem 0;
+}
+
+/* ── Lien téléphone client ── */
+.tel-client {
+    color: #1a73e8;
+}

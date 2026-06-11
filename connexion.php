@@ -28,6 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 reinitialiser_tentatives($ip);
                 $_SESSION['user'] = $user;
 
+                $theme = isset($user['theme']) ? $user['theme'] : 'light';
+                setcookie('theme', $theme, time() + 365 * 24 * 3600, '/');
+
                 if ($user['role'] === 'admin') {
                     header('Location: admin.php');
                     exit();

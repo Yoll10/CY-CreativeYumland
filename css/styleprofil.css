@@ -244,3 +244,12 @@ th{
     color: #a43a3a;
     font-weight: bold;
 }
+
+/* ── Bandeau mode admin ── */
+.profil-admin-banner {
+    background: #f5e6c8;
+    padding: 0.8rem 1.5rem;
+    border-left: 4px solid #b8860b;
+    margin-bottom: 1rem;
+    width: 100%;
+}

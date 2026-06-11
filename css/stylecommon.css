@@ -1,4 +1,3 @@
-
 :root {
     --creme: #F6F1EB;
     --beige: #EFE6DA;
@@ -65,6 +64,7 @@ a:hover {
 .header {
     position: sticky;
     top: 0;
+    z-index: 100;
     background-color: var(--creme);
     border-bottom: 1px solid var(--marron-clair);
 }
@@ -237,3 +237,71 @@ a:hover {
     }
 
 }
+
+/*Classes utilitaires — remplacement styles inline
+/* Texte centré */
+.text-center { text-align: center; }
+
+/* Cellule tableau centrée */
+.td-center { text-align: center; }
+
+/* Formulaires inline dans les dropdowns */
+.form-inline { display: block; }
+.form-inline-flex { display: inline; }
+
+/* Boutons bloquer/débloquer */
+.btn-visible   { display: inline-block; }
+.btn-hidden    { display: none; }
+
+/* Logs admin */
+.logs-subtitle { font-size: 0.8rem; font-weight: normal; color: var(--gris-texte); }
+.log-vide      { text-align: center; padding: 2rem; color: var(--gris-texte); }
+.logs-table    { margin-top: 1rem; }
+.log-td-date   { white-space: nowrap; font-size: 0.82rem; }
+.log-td-detail { font-size: 0.85rem; }
+.log-td-ip     { font-size: 0.82rem; color: var(--gris-texte); }
+
+/* Calories */
+.cal-label     { font-size: 0.85rem; color: var(--gris-texte); margin-bottom: 8px; }
+.cal-label-sm  { font-size: 0.85rem; color: var(--gris-texte); margin-bottom: 6px; }
+.cal-small     { color: var(--gris-texte); }
+
+/* Carte menus */
+.menu-description  { font-style: italic; padding: 0.5rem 0; }
+.menu-prix-large   { font-size: 1.4rem; }
+
+/* Aucun résultat */
+.vide-message  { text-align: center; padding: 2rem; }
+.vide-td       { text-align: center; }
+
+/* Commande template */
+.form-panier-inline { display: inline; }
+.bloc-adresse-wrap  { margin-top: 0.6rem; }
+
+/* Commandes cuisine */
+.liste-plats-section { margin-top: 15px; }
+
+/* Livraison */
+.livraison-header-section { text-align: center; padding: 1.5rem 1rem 1rem; }
+.livraison-section-wrap   { margin-bottom: 3rem; }
+.form-livraison-full      { width: 100%; }
+
+/* Modifier commande */
+.modif-subtitle    { text-align: center; color: var(--gris-texte); }
+.modif-info-menus  { font-size: 0.85rem; color: var(--gris-texte); margin-bottom: 10px; }
+.modif-menu-small  { font-weight: normal; color: var(--gris-texte); }
+.modif-plat-small  { font-weight: normal; color: var(--gris-texte); }
+.modif-hidden      { display: none; }
+
+/* Notation */
+.notation-center        { text-align: center; }
+.notation-avis-bloc     { text-align: center; padding: 2rem; }
+.notation-retour-btn    { display: inline-block; margin-top: 1rem; }
+.char-counter-p         { text-align: right; font-size: 0.8rem; color: var(--gris-texte); margin-top: 5px; }
+
+/* Profil */
+.profil-retour-lien     { margin-left: 1rem; }
+.profil-msg-wrap        { width: 100%; }
+.profil-non-modifiable  { color: var(--gris-texte); font-size: 0.75rem; }
+.profil-actions-wrap    { display: flex; flex-direction: column; gap: 6px; }
+.profil-vide-td         { text-align: center; }

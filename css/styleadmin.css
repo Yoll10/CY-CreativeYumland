@@ -272,7 +272,7 @@ body {
         .statut-actif { background:#d4edda; color:#155724; }
         .statut-bloque { background:#f8d7da; color:#721c24; }
         .user-bloque td { opacity: 0.65; }
-
+        
 @media screen and (max-width: 1024px) {
 
     .admin {
@@ -351,3 +351,16 @@ body {
 .log-warning { background: #fff3cd; color: #856404; }
 .log-success { background: #d4edda; color: #155724; }
 .log-info    { background: #cce5ff; color: #004085; }
+
+.actions-vous-meme {
+    padding: 0.5rem 1rem;
+    display: block;
+    color: #888;
+    font-size: 0.8rem;
+}
+
+/* ── Hint rôle dans la modale ── */
+.modal-role-hint {
+    color: #888;
+    font-size: 0.75rem;
+}

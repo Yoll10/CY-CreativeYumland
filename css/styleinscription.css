@@ -100,8 +100,8 @@ input:focus {
 }
 
 .bouton-lien {
-    margin-top : 70px;
-    margin-bottom: -20px;
+    margin-top: 10px;
+    margin-bottom: 0;
     display: inline-block;
     text-decoration: none; 
     padding: 15px 30px;
@@ -161,3 +161,16 @@ input:focus {
             transform: translateY(-50%);
             box-shadow: none;
         }
+
+/* ── Comptes de test ── */
+.comptes-test {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 1.5rem;
+}
+
+/* ── Messages connexion ── */
+.msg-succes-connexion  { color: #3a6b3a; font-weight: bold; }
+.msg-bloque-connexion  { color: #b07b2c; font-weight: bold; background: #fff3cd; padding: 10px; border-radius: 6px; }
+.msg-erreur-connexion  { color: #a43a3a; font-weight: bold; }
+.msg-erreur-form       { color: #a43a3a; font-weight: bold; }

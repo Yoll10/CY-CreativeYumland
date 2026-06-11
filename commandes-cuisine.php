@@ -27,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $en_attente = get_commandes_par_statut('en_attente');
 $en_prep = get_commandes_par_statut('en_preparation');
 $en_livraison = get_commandes_par_statut('en_livraison');
+$terminees = get_commandes_par_statut('livree');
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -109,6 +110,7 @@ $en_livraison = get_commandes_par_statut('en_livraison');
                             <?php } ?>
                         </ul>
                     </div>
+                    
                 </div>
 
                 <div class="commande-actions">
@@ -159,6 +161,50 @@ $en_livraison = get_commandes_par_statut('en_livraison');
                     <p>Total : <strong><?= number_format($cmd['total'], 2) ?> €</strong></p>
                     <p>Livreur : <?= h($nom_livreur) ?></p>
                     <p>📍 <?= h($cmd['adresse']) ?></p>
+                </div>
+
+                <div class="actions-menu">
+                    <button class="actions-btn">Détails</button>
+                    <div class="actions-dropdown">
+                        <?php foreach ($cmd['plats'] as $p) { ?>
+                            <span class="action"><?= h($p['nom']) ?> × <?= $p['quantite'] ?></span>
+                        <?php } ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
+    </section>
+
+    <section class="commandes-section">
+        <h2>Commandes terminées (<?= count($terminees) ?>)</h2>
+
+        <?php if (count($terminees) === 0) { ?>
+            <p class="empty-msg">Aucune commande terminée.</p>
+        <?php } ?>
+
+        <?php foreach ($terminees as $cmd) {
+            $client = get_user_by_email($cmd['user_email']);
+            $nom_client = $client ? $client['prenom'] . ' ' . $client['nom'] : $cmd['user_email'];
+        ?>
+            <div class="commande-card terminee">
+                <div class="commande-info">
+                    <h3>Commande #<?= h($cmd['id']) ?></h3>
+                    <p>Client : <strong><?= h($nom_client) ?></strong></p>
+                    <p>Total : <strong><?= number_format($cmd['total'], 2) ?> €</strong></p>
+                    
+                    <?php if (isset($cmd['note_produits']) && $cmd['note_produits'] !== null): ?>
+    <div class="client-review">
+        <p>Produits : <span class="review-rating"><?= afficher_etoiles($cmd['note_produits']) ?> (<?= h($cmd['note_produits']) ?>/5)</span></p>
+        <?php if (isset($cmd['note_livraison']) && $cmd['note_livraison'] !== null): ?>
+            <p>Livraison : <span class="review-rating"><?= afficher_etoiles($cmd['note_livraison']) ?> (<?= h($cmd['note_livraison']) ?>/5)</span></p>
+        <?php endif; ?>
+        <?php if (!empty($cmd['commentaire'])): ?>
+            <p class="review-text">Avis : <em>"<?= h($cmd['commentaire']) ?>"</em></p>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <p class="no-review">Pas encore d'avis pour cette commande.</p>
+<?php endif; ?>
                 </div>
 
                 <div class="actions-menu">

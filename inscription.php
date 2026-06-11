@@ -12,8 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $prenom = trim($_POST['prenom']);
     $tel = trim($_POST['telephone']);
     $adresse = trim($_POST['adresse']);
-
-    if ($mdp !== $mdp_confirm) {
+    if (!preg_match("/^[a-zA-ZÀ-ÿ\s\-]+$/u", $nom) || !preg_match("/^[a-zA-ZÀ-ÿ\s\-]+$/u", $prenom)) {
+        $message = "Le nom et le prénom ne doivent contenir que des lettres.";
+    } 
+    else if (!preg_match("/^[0-9\s\-\+\.]+$/", $tel)) {
+        $message = "Le numéro de téléphone n'est pas valide (chiffres uniquement).";
+    }
+    else if ($mdp !== $mdp_confirm) {
         $message = "Les mots de passe ne correspondent pas.";
     } else if (strlen($mdp) < 6) {
         $message = "Le mot de passe doit contenir au moins 6 caractères.";

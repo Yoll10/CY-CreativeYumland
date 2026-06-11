@@ -151,3 +151,10 @@
 }
 
 
+
+/* ── Référence de commande sous le formulaire ── */
+.notation-commande-ref {
+    text-align: center;
+    color: #666;
+    margin-bottom: 1rem;
+}
