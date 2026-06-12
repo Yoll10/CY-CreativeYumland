@@ -19,7 +19,7 @@ function getCookie(name) {
 }
 
 
-/*ÉTAPE 1 — MODE SOMBRE (cookie)*/
+/*MODE SOMBRE (cookie)*/
 
 function toggleDarkMode() {
     const body = document.body;
