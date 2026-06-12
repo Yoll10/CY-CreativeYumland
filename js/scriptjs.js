@@ -1,6 +1,4 @@
-/* ============================================================
-   UTILITAIRES COOKIES
-   ============================================================ */
+/*UTILITAIRES COOKIES*/
 
    function setCookie(name, value, days) {
     const d = new Date();
@@ -21,9 +19,7 @@ function getCookie(name) {
 }
 
 
-/* ============================================================
-   ÉTAPE 1 — MODE SOMBRE (cookie)
-   ============================================================ */
+/*ÉTAPE 1 — MODE SOMBRE (cookie)*/
 
 function toggleDarkMode() {
     const body = document.body;
@@ -56,9 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
-/* ============================================================
-   DOMContentLoaded — tout le reste
-   ============================================================ */
+/* DOMContentLoaded càd tout le reste */
 
 document.addEventListener('DOMContentLoaded', () => {
 
